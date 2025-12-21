@@ -15,7 +15,7 @@ class Links extends Component
         $this->title = $title;
         $this->route = $route;
         $this->icon = $icon;
-        
+
         if ($route === '#') {
             $this->active = 'text-gray-600';
         } else {

@@ -5,7 +5,7 @@
     </div>
     <div class="flex items-center gap-4">
         <button class="relative p-2 text-gray-500 hover:text-amber-600 transition-colors">
-            <i class="fas fa-bell text-xl"></i>
+            <i class="fa-solid fa-bell text-xl"></i>
             <span
                 class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
         </button>

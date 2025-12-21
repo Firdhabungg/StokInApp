@@ -13,7 +13,7 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table id="barangTable" class="w-full text-sm text-left">
+            <table id="barangTable" class="w-full text-sm">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th class="px-6 py-3">Kode Barang</th>
@@ -39,10 +39,10 @@
                         <td class="px-6 py-6">
                             <div class="flex gap-2">
                                 <button class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fa-solid fa-pencil"></i>
                                 </button>
                                 <button class="text-red-600 hover:text-red-800">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
@@ -59,10 +59,10 @@
                         <td class="px-6 py-6">
                             <div class="flex gap-2">
                                 <button class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fa-solid fa-pencil"></i>
                                 </button>
                                 <button class="text-red-600 hover:text-red-800">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
@@ -80,7 +80,7 @@
                 responsive: true,
                 pageLength: 10,
                 language: {
-                    search: 'Cari:',
+                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
                     lengthMenu: 'Tampilkan _MENU_ data per halaman',
                     info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
                     paginate: {

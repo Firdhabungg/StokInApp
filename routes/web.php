@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,4 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang', function () {
         return view('barang.index');
     })->name('barang.index');
+    Route::get('/penjualan', function () {
+        return view('penjualan.index');
+    })->name('penjualan.index');
+
+    // Owner only routes
+    Route::middleware('owner')->group(function () {
+        Route::resource('staff', StaffController::class)->except(['show', 'edit', 'update']);
+    });
 });

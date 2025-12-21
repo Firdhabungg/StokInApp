@@ -23,7 +23,7 @@ return new class extends Migration
         // Add toko_id and role to users table
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('toko_id')->nullable()->after('id')->constrained()->onDelete('cascade');
-            $table->enum('role', ['owner', 'admin', 'staff'])->default('staff')->after('email');
+            $table->enum('role', ['owner', 'admin', 'kasir', 'staff'])->default('staff')->after('email');
         });
     }
 

@@ -27,19 +27,13 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            // User data
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)],
-            
-            // Toko data
             'toko_name' => ['required', 'string', 'max:255'],
             'toko_email' => ['required', 'string', 'email', 'max:255', 'unique:tokos,email'],
             'toko_address' => ['required', 'string'],
             'toko_phone' => ['required', 'string', 'max:20'],
-            
-            // Role
-            'role' => ['required', 'in:owner,admin,staff'],
         ], [
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Email wajib diisi.',
@@ -54,14 +48,11 @@ class RegisterController extends Controller
             'toko_email.unique' => 'Email toko sudah terdaftar.',
             'toko_address.required' => 'Alamat toko wajib diisi.',
             'toko_phone.required' => 'Nomor telepon toko wajib diisi.',
-            'role.required' => 'Role wajib dipilih.',
-            'role.in' => 'Role tidak valid.',
         ]);
 
         try {
             DB::beginTransaction();
 
-            // Create toko first
             $toko = Toko::create([
                 'name' => $request->toko_name,
                 'email' => $request->toko_email,
@@ -69,18 +60,15 @@ class RegisterController extends Controller
                 'phone' => $request->toko_phone,
             ]);
 
-            // Create user with selected role
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'toko_id' => $toko->id,
-                'role' => $request->role,
+                'role' => 'owner',
             ]);
 
             DB::commit();
-
-            // Login the user
             Auth::login($user);
 
             return redirect()->intended('/dashboard')->with('success', 'Registrasi berhasil! Selamat datang di StokIn.');

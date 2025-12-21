@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav class="bg-white border-b border-gray-200">
+    <nav class="bg-white shadow-amber-500 border-gray-200 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 {{-- <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-10 w-auto"> --}}
-                <span class="text-xl font-bold text-gray-800">StokIn</span>
+                <p class="text-xl font-bold text-gray-800">Stok<span class="text-amber-500">In</span></p>
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <a href="/login"
@@ -45,14 +45,14 @@
         </div>
     </nav>
 
-    <section class="bg-white dark:bg-slate-900">
+    <section class="bg-amber-gradient">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-24 lg:grid-cols-12">
             <div data-aos="fade-up" class="mr-auto place-self-center lg:col-span-6">
                 <h1
                     class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                     Kelola Stok Toko dengan <span class="text-amber-600">Lebih Mudah</span>
                 </h1>
-                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                <p class="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-black">
                     Solusi manajemen stok barang untuk grosir dan gudang. Otomatis, akurat, dan meningkatkan efisensi
                     bisnis anda.
                 </p>
@@ -77,15 +77,18 @@
     <section class="bg-gray-50 py-12 md:py-16">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div data-aos="fade-up" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
+                <div
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">10.000+</h3>
                     <p class="text-gray-600 font-medium">Pengguna Aktif</p>
                 </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
+                <div
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">5K+</h3>
                     <p class="text-gray-600 font-medium">Transaksi per Hari</p>
                 </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
+                <div
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">24/7</h3>
                     <p class="text-gray-600 font-medium">Dukungan & Akses</p>
                 </div>
@@ -94,7 +97,7 @@
     </section>
 
     {{-- Why Choose StokIn Section --}}
-    <section class="bg-slate-800 py-16 md:py-24">
+    <section class="bg-amber-gradient py-16 md:py-24">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {{-- Image --}}
@@ -109,13 +112,14 @@
                         Mengapa Memilih <span class="text-amber-500">StokIn</span>?
                     </h2>
                     <p class="text-gray-300 mb-8 text-base md:text-lg">
-                        StokIn dirancang khusus untuk membantu bisnis Anda mengelola inventaris dengan lebih efisien dan akurat.
+                        StokIn dirancang khusus untuk membantu bisnis Anda mengelola inventaris dengan lebih efisien dan
+                        akurat.
                     </p>
 
                     <div class="space-y-6">
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center">
-                                <i class="fas fa-hand-pointer text-white text-lg"></i>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
+                                <i class="fas fa-hand-pointer text-amber-500 text-xl"></i>
                             </div>
                             <div>
                                 <h4 class="text-lg font-semibold text-white mb-1">Mudah Digunakan</h4>
@@ -124,8 +128,8 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center">
-                                <i class="fas fa-clock text-white text-lg"></i>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
+                                <i class="fas fa-clock text-amber-500 text-xl"></i>
                             </div>
                             <div>
                                 <h4 class="text-lg font-semibold text-white mb-1">Hemat Waktu</h4>
@@ -134,8 +138,8 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center">
-                                <i class="fas fa-check-double text-white text-lg"></i>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
+                                <i class="fas fa-check-double text-amber-500 text-xl"></i>
                             </div>
                             <div>
                                 <h4 class="text-lg font-semibold text-white mb-1">Data Akurat</h4>
@@ -143,8 +147,8 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center">
-                                <i class="fas fa-chart-line text-white text-lg"></i>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
+                                <i class="fas fa-chart-line text-amber-500 text-xl"></i>
                             </div>
                             <div>
                                 <h4 class="text-lg font-semibold text-white mb-1">Skalabilitas</h4>
@@ -169,8 +173,10 @@
             </div>
             <div data-aos="fade-up" data-aos-delay="100">
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-boxes text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Manajemen Stok Cerdas</h3>
@@ -178,8 +184,10 @@
                             Lacak stok masuk, keluar, dan sisa secara real-time. Atur SKU dan kategori dengan mudah.
                         </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-cart-shopping text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Transaksi Pembelian & Penjualan</h3>
@@ -187,8 +195,10 @@
                             Catat semua transaksi dengan cepat, update stok otomatis, dan lacak riwayat lengkap.
                         </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-users text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Multi User & Role Access</h3>
@@ -196,8 +206,10 @@
                             Tambahkan tim dengan peran yang berbeda: Admin, Kasir, Staff Gudang, dan Pemilik Toko.
                         </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-chart-simple text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Dashboard Real-time</h3>
@@ -205,8 +217,10 @@
                             Visualiasi data dengan grafik interaktif, monitoring performa bisnis secara langsung.
                         </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-bell text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Notifikasi Pintar</h3>
@@ -214,8 +228,10 @@
                             Peringatan stok menipis, kadaluwarsa, dan rekomendasi restock.
                         </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
-                        <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
+                    <div
+                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        <div
+                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-chart-line text-xl"></i>
                         </div>
                         <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Laporan & Analisis</h3>
@@ -232,13 +248,13 @@
         <div class="py-4 md:py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
             <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-6 md:mb-8 lg:mb-12">
                 <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-gray-900">Paket Harga</h2>
-                <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan bisnis
-                    Anda
+                <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan
+                    bisnis Anda
                 </p>
             </div>
             <div class="space-y-6 md:space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
                 <div data-aos="fade-up" data-aos-delay="100"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow">
+                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
                     <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Starter</h3>
                     <div class="flex justify-center items-baseline my-4 md:my-8">
                         <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp0K</span>
@@ -267,7 +283,7 @@
                         Paket</a>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="200"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border-2 border-amber-600 shadow">
+                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
                     <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Pro</h3>
                     <div class="flex justify-center items-baseline my-4 md:my-8">
                         <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp99K</span>
@@ -292,7 +308,7 @@
                         Paket</a>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="300"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow">
+                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
                     <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Enterprise</h3>
                     <div class="flex justify-center items-baseline my-4 md:my-8">
                         <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp299K</span>
@@ -322,7 +338,7 @@
 
 
     {{-- CTA Section --}}
-    <section class="bg-amber-600 py-12 md:py-16">
+    <section class="bg-amber-gradient py-12 md:py-16">
         <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-6">
             <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-white">
                 Siap Mengoptimalkan Bisnis Anda?
@@ -351,7 +367,6 @@
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
                         <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-10 me-3">
-                        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">StokIn</span>
                     </a>
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
@@ -399,5 +414,4 @@
             </div>
         </div>
     </footer>
-
 @endsection

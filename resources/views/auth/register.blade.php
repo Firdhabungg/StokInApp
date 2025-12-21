@@ -6,7 +6,7 @@
             <!-- Logo -->
             <div class="text-center mb-8">
                 <a href="/" class="text-3xl font-bold text-gray-800">Stok<span class="text-amber-600">In</span></a>
-                <h2 class="mt-4 text-2xl font-bold text-gray-900">Daftar Akun Baru</h2>
+                <h2 class="mt-4 text-2xl font-bold text-gray-900">Daftar Sebagai Pemilik Toko</h2>
                 <p class="mt-2 text-gray-600">Mulai kelola stok toko Anda dengan StokIn</p>
             </div>
 
@@ -62,18 +62,6 @@
                                 <input type="password" name="password_confirmation" id="password_confirmation" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Ulangi password">
-                            </div>
-
-                            <!-- Role -->
-                            <div>
-                                <label for="role" class="block text-sm font-medium text-gray-700 mb-2">Role / Jabatan</label>
-                                <select name="role" id="role" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors bg-white">
-                                    <option value="">-- Pilih Role --</option>
-                                    <option value="owner" {{ old('role') == 'owner' ? 'selected' : '' }}>Pemilik Toko</option>
-                                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff Gudang</option>
-                                </select>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,4 @@
+/* Custom gradient background utility */
+.bg-amber-gradient {
+    @apply bg-white dark:bg-gradient-to-r dark:from-amber-300 dark:via-amber-500 dark:to-amber-700;
+}

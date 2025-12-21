@@ -9,15 +9,18 @@
     <!-- Navigation Menu -->
     <nav class="p-4">
         <ul class="space-y-2">
-            <x-sidebar.links title="Dashboard" icon="fas fa-th-large" route="dashboard" />
-            <x-sidebar.links title="Data Barang" icon="fas fa-boxes" route="barang.index" />
-            {{-- <x-sidebar.links title="Pembelian" icon="fas fa-shopping-cart" route="#" />
-            <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="#" />
-            <x-sidebar.links title="Supplier" icon="fas fa-truck" route="#" />
-            <x-sidebar.links title="Pelanggan" icon="fas fa-users" route="#" />
-            <x-sidebar.links title="Laporan" icon="fas fa-chart-bar" route="#" />
-            <x-sidebar.links title="Pengguna" icon="fas fa-user-cog" route="#" />
-            <x-sidebar.links title="Pengaturan" icon="fas fa-cog" route="#" /> --}}
+            <x-sidebar.links title="Dashboard" icon="fa-solid fa-gauge" route="dashboard" />
+            <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index" />
+            <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="penjualan.index" />
+            @if(auth()->user()->isOwner())
+                <x-sidebar.links title="Manajemen Staff" icon="fas fa-users" route="staff.index" />
+            @endif
+            {{-- <x-sidebar.links title="Pembelian" icon="fas fa-shopping-cart" route="#" /> --}}
+            {{-- <x-sidebar.links title="Supplier" icon="fas fa-truck" route="#" /> --}}
+            {{-- <x-sidebar.links title="Pelanggan" icon="fas fa-users" route="#" /> --}}
+            {{-- <x-sidebar.links title="Laporan" icon="fas fa-chart-bar" route="#" /> --}}
+            {{-- <x-sidebar.links title="Pengguna" icon="fas fa-user-cog" route="#" /> --}}
+            {{-- <x-sidebar.links title="Pengaturan" icon="fas fa-cog" route="#" /> --}}
         </ul>
     </nav>
 </aside>
