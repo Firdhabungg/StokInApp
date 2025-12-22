@@ -7,18 +7,18 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-semibold text-gray-900">Daftar Barang</h2>
-            <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+            <a href="{{ route('barang.create') }}"
+                class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                 <i class="fas fa-plus mr-2"></i>Tambah Barang
-            </button>
+            </a>
         </div>
 
         <div class="overflow-x-auto">
-            <table id="barangTable" class="w-full text-sm">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <table id="barangTable" class="w-full text-sm text-center">
+                <thead class="text-gray-700 bg-gray-50">
                     <tr>
                         <th class="px-6 py-3">Kode Barang</th>
                         <th class="px-6 py-3">Nama Barang</th>
-                        <th class="px-6 py-3">Kategori</th>
                         <th class="px-6 py-3">Stok</th>
                         <th class="px-6 py-3">Harga</th>
                         <th class="px-6 py-3">Status</th>
@@ -26,47 +26,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-6 py-6 font-medium text-gray-900">BRG001</td>
-                        <td class="px-6 py-6">Aqua 600ml</td>
-                        <td class="px-6 py-6">Minuman</td>
-                        <td class="px-6 py-6">45</td>
-                        <td class="px-6 py-6">Rp 3.000</td>
-                        <td class="px-6 py-6">
-                            <span
-                                class="px-3 py-1 bg-orange-100 text-orange-600 text-xs font-medium rounded-full">Menipis</span>
-                        </td>
-                        <td class="px-6 py-6">
-                            <div class="flex gap-2">
-                                <button class="text-blue-600 hover:text-blue-800">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-800">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-6 py-6 font-medium text-gray-900">BRG002</td>
-                        <td class="px-6 py-6">Teh Pucuk 350ml</td>
-                        <td class="px-6 py-6">Minuman</td>
-                        <td class="px-6 py-6">23</td>
-                        <td class="px-6 py-6">Rp 4.500</td>
-                        <td class="px-6 py-6">
-                            <span class="px-3 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">Kritis</span>
-                        </td>
-                        <td class="px-6 py-6">
-                            <div class="flex gap-2">
-                                <button class="text-blue-600 hover:text-blue-800">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-800">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($barangs as $barang)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-6 font-medium text-gray-900">{{ $barang->kode_barang }}</td>
+                            <td class="px-6 py-6">{{ $barang->nama_barang }}</td>
+                            <td class="px-6 py-6">{{ $barang->stok }}</td>
+                            <td class="px-6 py-6">Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
+                            <td class="px-6 py-6">
+                                <span
+                                    class="px-3 py-1 
+                                    @if ($barang->status == 'tersedia') bg-green-100 text-green-600
+                                    @elseif($barang->status == 'menipis') bg-orange-100 text-orange-600
+                                    @else bg-red-100 text-red-600 @endif
+                                    text-xs font-medium rounded-full">{{ ucfirst($barang->status) }}</span>
+                            </td>
+                            <td class="px-6 py-6">
+                                <div class="flex gap-2">
+                                    <a href="{{ route('barang.edit', $barang->id) }}"
+                                        class="text-blue-600 hover:text-blue-800">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+
+                                    <form id="delete-form-{{ $barang->id }}"
+                                        action="{{ route('barang.destroy', $barang->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="text-red-600 hover:text-red-800"
+                                            onclick="deleteBarang({{ $barang->id }}, '{{ $barang->nama_barang }}')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -92,5 +85,22 @@
                 }
             });
         });
+
+        // SweetAlert untuk delete barang
+        function deleteBarang(id, nama) {
+            Swal.fire({
+                title: "Yakin hapus barang?",
+                text: `"${nama}" akan dihapus permanen!`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#bf0603",
+                cancelButtonColor: "#38b000",
+                confirmButtonText: "Yes, hapus!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${id}`).submit();
+                }
+            });
+        }
     </script>
 @endpush

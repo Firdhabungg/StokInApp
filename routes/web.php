@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard.index');
     })->name('dashboard');
-    Route::get('/barang', function () {
-        return view('barang.index');
-    })->name('barang.index');
+    // Barang
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+    Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+
+    // Penjualan
     Route::get('/penjualan', function () {
         return view('penjualan.index');
     })->name('penjualan.index');
@@ -37,3 +43,5 @@ Route::middleware('auth')->group(function () {
         Route::resource('staff', StaffController::class)->except(['show', 'edit', 'update']);
     });
 });
+
+Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');

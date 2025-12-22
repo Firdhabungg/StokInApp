@@ -12,7 +12,7 @@
             <x-sidebar.links title="Dashboard" icon="fa-solid fa-gauge" route="dashboard" />
             <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index" />
             <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="penjualan.index" />
-            @if(auth()->user()->isOwner())
+            @if (auth()->user()->isOwner())
                 <x-sidebar.links title="Manajemen Staff" icon="fas fa-users" route="staff.index" />
             @endif
             {{-- <x-sidebar.links title="Pembelian" icon="fas fa-shopping-cart" route="#" /> --}}
