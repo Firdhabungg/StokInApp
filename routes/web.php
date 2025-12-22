@@ -2,12 +2,42 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
+        
+        Route::get('/', function () {
+            return view('admin.pelanggan.index');
+        })->name('index');
+
+        Route::get('/{id}', function ($id) {
+            return view('admin.pelanggan.show', ['id' => $id]);
+        })->name('show');
+        
+    });
+
+    Route::prefix('kelola-paket')->name('kelola-paket.')->group(function () {
+        
+        Route::get('/', function () {
+            return view('admin.kelola-paket.index');
+        })->name('index');
+
+        Route::get('/{id}', function ($id) {
+            return view('admin.kelola-paket', ['id' => $id]);
+        })->name('show');
+        
+    });
+    });
 
 // Guest routes
 Route::middleware('guest')->group(function () {

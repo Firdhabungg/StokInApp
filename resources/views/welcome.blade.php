@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav class="bg-white shadow-amber-500 border-gray-200 ">
+    <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 {{-- <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-10 w-auto"> --}}
-                <p class="text-xl font-bold text-gray-800">Stok<span class="text-amber-500">In</span></p>
+                <p class="text-xl font-bold text-gray-800">Stok<span class="text-white">In</span></p>
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <a href="/login"
-                    class="hidden md:block text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">Masuk</a>
+                    class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">Masuk</a>
                 <button data-collapse-toggle="navbar-default" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                     aria-controls="navbar-default" aria-expanded="false">
@@ -23,78 +23,144 @@
             </div>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-10 rtl:space-x-reverse md:mt-0 md:border-0">
                     <li>
                         <a href="#features"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 md:p-0 transition-colors">Fitur</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Fitur</a>
                     </li>
                     <li>
                         <a href="#pricing"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 md:p-0 transition-colors">Paket</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Paket</a>
                     </li>
                     <li>
                         <a href="#contact"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 md:p-0 transition-colors">Kontak</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Kontak</a>
                     </li>
                     <li class="md:hidden">
                         <a href="/login"
-                            class="block py-2 px-3 text-white bg-amber-600 hover:bg-amber-700 rounded-lg text-center font-medium transition-colors mt-2">Masuk</a>
+                            class="block py-2 px-3 text-white bg-amber-600 hover:bg-gray-900 hover:text-white rounded-lg text-center font-medium transition-colors mt-2">Masuk</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section class="bg-amber-gradient">
-        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-24 lg:grid-cols-12">
-            <div data-aos="fade-up" class="mr-auto place-self-center lg:col-span-6">
-                <h1
-                    class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                    Kelola Stok Toko dengan <span class="text-amber-600">Lebih Mudah</span>
-                </h1>
-                <p class="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-black">
-                    Solusi manajemen stok barang untuk grosir dan gudang. Otomatis, akurat, dan meningkatkan efisensi
-                    bisnis anda.
-                </p>
+    <section class="bg-white pt-28 md:pt-32 overflow-hidden">
+        <div class="grid max-w-screen-xl px-4 py-12 mx-auto
+               lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
+
+        <!-- TEKS : MASUK DARI KIRI -->
+        <div
+            data-aos="fade-right"
+            data-aos-duration="900"
+            data-aos-easing="ease-out-cubic"
+            class="mr-auto place-self-center lg:col-span-6">
+
+            <h1
+                class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-tight
+                       md:text-5xl xl:text-6xl">
+                Kelola Stok Toko dengan
+                <span class="text-amber-600">Lebih Mudah</span>
+            </h1>
+
+            <p
+                class="max-w-2xl mb-6 font-light text-gray-600
+                       md:text-lg lg:text-xl">
+                Solusi manajemen stok barang untuk grosir dan gudang.
+                Otomatis, akurat, dan meningkatkan efisensi bisnis anda.
+            </p>
+
+            <div class="flex flex-wrap gap-4">
                 <a href="/register"
-                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-white rounded-lg bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 transition-colors shadow-lg shadow-amber-500/50">
+                   class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
+                          text-white rounded-lg bg-amber-600 hover:bg-amber-700
+                          focus:ring-4 focus:ring-amber-300
+                          transition-all duration-300
+                          shadow-lg shadow-amber-500/40 hover:-translate-y-0.5">
                     Mulai Trial Gratis
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
+
                 <a href="#features"
-                    class="inline-flex items-center justify-center px-6 py-3 ml-4 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transition-colors">
+                   class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
+                          text-gray-900 border border-gray-300 rounded-lg
+                          hover:bg-gray-100 transition-colors">
                     Lihat Fitur
                 </a>
             </div>
-            <div data-aos="fade-left" data-aos-delay="200" class="hidden lg:mt-0 lg:col-span-6 lg:flex">
-                <img src="{{ asset('images/hero-desktop.png') }}" alt="Aplikasi StokIn di Laptop"
-                    class="rounded-xl shadow-2xl">
-            </div>
+        </div>
+
+        <!-- GAMBAR : MASUK DARI KANAN -->
+        <div
+            data-aos="fade-left"
+            data-aos-delay="150"
+            data-aos-duration="900"
+            data-aos-easing="ease-out-cubic"
+            class="hidden lg:flex lg:col-span-6 justify-center">
+
+            <img src="{{ asset('images/hero-desktop.png') }}"
+                 alt="Aplikasi StokIn di Laptop"
+                 class="rounded-xl shadow-2xl w-full max-w-md xl:max-w-lg mx-auto">
+        </div>
+
         </div>
     </section>
 
+
     {{-- Stats Section --}}
-    <section class="bg-gray-50 py-12 md:py-16">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
-            <div data-aos="fade-up" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">10.000+</h3>
-                    <p class="text-gray-600 font-medium">Pengguna Aktif</p>
-                </div>
-                <div
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">5K+</h3>
-                    <p class="text-gray-600 font-medium">Transaksi per Hari</p>
-                </div>
-                <div
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-lg hover:shadow-amber-500 transition-shadow">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">24/7</h3>
-                    <p class="text-gray-600 font-medium">Dukungan & Akses</p>
-                </div>
+    <section class="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16">
+    <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <div
+                data-aos="fade-up"
+                data-aos-delay="0"
+                class="bg-white rounded-xl border border-gray-200 p-8 text-center
+                       shadow-md hover:shadow-xl hover:shadow-amber-300
+                       transition-all duration-300 hover:-translate-y-1">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
+                    10.000+
+                </h3>
+                <p class="text-gray-600 font-medium">
+                    Pengguna Aktif
+                </p>
             </div>
+
+            <!-- Card 2 -->
+            <div
+                data-aos="fade-up"
+                data-aos-delay="150"
+                class="bg-white rounded-xl border border-gray-200 p-8 text-center
+                       shadow-md hover:shadow-xl hover:shadow-amber-300
+                       transition-all duration-300 hover:-translate-y-1">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
+                    5K+
+                </h3>
+                <p class="text-gray-600 font-medium">
+                    Transaksi per Hari
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+                data-aos="fade-up"
+                data-aos-delay="300"
+                class="bg-white rounded-xl border border-gray-200 p-8 text-center
+                       shadow-md hover:shadow-xl hover:shadow-amber-300
+                       transition-all duration-300 hover:-translate-y-1">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
+                    24/7
+                </h3>
+                <p class="text-gray-600 font-medium">
+                    Dukungan & Akses
+                </p>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
 
     {{-- Why Choose StokIn Section --}}
     <section class="bg-amber-gradient py-16 md:py-24">
@@ -108,7 +174,7 @@
 
                 {{-- Content --}}
                 <div data-aos="fade-left" data-aos-delay="100">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-4">
                         Mengapa Memilih <span class="text-amber-500">StokIn</span>?
                     </h2>
                     <p class="text-gray-300 mb-8 text-base md:text-lg">
@@ -340,21 +406,21 @@
     {{-- CTA Section --}}
     <section class="bg-amber-gradient py-12 md:py-16">
         <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-6">
-            <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-white">
+            <h2 class="mb-4 text-xl md:text-4xl tracking-tight font-bold text-amber-500">
                 Siap Mengoptimalkan Bisnis Anda?
             </h2>
-            <p class="mb-8 font-light text-amber-100 text-base md:text-xl max-w-2xl mx-auto">
+            <p class="mb-8 font-light text-amber-500 text-base md:text-xl max-w-2xl mx-auto">
                 Bergabung dengan ribuan pemilik bisnis yang sudah menggunakan StokIn untuk mengelola inventaris mereka
                 dengan lebih efisien.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
                 <a href="/register"
-                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-amber-600 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-amber-300 transition-colors shadow-lg">
+                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-amber-600 bg-white border border-amber-500 rounded-lg  focus:ring-4 focus:ring-amber-300 transition-colors hover:scale-110 hover:shadow-lg">
                     Mulai Trial Gratis
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
                 <a href="#contact"
-                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white border-2 border-white rounded-lg hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 transition-colors">
+                    class="bg-amber-600 inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white border-2 border-white rounded-lg hover:bg-amber-600 focus:ring-4 focus:ring-amber-300 transition-colors hover:scale-110">
                     Hubungi Kami
                 </a>
             </div>
@@ -366,7 +432,7 @@
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
-                        <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-10 me-3">
+                        <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-36 me-3">
                     </a>
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
@@ -414,4 +480,14 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out-cubic',
+    once: true,
+  });
+</script>
+
 @endsection
