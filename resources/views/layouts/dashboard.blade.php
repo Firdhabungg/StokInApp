@@ -39,6 +39,24 @@
     @stack('scripts')
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let table = new DataTable('#barangTable', {
+                responsive: true,
+                pageLength: 10,
+                language: {
+                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
+                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
+                    info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+                    paginate: {
+                        first: 'Pertama',
+                        last: 'Terakhir',
+                        next: 'Selanjutnya',
+                        previous: 'Sebelumnya'
+                    }
+                }
+            });
+        });
+
         function confirmLogout() {
             Swal.fire({
                 title: 'Konfirmasi Logout',
@@ -47,7 +65,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#F59E0B',
                 cancelButtonColor: '#6B7280',
-                confirmButtonText: 'Ya, Logout',
+                confirmButtonText: 'Logout',
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {

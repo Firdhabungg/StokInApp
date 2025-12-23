@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.1.0",
+        "alpinejs": "^3.15.3",
         "aos": "^2.3.4",
         "chart.js": "^4.5.1",
         "datatables.net-dt": "^2.3.5",
