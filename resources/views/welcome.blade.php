@@ -1,44 +1,46 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
     <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                {{-- <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-10 w-auto"> --}}
                 <p class="text-xl font-bold text-gray-800">Stok<span class="text-white">In</span></p>
             </a>
+
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <a href="/login"
-                    class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">Masuk</a>
+                    class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
+                           focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium
+                           rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">
+                    Masuk
+                </a>
+
                 <button data-collapse-toggle="navbar-default" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    aria-controls="navbar-default" aria-expanded="false">
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm
+                           text-gray-500 rounded-lg md:hidden hover:bg-gray-100
+                           focus:outline-none focus:ring-2 focus:ring-gray-200">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2"
                             d="M1 1h15M1 7h15M1 13h15" />
                     </svg>
                 </button>
             </div>
+
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-10 rtl:space-x-reverse md:mt-0 md:border-0">
-                    <li>
-                        <a href="#features"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Fitur</a>
-                    </li>
-                    <li>
-                        <a href="#pricing"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Paket</a>
-                    </li>
-                    <li>
-                        <a href="#contact"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 transition transform hover:scale-115 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 transition-colors">Kontak</a>
-                    </li>
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100
+                           rounded-lg md:flex-row md:space-x-10 md:mt-0 md:border-0">
+                    <li><a href="#features" class="nav-link">Fitur</a></li>
+                    <li><a href="#pricing" class="nav-link">Paket</a></li>
+                    <li><a href="#contact" class="nav-link">Kontak</a ></li>
                     <li class="md:hidden">
                         <a href="/login"
-                            class="block py-2 px-3 text-white bg-amber-600 hover:bg-gray-900 hover:text-white rounded-lg text-center font-medium transition-colors mt-2">Masuk</a>
+                            class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
+                            Masuk
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -117,8 +119,7 @@
                 data-aos="fade-up"
                 data-aos-delay="0"
                 class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                       shadow-md hover:shadow-xl hover:shadow-amber-300
-                       transition-all duration-300 hover:-translate-y-1">
+                        shadow-md card-hover card-hover-amber ">
                 <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
                     10.000+
                 </h3>
@@ -132,8 +133,7 @@
                 data-aos="fade-up"
                 data-aos-delay="150"
                 class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                       shadow-md hover:shadow-xl hover:shadow-amber-300
-                       transition-all duration-300 hover:-translate-y-1">
+                        shadow-md card-hover card-hover-amber">
                 <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
                     5K+
                 </h3>
@@ -147,8 +147,7 @@
                 data-aos="fade-up"
                 data-aos-delay="300"
                 class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                       shadow-md hover:shadow-xl hover:shadow-amber-300
-                       transition-all duration-300 hover:-translate-y-1">
+                        shadow-md card-hover card-hover-amber">
                 <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
                     24/7
                 </h3>
@@ -240,7 +239,7 @@
             <div data-aos="fade-up" data-aos-delay="100">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-boxes text-xl"></i>
@@ -251,7 +250,7 @@
                         </p>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-cart-shopping text-xl"></i>
@@ -262,7 +261,7 @@
                         </p>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-users text-xl"></i>
@@ -273,7 +272,7 @@
                         </p>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fa-solid fa-chart-simple text-xl"></i>
@@ -284,7 +283,7 @@
                         </p>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-bell text-xl"></i>
@@ -295,7 +294,7 @@
                         </p>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl hover:shadow-amber-200 transition-shadow duration-300">
+                        class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
                         <div
                             class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
                             <i class="fas fa-chart-line text-xl"></i>

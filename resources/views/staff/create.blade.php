@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('page-title', 'Tambah Staff')
 @section('page-description', 'Tambahkan staff baru ke toko Anda')
