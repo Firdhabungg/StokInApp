@@ -117,7 +117,8 @@
                 <span class="nav-text text-sm">Billing & Invoice</span>
             </a>
 
-            <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-amber-50 hover:text-amber-600 font-semibold">
+            <a href="{{ route('admin.pengaturan.index') }}" 
+                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-amber-50 hover:text-amber-600 font-semibold">
                 <i class="fas fa-gear"></i>
                 <span class="nav-text text-sm">Setting Aplikasi</span>
             </a>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\KeuanganController;
+use App\Http\Controllers\Admin\PengaturanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,14 +17,29 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // =====================
+    // KEUANGAN
+    // =====================
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
         Route::get('/billing', [KeuanganController::class, 'billing'])->name('billing');
         Route::get('/invoice/{id}', [KeuanganController::class, 'invoice'])->name('invoice');
     });
 
-    Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
+    // =====================
+    // SETTING APLIKASI
+    // =====================
+    Route::prefix('pengaturan')->name('pengaturan.')->group(function () {
+    Route::get('/', [PengaturanController::class, 'index'])->name('index');
+    Route::post('/update', [PengaturanController::class, 'update'])->name('update');
+});
 
+
+
+    // =====================
+    // PELANGGAN
+    // =====================
+    Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
         Route::get('/', function () {
             return view('admin.pelanggan.index');
         })->name('index');
@@ -33,17 +49,16 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         })->name('show');
     });
 
+    // =====================
+    // KELOLA PAKET
+    // =====================
     Route::prefix('kelola-paket')->name('kelola-paket.')->group(function () {
-
         Route::get('/', function () {
             return view('admin.kelola-paket.index');
         })->name('index');
-
-        Route::get('/{id}', function ($id) {
-            return view('admin.kelola-paket', ['id' => $id]);
-        })->name('show');
     });
 });
+
 
 // Guest routes
 Route::middleware('guest')->group(function () {
