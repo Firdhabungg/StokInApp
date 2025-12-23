@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController as UserDashboardController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\KeuanganController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +15,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
@@ -58,9 +59,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
     // Barang
     Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
