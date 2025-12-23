@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController as UserDashboardController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\PengaturanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,8 +24,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/invoice/{id}', [KeuanganController::class, 'invoice'])->name('invoice');
     });
 
-    Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
+    Route::prefix('pengaturan')->name('pengaturan.')->group(function () {
+        Route::get('/', [PengaturanController::class, 'index'])->name('index');
+        Route::post('/update', [PengaturanController::class, 'update'])->name('update');
+    });
 
+
+    Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
         Route::get('/', function () {
             return view('admin.pelanggan.index');
         })->name('index');
@@ -35,16 +41,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     });
 
     Route::prefix('kelola-paket')->name('kelola-paket.')->group(function () {
-
         Route::get('/', function () {
             return view('admin.kelola-paket.index');
         })->name('index');
-
-        Route::get('/{id}', function ($id) {
-            return view('admin.kelola-paket', ['id' => $id]);
-        })->name('show');
     });
 });
+
 
 // Guest routes
 Route::middleware('guest')->group(function () {
