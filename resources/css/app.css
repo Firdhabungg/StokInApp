@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import './custom.css';
-/* Pindahkan Font ke paling atas agar dimuat lebih dulu */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import 'https://fonts.bunny.net/css?family=inter:200,300,400,500,600&display=swap';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -10,12 +10,12 @@
 
 @theme {
     /* Gabungkan semua variabel theme dalam satu blok */
-    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* Custom Colors & Gradients */
     --color-amber-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    
+
     /* Tambahan: Animasi halus untuk Sidebar */
     --transition-timing-function-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -23,7 +23,7 @@
 
 @layer base {
     svg.lucide {
-        stroke-width: 
         @apply inline-block align-middle;
+        stroke-width: 1.5;
     }
 }

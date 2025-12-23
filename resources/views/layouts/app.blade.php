@@ -7,18 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'StokIn') }} - Kelola Stok Toko Lebih Mudah</title>
-    <meta name="description" content="Solusi manajemen stok barang untuk grosir dan gudang. Otomatis, akurat, dan meningkatkan efisiensi bisnis Anda.">
+    <meta name="description"
+        content="Solusi manajemen stok barang untuk grosir dan gudang. Otomatis, akurat, dan meningkatkan efisiensi bisnis Anda.">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-gray-50">
+<body class="bg-gray-50">
 
     @yield('content')
 
