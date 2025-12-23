@@ -18,37 +18,22 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased bg-gray-50 text-slate-900 overflow-x-hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden"></div>
+
     <div class="flex min-h-screen">
-        <!-- Sidebar -->
         <x-sidebar />
 
-        <!-- Main Content -->
-        <main class="flex-1 ml-64">
-            <!-- Top Header -->
+        <div id="mainWrapper" class="flex-1 flex flex-col min-w-0 md:ml-64 transition-all duration-300">
             <x-header />
 
-            <!-- Page Content -->
-            <div class="p-6">
-                @if (session('success'))
-                    <div
-                        class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg flex items-center gap-3">
-                        <i class="fas fa-check-circle"></i>
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div
-                        class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center gap-3">
-                        <i class="fas fa-exclamation-circle"></i>
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                @yield('content')
-            </div>
-        </main>
+            <main class="p-4 md:p-6">
+                <div class="max-w-7xl mx-auto">
+                    {{-- Alert Success & Error Tetap Disini --}}
+                    @yield('content')
+                </div>
+            </main>
+        </div>
     </div>
 
     @stack('scripts')

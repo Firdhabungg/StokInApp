@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\KeuanganController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,12 @@ Route::get('/', function () {
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('keuangan')->name('keuangan.')->group(function () {
+        Route::get('/', [KeuanganController::class, 'index'])->name('index');
+        Route::get('/billing', [KeuanganController::class, 'billing'])->name('billing');
+        Route::get('/invoice/{id}', [KeuanganController::class, 'invoice'])->name('invoice');
+    });
 
     Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
 
@@ -54,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard.index');
     })->name('dashboard');
+
     // Barang
     Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
     Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
