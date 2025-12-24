@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\ProfilController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,16 +70,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
     Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
     // Penjualan
     Route::get('/penjualan', function () {
         return view('penjualan.index');
     })->name('penjualan.index');
 
+    // Profil
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+
     // Owner only routes
     Route::middleware('owner')->group(function () {
         Route::resource('staff', StaffController::class)->except(['show', 'edit', 'update']);
     });
 });
-
-Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');

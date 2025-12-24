@@ -48,14 +48,15 @@
         </nav>
     </div>
 
-    <div class="p-4 border-t border-slate-50">
+    <div class="p-4 border-slate-50">
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
             <button type="button" onclick="confirmLogout()"
-                class="w-full flex align-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-lg shadow-slate-200">
-                <i class="fas fa-sign-out-alt w-5 h-5 "></i>
+                class="w-full px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-md shadow-black outline-0">
+                <i class="fas fa-sign-out-alt w-5 h-5 flex items-center justify-center"></i>
                 <span class="logout-text whitespace-nowrap">Keluar</span>
             </button>
+
         </form>
     </div>
 </aside>
