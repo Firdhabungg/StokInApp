@@ -58,7 +58,7 @@
     {{-- TABLE --}}
     <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm flex flex-col min-h-[520px]">
         <div class="overflow-x-auto flex-grow">
-            <table class="w-full text-left">
+                <table id="barangTable" class="w-full text-sm text-center">
                 <thead>
                     <tr class="border-b border-gray-100 text-gray-400 text-[11px] font-bold uppercase tracking-widest">
                         <th class="px-6 py-4 w-12 text-center">

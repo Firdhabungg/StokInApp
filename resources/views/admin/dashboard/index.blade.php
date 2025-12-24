@@ -5,8 +5,7 @@
 
 @section('content')
 <div class="space-y-6">
-
-    {{-- STAT CARDS --}}
+ 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
             <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
@@ -43,13 +42,12 @@
                 <i class="fas fa-credit-card text-lg"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Revenue MoM</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pertumbuhan Omzet</p>
                 <h3 class="text-2xl font-extrabold text-gray-900">84%</h3>
             </div>
         </div>
     </div>
-
-    {{-- CHART SECTION --}}
+ 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-6">
@@ -95,8 +93,7 @@
             </div>
         </div>
     </div>
-
-    {{-- ACTIVITY & SYSTEM --}}
+    
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 flex justify-between items-center">
@@ -132,13 +129,13 @@
         </div>
 
         <div class="bg-gray-900 rounded-xl p-8 text-white relative overflow-hidden">
-            <h3 class="text-xl font-bold mb-2">Health System</h3>
+            <h3 class="text-xl font-bold mb-2">Kesehatan Sistem</h3>
             <p class="text-gray-400 text-sm mb-8">Status server & database</p>
 
             <div class="space-y-6">
                 <div>
                     <div class="flex justify-between text-xs font-bold uppercase text-gray-500 mb-2">
-                        <span>Server Load</span>
+                        <span>Beban Server</span>
                         <span class="text-emerald-400">Optimal</span>
                     </div>
                     <div class="h-1.5 bg-gray-800 rounded-full">
@@ -148,7 +145,7 @@
 
                 <div>
                     <div class="flex justify-between text-xs font-bold uppercase text-gray-500 mb-2">
-                        <span>Storage</span>
+                        <span>Penyimpanan</span>
                         <span class="text-amber-400">64 / 128 GB</span>
                     </div>
                     <div class="h-1.5 bg-gray-800 rounded-full">
@@ -168,8 +165,7 @@
     </div>
 
 </div>
-
-{{-- CHART JS --}}
+ 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
