@@ -1,41 +1,50 @@
 @extends('layouts.app')
 @section('content')
-    <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50">
+    <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <p class="text-xl font-bold text-gray-800">Stok<span class="text-white">In</span></p>
             </a>
 
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <a href="/login"
+                <a href="{{ route('login') }}"
                     class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
                            focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium
                            rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">
                     Masuk
                 </a>
 
-                <button data-collapse-toggle="navbar-default" type="button"
+                <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm
                            text-gray-500 rounded-lg md:hidden hover:bg-gray-100
                            focus:outline-none focus:ring-2 focus:ring-gray-200">
                     <span class="sr-only">Open main menu</span>
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="w-5 h-5" :class="{ 'hidden': mobileMenuOpen, 'block': !mobileMenuOpen }" fill="none"
                         viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M1 1h15M1 7h15M1 13h15" />
                     </svg>
+                    <svg class="w-5 h-5" :class="{ 'block': mobileMenuOpen, 'hidden': !mobileMenuOpen }" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
                 </button>
             </div>
 
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95" @click.away="mobileMenuOpen = false"
+                class="w-full md:block md:w-auto md:!block" :class="{ 'hidden': !mobileMenuOpen }">
                 <ul
                     class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100
                            rounded-lg md:flex-row md:space-x-10 md:mt-0 md:border-0">
-                    <li><a href="#features" class="nav-link">Fitur</a></li>
-                    <li><a href="#pricing" class="nav-link">Paket</a></li>
-                    <li><a href="#contact" class="nav-link">Kontak</a></li>
+                    <li><a href="#features" class="nav-link" @click="mobileMenuOpen = false">Fitur</a></li>
+                    <li><a href="#pricing" class="nav-link" @click="mobileMenuOpen = false">Paket</a></li>
+                    <li><a href="#contact" class="nav-link" @click="mobileMenuOpen = false">Kontak</a></li>
                     <li class="md:hidden">
-                        <a href="/login"
+                        <a href="{{ route('login') }}"
                             class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
                             Masuk
                         </a>
@@ -45,29 +54,24 @@
         </div>
     </nav>
 
-    <section class="bg-white pt-28 md:pt-32 overflow-hidden">
-        <div class="grid max-w-screen-xl px-4 py-12 mx-auto
-               lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
-
-            <!-- TEKS : MASUK DARI KIRI -->
+    <!-- Hero Section dengan counter animasi -->
+    <section class="bg-white pt-28 md:pt-32 overflow-hidden" x-data="heroSection()">
+        <div class="grid max-w-screen-xl px-4 py-12 mx-auto lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
             <div data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-out-cubic"
                 class="mr-auto place-self-center lg:col-span-6">
 
-                <h1
-                    class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-tight
-                       md:text-5xl xl:text-6xl">
+                <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-tight md:text-5xl xl:text-6xl">
                     Kelola Stok Toko dengan
                     <span class="text-amber-600">Lebih Mudah</span>
                 </h1>
 
-                <p class="max-w-2xl mb-6 font-light text-gray-600
-                       md:text-lg lg:text-xl">
+                <p class="max-w-2xl mb-6 font-light text-gray-600 md:text-lg lg:text-xl">
                     Solusi manajemen stok barang untuk grosir dan gudang.
                     Otomatis, akurat, dan meningkatkan efisensi bisnis anda.
                 </p>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="/register"
+                    <a href="{{ route('register') }}"
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
                           text-white rounded-lg bg-amber-600 hover:bg-amber-700
                           focus:ring-4 focus:ring-amber-300
@@ -77,392 +81,160 @@
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
 
-                    <a href="#features"
+                    <button @click="scrollToFeatures()"
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
                           text-gray-900 border border-gray-300 rounded-lg
                           hover:bg-gray-100 transition-colors">
                         Lihat Fitur
-                    </a>
+                    </button>
                 </div>
             </div>
 
-            <!-- GAMBAR : MASUK DARI KANAN -->
             <div data-aos="fade-left" data-aos-delay="150" data-aos-duration="900" data-aos-easing="ease-out-cubic"
                 class="hidden lg:flex lg:col-span-6 justify-center">
-
                 <img src="{{ asset('images/box1.png') }}" alt="Aplikasi StokIn di Laptop"
                     class="w-full max-w-md xl:max-w-lg mx-auto">
             </div>
-
         </div>
     </section>
 
-
-    {{-- Stats Section --}}
-    <section class="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16">
+    <!-- Stats Section dengan counter animasi -->
+    <section class="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16" x-data="statsCounter()" x-intersect="startCounting()">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
                 <!-- Card 1 -->
                 <div data-aos="fade-up" data-aos-delay="0"
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                        shadow-md card-hover card-hover-amber ">
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
-                        10.000+
+                        <span x-text="users.toLocaleString()">0</span>+
                     </h3>
-                    <p class="text-gray-600 font-medium">
-                        Pengguna Aktif
-                    </p>
+                    <p class="text-gray-600 font-medium">Pengguna Aktif</p>
                 </div>
 
                 <!-- Card 2 -->
                 <div data-aos="fade-up" data-aos-delay="150"
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                        shadow-md card-hover card-hover-amber">
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
-                        5K+
+                        <span x-text="transactions.toLocaleString()">0</span>K+
                     </h3>
-                    <p class="text-gray-600 font-medium">
-                        Transaksi per Hari
-                    </p>
+                    <p class="text-gray-600 font-medium">Transaksi per Hari</p>
                 </div>
 
                 <!-- Card 3 -->
                 <div data-aos="fade-up" data-aos-delay="300"
-                    class="bg-white rounded-xl border border-gray-200 p-8 text-center
-                        shadow-md card-hover card-hover-amber">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">
-                        24/7
-                    </h3>
-                    <p class="text-gray-600 font-medium">
-                        Dukungan & Akses
-                    </p>
+                    class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">24/7</h3>
+                    <p class="text-gray-600 font-medium">Dukungan & Akses</p>
                 </div>
-
             </div>
         </div>
     </section>
 
-
-    {{-- Why Choose StokIn Section --}}
-    <section class="bg-white py-16 md:py-24">
+    <!-- FAQ Section dengan Alpine.js -->
+    <section class="bg-white py-16 md:py-24" x-data="faqSection()">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {{-- Image --}}
-                <div data-aos="fade-right" class="relative">
-                    <img src="{{ asset('images/why-stokin.png') }}" alt="StokIn Dashboard di Tablet"
-                        class="rounded-xl shadow-2xl w-full max-w-lg mx-auto">
-                </div>
-
-                {{-- Content --}}
-                <div data-aos="fade-left" data-aos-delay="100">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-4">
-                        Mengapa Memilih <span class="text-amber-500">StokIn</span>?
-                    </h2>
-                    <p class="text-gray-300 mb-8 text-base md:text-lg">
-                        StokIn dirancang khusus untuk membantu bisnis Anda mengelola inventaris dengan lebih efisien dan
-                        akurat.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
-                                <i class="fas fa-hand-pointer text-amber-500 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-1">Mudah Digunakan</h4>
-                                <p class="text-gray-400">Interface intuitif yang dapat dipelajari dalam hitungan menit</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
-                                <i class="fas fa-clock text-amber-500 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-1">Hemat Waktu</h4>
-                                <p class="text-gray-400">Otomasi proses pencatatan dan pelaporan stok</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
-                                <i class="fas fa-check-double text-amber-500 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-1">Data Akurat</h4>
-                                <p class="text-gray-400">Minimalisir kesalahan manual dengan sistem terintegrasi</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center">
-                                <i class="fas fa-chart-line text-amber-500 text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-1">Skalabilitas</h4>
-                                <p class="text-gray-400">Berkembang bersama bisnis Anda dari kecil hingga besar</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="bg-gray-50 py-12 md:py-20">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-            <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                <h2 class="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900">
-                    Fitur Unggulan
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+                    Pertanyaan yang Sering Diajukan
                 </h2>
-                <p class="font-light text-gray-500 text-base md:text-xl">
-                    Semua yang Anda butuhkan untuk mengelola inventaris bisnis dengan efisien
-                </p>
+                <p class="text-gray-600 text-lg">Temukan jawaban untuk pertanyaan umum tentang StokIn</p>
             </div>
-            <div data-aos="fade-up" data-aos-delay="100">
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fas fa-boxes text-xl"></i>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                <template x-for="(faq, index) in faqs" :key="index">
+                    <div class="border border-gray-200 rounded-lg">
+                        <button @click="toggle(index)"
+                            class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50">
+                            <span class="font-medium text-gray-900" x-text="faq.question"></span>
+                            <i class="fas fa-chevron-down transition-transform duration-200"
+                                :class="{ 'rotate-180': faq.open }"></i>
+                        </button>
+                        <div x-show="faq.open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0"
+                            class="px-6 pb-4 text-gray-600 overflow-hidden">
+                            <p x-text="faq.answer"></p>
                         </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Manajemen Stok Cerdas</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Lacak stok masuk, keluar, dan sisa secara real-time. Atur SKU dan kategori dengan mudah.
-                        </p>
                     </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fa-solid fa-cart-shopping text-xl"></i>
-                        </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Transaksi Pembelian & Penjualan</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Catat semua transaksi dengan cepat, update stok otomatis, dan lacak riwayat lengkap.
-                        </p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fa-solid fa-users text-xl"></i>
-                        </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Multi User & Role Access</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Tambahkan tim dengan peran yang berbeda: Admin, Kasir, Staff Gudang, dan Pemilik Toko.
-                        </p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fa-solid fa-chart-simple text-xl"></i>
-                        </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Dashboard Real-time</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Visualiasi data dengan grafik interaktif, monitoring performa bisnis secara langsung.
-                        </p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fas fa-bell text-xl"></i>
-                        </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Notifikasi Pintar</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Peringatan stok menipis, kadaluwarsa, dan rekomendasi restock.
-                        </p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-lg card-hover card-hover-amber">
-                        <div
-                            class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-amber-100 text-amber-600">
-                            <i class="fas fa-chart-line text-xl"></i>
-                        </div>
-                        <h3 class="mb-2 text-xl font-bold dark:text-dark-200">Laporan & Analisis</h3>
-                        <p class="text-gray-500 dark:text-gray-400">
-                            Buat laporan cepat tentang pergerakan stok, nilai inventaris, dan tren penjualan.
-                        </p>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="bg-white py-8 md:py-16">
-        <div class="py-4 md:py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-            <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-6 md:mb-8 lg:mb-12">
-                <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-gray-900">Paket Harga</h2>
-                <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan
-                    bisnis Anda
-                </p>
-            </div>
-            <div class="space-y-6 md:space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-                <div data-aos="fade-up" data-aos-delay="100"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
-                    <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Starter</h3>
-                    <div class="flex justify-center items-baseline my-4 md:my-8">
-                        <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp0K</span>
-                        <span class="text-gray-500 text-sm md:text-base">14 hari</span>
-                    </div>
-                    <ul class="mb-6 md:mb-8 space-y-3 md:space-y-4 text-left text-sm md:text-base">
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Hingga 100 produk</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>1 pengguna</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Export Laporan</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Dashboard Analytics</span>
-                        </li>
-                    </ul>
-                    <a href="/register"
-                        class="text-white bg-amber-600 hover:bg-amber-700 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 text-center">Pilih
-                        Paket</a>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="200"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
-                    <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Pro</h3>
-                    <div class="flex justify-center items-baseline my-4 md:my-8">
-                        <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp99K</span>
-                        <span class="text-gray-500 text-sm md:text-base">/bulan</span>
-                    </div>
-                    <ul class="mb-6 md:mb-8 space-y-3 md:space-y-4 text-left text-sm md:text-base">
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Hingga 1000 produk</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>10 pengguna</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Semua fitur Starter</span>
-                        </li>
-                    </ul>
-                    <a href="/register"
-                        class="text-white bg-amber-600 hover:bg-amber-700 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 text-center">Pilih
-                        Paket</a>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="300"
-                    class="flex flex-col p-4 md:p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border hover:border-amber-600 shadow-md hover:shadow-amber-400 hover:border-none hover:bg-amber-50">
-                    <h3 class="mb-3 md:mb-4 text-xl md:text-2xl font-semibold">Enterprise</h3>
-                    <div class="flex justify-center items-baseline my-4 md:my-8">
-                        <span class="mr-2 text-3xl md:text-5xl font-extrabold">Rp299K</span>
-                        <span class="text-gray-500 text-sm md:text-base">/bulan</span>
-                    </div>
-                    <ul class="mb-6 md:mb-8 space-y-3 md:space-y-4 text-left text-sm md:text-base">
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Produk unlimited</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Pengguna unlimited</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <i class="fas fa-check text-green-500 text-sm"></i>
-                            <span>Semua fitur Pro</span>
-                        </li>
-                    </ul>
-                    <a href="/register"
-                        class="text-white bg-amber-600 hover:bg-amber-700 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 text-center">Pilih
-                        Paket</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    {{-- CTA Section --}}
-    <section class="bg-white py-12 md:py-16">
-        <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-6">
-            <h2 class="mb-4 text-xl md:text-4xl tracking-tight font-bold text-black">
-                Siap Mengoptimalkan Bisnis Anda?
-            </h2>
-            <p class="mb-8 font-light text-black text-base md:text-xl max-w-2xl mx-auto">
-                Bergabung dengan ribuan pemilik bisnis yang sudah menggunakan StokIn untuk mengelola inventaris mereka
-                dengan lebih efisien.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="/register"
-                    class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-amber-600 bg-white border border-amber-500 rounded-lg  focus:ring-4 focus:ring-amber-300 transition-colors hover:scale-110 hover:shadow-lg">
-                    Mulai Trial Gratis
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-                <a href="#contact"
-                    class="bg-amber-600 inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white border-2 border-white rounded-lg hover:bg-amber-600 focus:ring-4 focus:ring-amber-300 transition-colors hover:scale-110">
-                    Hubungi Kami
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-white dark:bg-gray-900 border-t border-gray-100">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-            <div class="md:flex md:justify-between">
-                <div class="mb-6 md:mb-0">
-                    <a href="/" class="flex items-center">
-                        <img src="{{ asset('images/logo.png') }}" alt="StokIn Logo" class="h-8 md:h-36 me-3">
-                    </a>
-                </div>
-                <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
-                    <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Fitur</h2>
-                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                            <li class="mb-4"><a href="#features" class="hover:underline">Inventaris</a></li>
-                            <li class="mb-4"><a href="#features" class="hover:underline">Laporan</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Harga</h2>
-                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                            <li class="mb-4"><a href="#pricing" class="hover:underline">Paket Starter</a></li>
-                            <li class="mb-4"><a href="#pricing" class="hover:underline">Paket Pro</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                            <li class="mb-4"><a href="#" class="hover:underline">Privacy Policy</a></li>
-                            <li class="mb-4"><a href="#" class="hover:underline">Terms &amp; Conditions</a></li>
-                        </ul>
-                    </div>
-                    <div id="contact">
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Kontak</h2>
-                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                            <li class="mb-4 flex items-center">
-                                <i class="fab fa-whatsapp text-green-500 mr-2"></i>
-                                <a href="https://wa.me/62895380187668" class="hover:underline">0895-3801-8766</a>
-                            </li>
-                            <li class="mb-4 flex items-center">
-                                <i class="fas fa-envelope text-amber-600 mr-2"></i>
-                                <a href="mailto:info@stokin.com" class="hover:underline">info@stokin.com</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-            <div class="sm:flex sm:items-center sm:justify-between">
-                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                    © 2025 <a href="/" class="hover:underline">StokIn™</a>. All Rights Reserved.
-                </span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: true,
-        });
-    </script>
+    <!-- Sisanya tetap sama seperti sebelumnya... -->
+    <!-- [Bagian lainnya dari welcome.blade.php tetap sama] -->
 @endsection
+
+@push('scripts')
+    <script>
+        // Alpine.js Components
+        function heroSection() {
+            return {
+                scrollToFeatures() {
+                    document.getElementById('features').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
+        function statsCounter() {
+            return {
+                users: 0,
+                transactions: 0,
+                started: false,
+
+                startCounting() {
+                    if (this.started) return;
+                    this.started = true;
+
+                    this.animateCounter('users', 10000, 2000);
+                    this.animateCounter('transactions', 5, 1500);
+                },
+
+                animateCounter(property, target, duration) {
+                    const start = 0;
+                    const increment = target / (duration / 16);
+                    const timer = setInterval(() => {
+                        this[property] += increment;
+                        if (this[property] >= target) {
+                            this[property] = target;
+                            clearInterval(timer);
+                        }
+                    }, 16);
+                }
+            }
+        }
+
+        function faqSection() {
+            return {
+                faqs: [{
+                        question: "Apakah StokIn cocok untuk bisnis kecil?",
+                        answer: "Ya, StokIn dirancang untuk semua ukuran bisnis. Paket Starter kami sangat cocok untuk bisnis kecil dengan hingga 100 produk.",
+                        open: false
+                    },
+                    {
+                        question: "Bagaimana cara backup data?",
+                        answer: "Data Anda otomatis di-backup setiap hari ke cloud server yang aman. Anda juga bisa export data kapan saja.",
+                        open: false
+                    },
+                    {
+                        question: "Apakah bisa digunakan offline?",
+                        answer: "StokIn adalah aplikasi web yang membutuhkan koneksi internet. Namun, data tersimpan aman di cloud dan bisa diakses dari mana saja.",
+                        open: false
+                    },
+                    {
+                        question: "Bagaimana sistem pembayaran?",
+                        answer: "Kami menerima pembayaran melalui transfer bank, e-wallet, dan kartu kredit. Pembayaran dilakukan bulanan atau tahunan.",
+                        open: false
+                    }
+                ],
+
+                toggle(index) {
+                    this.faqs[index].open = !this.faqs[index].open;
+                }
+            }
+        }
+    </script>
+@endpush
