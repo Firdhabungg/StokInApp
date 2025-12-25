@@ -2,10 +2,9 @@
 
 @section('title', 'Edit Barang')
 
-
 @section('content')
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h1 class="font-semibold text-2xl text-gray-900">Tambah Barang</h1>
+        <h1 class="font-semibold text-2xl text-gray-900">Edit Barang</h1>
         @if ($errors->any())
             <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
                 <ul class="list-disc list-inside">

@@ -14,34 +14,33 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table id="barangTable" class="w-full text-sm text-center">
-                <thead class="text-gray-700 bg-gray-50">
+            <table id="barangTable" class="w-full text-sm display">
+                <thead>
                     <tr>
-                        <th class="px-6 py-3">Kode Barang</th>
-                        <th class="px-6 py-3">Nama Barang</th>
-                        <th class="px-6 py-3">Stok</th>
-                        <th class="px-6 py-3">Harga</th>
-                        <th class="px-6 py-3">Status</th>
-                        <th class="px-6 py-3">Aksi</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Stok</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($barangs as $barang)
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-6 py-6 font-medium text-gray-900">{{ $barang->kode_barang }}</td>
-                            <td class="px-6 py-6">{{ $barang->nama_barang }}</td>
-                            <td class="px-6 py-6">{{ $barang->stok }}</td>
-                            <td class="px-6 py-6">Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
-                            <td class="px-6 py-6">
-                                <span
-                                    class="px-3 py-1 
+                        <tr>
+                            <td class="font-medium text-gray-900">{{ $barang->kode_barang }}</td>
+                            <td>{{ $barang->nama_barang }}</td>
+                            <td>{{ $barang->stok }}</td>
+                            <td>Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
+                            <td>
+                                <span class="px-3 py-1 
                                     @if ($barang->status == 'tersedia') bg-green-100 text-green-600
                                     @elseif($barang->status == 'menipis') bg-orange-100 text-orange-600
                                     @else bg-red-100 text-red-600 @endif
                                     text-xs font-medium rounded-full">{{ ucfirst($barang->status) }}</span>
                             </td>
-                            <td class="px-6 py-6">
-                                <div class="flex gap-2">
+                            <td>
+                                <div class="flex gap-3">
                                     <a href="{{ route('barang.edit', $barang->id) }}"
                                         class="text-blue-600 hover:text-blue-800">
                                         <i class="fa-solid fa-pencil"></i>
@@ -68,6 +67,31 @@
 
 @push('scripts')
     <script>
+        // Initialize DataTable
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!$.fn.DataTable.isDataTable('#barangTable')) {
+                new DataTable('#barangTable', {
+                    language: {
+                        search: "Cari:",
+                        lengthMenu: "Tampilkan _MENU_ data",
+                        info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                        infoEmpty: "Tidak ada data",
+                        infoFiltered: "(difilter dari _MAX_ total data)",
+                        zeroRecords: "Tidak ada data yang cocok",
+                        paginate: {
+                            first: "Pertama",
+                            last: "Terakhir",
+                            next: "Selanjutnya",
+                            previous: "Sebelumnya"
+                        }
+                    },
+                    pageLength: 10,
+                    ordering: true,
+                    responsive: true
+                });
+            }
+        });
+
         // SweetAlert untuk delete barang
         function deleteBarang(id, nama) {
             Swal.fire({

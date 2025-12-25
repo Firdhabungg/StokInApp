@@ -28,6 +28,29 @@ class Links extends Component
     {
         if (str_contains($route, '.')) {
             $path = explode('.', $route);
+            
+            // For admin.dashboard - use exact match
+            if ($path[0] === 'admin' && isset($path[1]) && $path[1] === 'dashboard') {
+                return 'admin.dashboard';
+            }
+            
+            // For admin routes like admin.toko.index, admin.pelanggan.index
+            // Use admin.toko.*, admin.pelanggan.*
+            if ($path[0] === 'admin' && count($path) >= 3) {
+                return $path[0] . '.' . $path[1] . '.*';
+            }
+            
+            // For admin routes with 2 parts like admin.kelola-paket.index
+            if ($path[0] === 'admin' && count($path) >= 2) {
+                return $path[0] . '.' . $path[1] . '.*';
+            }
+            
+            // For nested routes like stock.in.index, stock.out.index
+            if (count($path) >= 3) {
+                return $path[0] . '.' . $path[1] . '.*';
+            }
+            
+            // For routes like barang.index, penjualan.index
             return $path[0] . '.*';
         } else {
             return $route;

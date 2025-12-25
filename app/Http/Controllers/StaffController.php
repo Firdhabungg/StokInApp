@@ -12,7 +12,7 @@ class StaffController extends Controller
     public function index()
     {
         $staff = User::where('toko_id', auth()->user()->toko_id)
-                    ->where('role', '!=', 'owner')
+                    ->where('role', 'kasir')
                     ->get();
         
         return view('staff.index', compact('staff'));
@@ -29,7 +29,6 @@ class StaffController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', Password::min(8)],
-            'role' => ['required', 'in:admin,kasir,staff'],
         ]);
 
         User::create([
@@ -37,19 +36,19 @@ class StaffController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'toko_id' => auth()->user()->toko_id,
-            'role' => $request->role,
+            'role' => 'kasir', // Hanya bisa tambah kasir
         ]);
 
-        return redirect()->route('staff.index')->with('success', 'Staff berhasil ditambahkan.');
+        return redirect()->route('staff.index')->with('success', 'Kasir berhasil ditambahkan.');
     }
 
     public function destroy(User $staff)
     {
-        if ($staff->toko_id !== auth()->user()->toko_id || $staff->role === 'owner') {
+        if ($staff->toko_id !== auth()->user()->toko_id || $staff->role !== 'kasir') {
             abort(403);
         }
 
         $staff->delete();
-        return redirect()->route('staff.index')->with('success', 'Staff berhasil dihapus.');
+        return redirect()->route('staff.index')->with('success', 'Kasir berhasil dihapus.');
     }
 }

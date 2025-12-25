@@ -1,5 +1,5 @@
+@import 'https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900';
 @import 'tailwindcss';
-@import 'https://fonts.bunny.net/css?family=inter:100,200,300,400';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -43,5 +43,90 @@
     .pricing-hover {
         @apply transition-all duration-300 ease-out transform hover:-translate-y-2 hover:bg-amber-50 hover:shadow-xl hover:shadow-amber-400/50;
         will-change: transform, box-shadow, background-color;
+    }
+
+    /* Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* Sidebar mini mode */
+    .sidebar-mini {
+        width: 5rem !important;
+    }
+
+    .sidebar-mini #nav-label,
+    .sidebar-mini .nav-text,
+    .sidebar-mini .logout-text,
+    .sidebar-mini .nav-text-saas,
+    .sidebar-mini #logo-text-brand {
+        display: none !important;
+    }
+
+    .sidebar-mini .nav-link,
+    .sidebar-mini .logout-btn,
+    .sidebar-mini #logo-desktop,
+    .sidebar-mini #desktopSidebarToggle {
+        justify-content: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .sidebar-mini #desktopSidebarToggle i {
+        transform: rotate(180deg);
+    }
+
+    /* DataTables Custom Styling */
+    .dataTables_wrapper {
+        @apply text-sm;
+    }
+
+    .dataTables_wrapper .dataTables_length select {
+        @apply px-3 py-2 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-500;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        @apply px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 ml-2;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        @apply text-gray-500 py-4;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        @apply py-4;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        @apply px-3 py-1.5 mx-0.5 rounded-lg text-gray-600 hover:bg-amber-50 hover:text-amber-600 transition-colors cursor-pointer;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        @apply bg-amber-500 text-white hover:bg-amber-600 hover:text-white;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+        @apply text-gray-300 hover:bg-transparent cursor-not-allowed;
+    }
+
+    table.dataTable thead th {
+        @apply text-left font-semibold text-gray-700 bg-gray-50 px-4 py-3 border-b border-gray-200;
+    }
+
+    table.dataTable tbody td {
+        @apply px-4 py-4 border-b border-gray-100;
+    }
+
+    table.dataTable tbody tr:hover {
+        @apply bg-gray-50;
+    }
+
+    table.dataTable.no-footer {
+        @apply border-b-0;
     }
 }

@@ -32,4 +32,44 @@ class Toko extends Model
     {
         return $this->hasOne(User::class)->where('role', 'owner');
     }
+
+    /**
+     * Get all barangs for this toko.
+     */
+    public function barangs(): HasMany
+    {
+        return $this->hasMany(Barang::class);
+    }
+
+    /**
+     * Get all kategoris for this toko.
+     */
+    public function kategoris(): HasMany
+    {
+        return $this->hasMany(KategoriBarang::class);
+    }
+
+    /**
+     * Get all stock batches for this toko.
+     */
+    public function stockBatches(): HasMany
+    {
+        return $this->hasMany(StockBatch::class);
+    }
+
+    /**
+     * Get all stock in records for this toko.
+     */
+    public function stockIn(): HasMany
+    {
+        return $this->hasMany(StockIn::class);
+    }
+
+    /**
+     * Get all stock out records for this toko.
+     */
+    public function stockOut(): HasMany
+    {
+        return $this->hasMany(StockOut::class);
+    }
 }

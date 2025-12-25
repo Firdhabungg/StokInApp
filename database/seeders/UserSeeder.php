@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Toko;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -14,25 +14,38 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Super Admin (Developer/App Owner) - tidak terikat toko
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@stokinapp.com',
+            'password' => Hash::make('super123'),
+            'role' => 'super_admin',
+            'toko_id' => null,
+        ]);
+
+        // Buat Toko pertama
         $toko = Toko::create([
-            'name' => 'Toko Stokin',
+            'name' => 'Toko Makmur Jaya',
             'email' => 'toko@stokinapp.com',
             'address' => 'Jl. Contoh No. 123, Jakarta',
             'phone' => '021-12345678',
         ]);
+
+        // Owner (Pemilik Toko)
         User::create([
-            'name' => 'Owner',
-            'email' => 'admin@stokinapp.com',
+            'name' => 'Jen Ratri',
+            'email' => 'owner@stokinapp.com',
             'password' => Hash::make('owner123'),
             'role' => 'owner',
             'toko_id' => $toko->id
         ]);
 
+        // Kasir
         User::create([
-            'name' => 'Staff',
-            'email' => 'staff@stokinapp.com',
-            'password' => Hash::make('staff123'),
-            'role' => 'staff',
+            'name' => 'Destiyana',
+            'email' => 'kasir@stokinapp.com',
+            'password' => Hash::make('kasir123'),
+            'role' => 'kasir',
             'toko_id' => $toko->id
         ]);
     }

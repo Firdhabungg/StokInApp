@@ -1,9 +1,11 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Manajemen Pelanggan')
 @section('header_title', 'Manajemen Pelanggan')
 @section('header_description', 'Daftar Toko & Status Langganan Tenant') 
 
 @section('content')
+<<<<<<< HEAD
     <div class="space-y-6">
 
         {{-- FILTER BAR (Layout sama persis dengan Data Barang) --}}
@@ -67,10 +69,64 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     {{-- Data akan diisi otomatis oleh DataTables (Logic JS) --}}
+=======
+    <div class="bg-white border border-gray-100 rounded-xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Daftar Pelanggan</h2>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table id="stokInTable" class="w-full text-sm display">
+                <thead>
+                    <tr>
+                        <th>Nama Toko & Pemilik</th>
+                        <th>Paket</th>
+                        <th>Status</th>
+                        <th>Sisa Langganan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($tokos as $toko)
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xs font-bold">
+                                        {{ strtoupper(substr($toko->name, 0, 2)) }}
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">{{ $toko->name }}</p>
+                                        <p class="text-xs text-gray-400">Pemilik: {{ $toko->owner->name ?? '-' }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="font-semibold text-gray-600">{{ $toko->subscription_plan ?? 'Starter' }}</td>
+                            <td>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase
+                                    {{ $toko->subscription_status == 'active' ? 'bg-emerald-50 text-emerald-600' :
+                                       ($toko->subscription_status == 'trial' ? 'bg-amber-50 text-amber-600' : 'bg-rose-50 text-rose-600') }}">
+                                    {{ $toko->subscription_status ?? 'Active' }}
+                                </span>
+                            </td>
+                            <td class="text-gray-600">{{ $toko->subscription_days_left ?? '30' }} Hari</td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <a href="{{ route('admin.pelanggan.show', $toko) }}" class="text-gray-400 hover:text-amber-500">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <button class="text-gray-400 hover:text-blue-500">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+>>>>>>> 38f429b (dicky: update landing page pricing - simplify to Free Trial & Pro plans)
                 </tbody>
             </table>
         </div>
     </div>
+<<<<<<< HEAD
  
     <style>
         .dataTables_filter { display: none; }
@@ -251,3 +307,7 @@
 
     </script>
 @endsection 
+=======
+@endsection
+
+>>>>>>> 38f429b (dicky: update landing page pricing - simplify to Free Trial & Pro plans)

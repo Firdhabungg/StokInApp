@@ -69,19 +69,19 @@
     {{-- TABLE --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left">
+            <table class="w-full text-sm display" id="stokInTable">
                 <thead>
-                    <tr class="border-b border-gray-100 text-gray-400 text-[11px] font-bold uppercase tracking-widest">
-                        <th class="px-8 py-5">Nama Paket</th>
-                        <th class="px-6 py-5">Harga / Bulan</th>
-                        <th class="px-6 py-5">Limit Produk</th>
-                        <th class="px-6 py-5">Limit Transaksi</th>
-                        <th class="px-6 py-5 text-center">Status</th>
-                        <th class="px-8 py-5 text-right">Aksi</th>
+                    <tr>
+                        <th>Nama Paket</th>
+                        <th>Harga / Bulan</th>
+                        <th>Limit Produk</th>
+                        <th>Limit Transaksi</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
-                <tbody class="divide-y divide-gray-100 text-sm">
+                <tbody>
                     {{-- Starter --}}
                     <tr class="hover:bg-gray-50">
                         <td class="px-8 py-4">

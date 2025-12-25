@@ -4,7 +4,7 @@
         <i class="{{ $icon }} w-5"></i>
         <span>{{ $title }}</span>
         @if ($route === '#')
-            <span class="ml-auto text-xs text-gray-400">(Soon)</span>
+            <span class="ml-auto text-xs text-slate-400">(Soon)</span>
         @endif
     </a>
 </li>

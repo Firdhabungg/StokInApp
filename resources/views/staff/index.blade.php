@@ -1,60 +1,91 @@
 @extends('layouts.dashboard')
 
-@section('page-title', 'Manajemen Staff')
-@section('page-description', 'Kelola staff toko Anda')
+@section('title', 'Manajemen Kasir')
+@section('page-title', 'Manajemen Kasir')
 
 @section('content')
-<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-semibold text-gray-900">Daftar Staff</h2>
-        <a href="{{ route('staff.create') }}" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-colors">
-            <i class="fas fa-plus mr-2"></i>Tambah Staff
+        <h2 class="text-xl font-semibold text-gray-900">Daftar Kasir</h2>
+        <a href="{{ route('staff.create') }}" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+            <i class="fas fa-plus mr-2"></i>Tambah Kasir
         </a>
     </div>
 
-    @if($staff->count() > 0)
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($staff as $member)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $member->name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $member->email }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {{ $member->role === 'admin' ? 'bg-blue-100 text-blue-800' : 
-                                   ($member->role === 'kasir' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800') }}">
-                                {{ $member->role === 'kasir' ? 'Kasir' : ($member->role === 'admin' ? 'Admin' : 'Staff Gudang') }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <form action="{{ route('staff.destroy', $member) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" 
-                                        onclick="return confirm('Yakin ingin menghapus staff ini?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @else
-        <div class="text-center py-8">
-            <i class="fas fa-users text-gray-400 text-4xl mb-4"></i>
-            <p class="text-gray-500">Belum ada staff yang ditambahkan</p>
+    @if(session('success'))
+        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
         </div>
     @endif
+
+    <div class="overflow-x-auto">
+        <table id="staffTable" class="w-full text-sm display">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($staff as $member)
+                <tr>
+                    <td class="font-medium text-gray-900">{{ $member->name }}</td>
+                    <td class="text-gray-600">{{ $member->email }}</td>
+                    <td>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                            Kasir
+                        </span>
+                    </td>
+                    <td>
+                        <form id="delete-form-{{ $member->id }}" action="{{ route('staff.destroy', $member) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="text-red-600 hover:text-red-800" onclick="deleteStaff({{ $member->id }}, '{{ $member->name }}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new DataTable('#staffTable', {
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                infoEmpty: "Tidak ada data",
+                infoFiltered: "(difilter dari _MAX_ total data)",
+                zeroRecords: "Tidak ada kasir yang ditemukan",
+                paginate: { first: "Pertama", last: "Terakhir", next: "Selanjutnya", previous: "Sebelumnya" }
+            },
+            pageLength: 10
+        });
+    });
+
+    function deleteStaff(id, nama) {
+        Swal.fire({
+            title: "Yakin hapus kasir?",
+            text: `"${nama}" akan dihapus dari sistem!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#bf0603",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Ya, hapus!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${id}`).submit();
+            }
+        });
+    }
+</script>
+@endpush
