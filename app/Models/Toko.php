@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Toko extends Model
 {
@@ -71,5 +72,60 @@ class Toko extends Model
     public function stockOut(): HasMany
     {
         return $this->hasMany(StockOut::class);
+    }
+
+    /**
+     * Get all subscriptions for this toko.
+     */
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Get the active subscription for this toko.
+     */
+    public function activeSubscription(): HasOne
+    {
+        return $this->hasOne(Subscription::class)
+            ->whereIn('status', ['trial', 'active'])
+            ->where('expires_at', '>', now())
+            ->latest();
+    }
+
+    /**
+     * Check if toko has an active subscription.
+     */
+    public function hasActiveSubscription(): bool
+    {
+        return $this->activeSubscription()->exists();
+    }
+
+    /**
+     * Check if toko subscription is expired.
+     */
+    public function isSubscriptionExpired(): bool
+    {
+        $subscription = $this->subscriptions()->latest()->first();
+        
+        if (!$subscription) {
+            return true;
+        }
+        
+        return $subscription->isExpired();
+    }
+
+    /**
+     * Get the current plan name.
+     */
+    public function getCurrentPlanName(): string
+    {
+        $subscription = $this->activeSubscription;
+        
+        if (!$subscription) {
+            return 'Tidak Ada';
+        }
+        
+        return $subscription->plan->name;
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Toko;
 use App\Models\User;
+use App\Models\Subscription;
+use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -68,10 +70,33 @@ class RegisterController extends Controller
                 'role' => 'owner',
             ]);
 
+            // Get selected plan from query param
+            $selectedPlan = $request->query('plan', 'free');
+            
+            // Create trial subscription for free plan
+            $freePlan = SubscriptionPlan::where('slug', 'free')->first();
+            
+            if ($freePlan) {
+                Subscription::create([
+                    'toko_id' => $toko->id,
+                    'plan_id' => $freePlan->id,
+                    'status' => 'trial',
+                    'starts_at' => now(),
+                    'expires_at' => now()->addDays($freePlan->duration_days),
+                ]);
+            }
+
             DB::commit();
             Auth::login($user);
 
-            return redirect()->intended('/dashboard')->with('success', 'Registrasi berhasil! Selamat datang di StokIn.');
+            // If user selected Pro plan, redirect to checkout
+            if ($selectedPlan === 'pro') {
+                return redirect()->route('subscription.checkout', 'pro')
+                    ->with('success', 'Registrasi berhasil! Silakan selesaikan pembayaran.');
+            }
+
+            return redirect()->intended('/dashboard')
+                ->with('success', 'Registrasi berhasil! Trial 14 hari Anda sudah aktif.');
 
         } catch (\Exception $e) {
             DB::rollBack();

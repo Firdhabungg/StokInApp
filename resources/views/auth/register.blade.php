@@ -24,7 +24,6 @@
 
                 <form method="POST" action="{{ route('register') }}" class="space-y-8">
                     @csrf
-
                     <!-- Section 1: User Data -->
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
@@ -32,7 +31,6 @@
                             Data Pengguna
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Name -->
                             <div class="md:col-span-2">
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
                                 <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus
@@ -40,7 +38,6 @@
                                     placeholder="Nama lengkap Anda">
                             </div>
 
-                            <!-- Email -->
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                                 <input type="email" name="email" id="email" value="{{ old('email') }}" required
@@ -48,7 +45,6 @@
                                     placeholder="nama@email.com">
                             </div>
 
-                            <!-- Password -->
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                                 <input type="password" name="password" id="password" required
@@ -56,7 +52,6 @@
                                     placeholder="Minimal 8 karakter">
                             </div>
 
-                            <!-- Confirm Password -->
                             <div>
                                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation" required
@@ -88,7 +83,7 @@
                                 <label for="toko_email" class="block text-sm font-medium text-gray-700 mb-2">Email Toko</label>
                                 <input type="email" name="toko_email" id="toko_email" value="{{ old('toko_email') }}" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                                    placeholder="toko@email.com">
+                                    placeholder="tokoanda@stokinapp.com">
                             </div>
 
                             <!-- Toko Phone -->
@@ -96,7 +91,7 @@
                                 <label for="toko_phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon Toko</label>
                                 <input type="tel" name="toko_phone" id="toko_phone" value="{{ old('toko_phone') }}" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                                    placeholder="08xxxxxxxxxx">
+                                    placeholder="08xxxxxxxxxx" autocomplete="off">
                             </div>
 
                             <!-- Toko Address -->

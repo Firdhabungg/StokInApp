@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     @foreach ($tokos as $toko)
-                        <tr>
+                        <tr class="hover:bg-gray-50 transition-colors duration-300 cursor-pointer">
                             <td>
                                 <p class="font-semibold text-gray-900">{{ $toko->name }}</p>
                                 <p class="text-xs text-gray-500">{{ Str::limit($toko->address, 40) }}</p>
