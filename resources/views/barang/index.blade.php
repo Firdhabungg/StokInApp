@@ -66,30 +66,23 @@
 @endsection
 
 @push('scripts')
-    <script>
-        // Initialize DataTable
+    <script> 
         document.addEventListener('DOMContentLoaded', function() {
-            if (!$.fn.DataTable.isDataTable('#barangTable')) {
-                new DataTable('#barangTable', {
-                    language: {
-                        search: "Cari:",
-                        lengthMenu: "Tampilkan _MENU_ data",
-                        info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-                        infoEmpty: "Tidak ada data",
-                        infoFiltered: "(difilter dari _MAX_ total data)",
-                        zeroRecords: "Tidak ada data yang cocok",
-                        paginate: {
-                            first: "Pertama",
-                            last: "Terakhir",
-                            next: "Selanjutnya",
-                            previous: "Sebelumnya"
-                        }
-                    },
-                    pageLength: 10,
-                    ordering: true,
-                    responsive: true
-                });
-            }
+            let table = new DataTable('#barangTable', {
+                responsive: true,
+                pageLength: 10,
+                language: {
+                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
+                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
+                    info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
+                    paginate: {
+                        first: '<<',
+                        last: '>>',
+                        next: '>',
+                        previous: '<'
+                    }
+                }
+            });
         });
 
         // SweetAlert untuk delete barang

@@ -30,25 +30,7 @@
 
     @stack('scripts')
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#barangTable', {
-                responsive: true,
-                pageLength: 10,
-                language: {
-                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
-                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
-                    info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
-                    paginate: {
-                        first: 'Pertama',
-                        last: 'Terakhir',
-                        next: 'Selanjutnya',
-                        previous: 'Sebelumnya'
-                    }
-                }
-            });
-        });
-
+    <script> 
         function confirmLogout() {
             Swal.fire({
                 title: 'Konfirmasi Logout',

@@ -57,18 +57,20 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            new DataTable('#stockInTable', {
-                language: {
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ data",
-                    info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-                    infoEmpty: "Tidak ada data",
-                    infoFiltered: "(difilter dari _MAX_ total data)",
-                    zeroRecords: "Tidak ada data yang cocok",
-                    paginate: { first: "Pertama", last: "Terakhir", next: "Selanjutnya", previous: "Sebelumnya" }
-                },
+            let table = new DataTable('#stockInTable', {
+                responsive: true,
                 pageLength: 10,
-                order: [[0, 'desc']]
+                language: {
+                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
+                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
+                    info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
+                    paginate: {
+                        first: '<<',
+                        last: '>>',
+                        next: '>',
+                        previous: '<'
+                    }
+                }
             });
         });
     </script>

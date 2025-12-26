@@ -43,33 +43,12 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-semibold text-gray-900">Semua Batch Stok</h2>
-            
-            {{-- Filter --}}
-            <form method="GET" class="flex gap-2">
-                <select name="status" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                    <option value="">Semua Status</option>
-                    <option value="aman" {{ request('status') == 'aman' ? 'selected' : '' }}>Aman</option>
-                    <option value="hampir_kadaluarsa" {{ request('status') == 'hampir_kadaluarsa' ? 'selected' : '' }}>Hampir Kadaluarsa</option>
-                    <option value="kadaluarsa" {{ request('status') == 'kadaluarsa' ? 'selected' : '' }}>Kadaluarsa</option>
-                </select>
-                <select name="barang_id" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                    <option value="">Semua Barang</option>
-                    @foreach ($barangs as $barang)
-                        <option value="{{ $barang->id }}" {{ request('barang_id') == $barang->id ? 'selected' : '' }}>
-                            {{ $barang->nama_barang }}
-                        </option>
-                    @endforeach
-                </select>
-                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm">
-                    <i class="fas fa-filter mr-1"></i>Filter
-                </button>
-            </form>
+            <h2 class="text-xl font-semibold text-gray-900">Semua Batch Stok</h2> 
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-center">
-                <thead class="text-gray-700 bg-gray-50">
+           <table id="batchTable" class="w-full text-sm display">
+                <thead>
                     <tr>
                         <th class="px-6 py-3">Kode Batch</th>
                         <th class="px-6 py-3">Barang</th>
@@ -87,7 +66,7 @@
                             <td class="px-6 py-4 font-medium text-gray-900">{{ $batch->barang->nama_barang }}</td>
                             <td class="px-6 py-4">{{ $batch->jumlah_awal }}</td>
                             <td class="px-6 py-4">
-                                <span class="font-semibold {{ $batch->jumlah_sisa > 0 ? 'text-green-600' : 'text-gray-400' }}">
+                                <span class="font-semibold {{ $batch->jumlah_sisa > 0 ? 'text-green-600' : 'text-red-600' }}">
                                     {{ $batch->jumlah_sisa }}
                                 </span>
                             </td>
@@ -113,10 +92,28 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-
-        <div class="mt-4">
-            {{ $batches->appends(request()->query())->links() }}
-        </div>
+        </div> 
     </div>
 @endsection
+
+@push('scripts')
+    <script> 
+        document.addEventListener('DOMContentLoaded', function() {
+            let table = new DataTable('#batchTable', {
+                responsive: true,
+                pageLength: 10,
+                language: {
+                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
+                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
+                    info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
+                    paginate: {
+                        first: '<<',
+                        last: '>>',
+                        next: '>',
+                        previous: '<'
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
