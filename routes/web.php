@@ -124,4 +124,18 @@ Route::middleware('auth')->group(function () {
         // Manajemen Kasir - Owner only
         Route::resource('staff', StaffController::class)->except(['show', 'edit', 'update']);
     });
+
+    // Subscription Management
+    Route::prefix('subscription')->name('subscription.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\SubscriptionController::class, 'index'])->name('index');
+        Route::get('/checkout/{plan}', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout');
+        Route::get('/callback', [\App\Http\Controllers\SubscriptionController::class, 'callback'])->name('callback');
+        Route::get('/expired', [\App\Http\Controllers\SubscriptionController::class, 'expired'])->name('expired');
+    });
 });
+
+// Public pricing page
+Route::get('/pricing', [\App\Http\Controllers\SubscriptionController::class, 'plans'])->name('pricing');
+
+// Midtrans Webhook (no auth, verified by Midtrans signature)
+Route::post('/midtrans/webhook', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('midtrans.webhook');

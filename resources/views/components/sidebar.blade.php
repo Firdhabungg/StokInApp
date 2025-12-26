@@ -72,6 +72,10 @@
                     <x-sidebar.links title="Manajemen Kasir" icon="fas fa-users" route="staff.index"
                         class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                 </li>
+                <li>
+                    <x-sidebar.links title="Langganan" icon="fas fa-crown" route="subscription.index"
+                        class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                </li>
                 @endif
             </ul>
         </nav>
