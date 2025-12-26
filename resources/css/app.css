@@ -115,11 +115,18 @@
     }
 
     table.dataTable thead th {
-        @apply text-left font-semibold text-gray-700 bg-gray-50 px-4 py-3 border-b border-gray-200;
-    }
+        @apply font-semibold text-gray-700 bg-gray-50 px-4 py-3 border-b border-gray-200;
+        text-align: center !important; 
+    } 
 
     table.dataTable tbody td {
         @apply px-4 py-4 border-b border-gray-100;
+        text-align: center !important;
+    }
+
+    table.dataTable tbody td:nth-child(2) {
+        @apply px-4 py-4 border-b border-gray-100;
+        text-align: left !important;
     }
 
     table.dataTable tbody tr:hover {
