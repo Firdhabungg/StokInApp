@@ -5,9 +5,25 @@
 @section('page-description', 'Ringkasan dan overview sistem manajemen stok')
 
 @section('content')
+    <div>
+        <h1 class="text-xl font-semibold">
+            Halo {{ Auth::user()->role_label }} {{ Auth::user()->toko_name }} 👋
+        </h1>
+
+        <p class="text-sm text-gray-500">
+            @if(Auth::user()->isOwner())
+                Pantau performa toko dan laporan hari ini
+            @elseif(Auth::user()->isKasir())
+                Siap melayani transaksi hari ini
+            @else
+                Kelola sistem dan data aplikasi
+            @endif
+        </p>
+    </div>
+
     {{-- Alert jika ada batch hampir kadaluarsa --}}
     @if ($batchHampirKadaluarsa > 0)
-        <div class="mb-6 p-4 bg-orange-50 border-l-4 border-orange-500 rounded-r-lg flex items-start gap-3">
+        <div class="mt-6    mb-6 p-4 bg-orange-50 border-l-4 border-orange-500 rounded-r-lg flex items-start gap-3">
             <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fas fa-exclamation text-white text-sm"></i>
             </div>

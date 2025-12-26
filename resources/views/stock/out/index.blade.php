@@ -2,6 +2,7 @@
 
 @section('title', 'Barang Keluar')
 @section('page-title', 'Barang Keluar')
+@section('page-description', 'Data dan riwayat barang keluar')
 
 @section('content')
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

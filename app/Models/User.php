@@ -120,4 +120,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(StockOut::class);
     }
+
+    
+    public function getRoleLabelAttribute(): string
+    {
+        return match ($this->role) {
+            self::ROLE_SUPER_ADMIN => 'Super Admin',
+            self::ROLE_OWNER => 'Owner',
+            self::ROLE_KASIR => 'Kasir',
+            default => 'User',
+        };
+    }
+
+    public function getTokoNameAttribute(): string
+    {
+        return $this->toko?->name ?? '';
+    }
+
 }

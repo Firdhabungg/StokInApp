@@ -2,6 +2,7 @@
 
 @section('title', 'Laporan')
 @section('page-title', 'Laporan')
+@section('page-description', 'Rekap dan laporan aktivitas sistem')
 
 @section('content')
     {{-- Summary Cards --}}

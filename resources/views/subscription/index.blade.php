@@ -2,6 +2,7 @@
 
 @section('title', 'Langganan')
 @section('page-title', 'Kelola Langganan')
+@section('page-description', 'Informasi masa aktif layanan')
 
 @section('content')
 <div class="space-y-6">

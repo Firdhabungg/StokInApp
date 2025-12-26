@@ -2,6 +2,7 @@
 
 @section('title', 'Manajemen Kasir')
 @section('page-title', 'Manajemen Kasir')
+@section('page-description', 'Manajemen akun kasir untuk operasional penjualan')
 
 @section('content')
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

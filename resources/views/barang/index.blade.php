@@ -2,6 +2,7 @@
 
 @section('title', 'Data Barang')
 @section('page-title', 'Data Barang')
+@section('page-description', 'Monitoring data barang, stok, dan ketersediaan')
 
 @section('content')
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
