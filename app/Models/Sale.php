@@ -17,13 +17,19 @@ class Sale extends Model
         'kode_transaksi',
         'tanggal',
         'total',
+        'uang_dibayar',
+        'kembalian',
         'status',
         'keterangan',
+        'metode_pembayaran',
+        'bukti_pembayaran',
     ];
 
     protected $casts = [
         'tanggal' => 'date',
         'total' => 'decimal:2',
+        'uang_dibayar' => 'decimal:2',
+        'kembalian' => 'decimal:2',
     ];
 
     /**

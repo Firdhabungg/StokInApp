@@ -109,10 +109,19 @@ class PenjualanController extends Controller
             'items.*.barang_id' => 'required|exists:barangs,id',
             'items.*.jumlah' => 'required|integer|min:1',
             'items.*.harga' => 'required|numeric|min:0',
+            'uang_dibayar' => 'nullable|numeric|min:0',
+            'metode_pembayaran' => 'required|in:cash,transfer,qris',
+            'bukti_pembayaran' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'keterangan' => 'nullable|string|max:500',
         ]);
 
         $tokoId = Auth::user()->toko_id;
+
+        $buktiPembayaranPath = null;
+            if ($request->hasFile('bukti_pembayaran')) {
+                $buktiPembayaranPath = $request->file('bukti_pembayaran')
+                    ->store('bukti-pembayaran', 'public');
+            }
 
         try {
             DB::beginTransaction();
@@ -126,6 +135,8 @@ class PenjualanController extends Controller
                 'total' => 0,
                 'status' => 'selesai',
                 'keterangan' => $request->keterangan,
+                'metode_pembayaran' => $request->metode_pembayaran,
+                'bukti_pembayaran' => $buktiPembayaranPath,
             ]);
 
             $total = 0;
@@ -156,8 +167,21 @@ class PenjualanController extends Controller
                 $total += $subtotal;
             }
 
-            // Update sale total
-            $sale->update(['total' => $total]);
+            $uangDibayar = $request->metode_pembayaran === 'cash'
+                ? (int) $request->uang_dibayar
+                : $total;
+                
+            if ($request->metode_pembayaran === 'cash' && $uangDibayar < $total) {
+                throw new \Exception('Uang dibayar kurang dari total transaksi');
+            }
+
+            $kembalian = max(0, $uangDibayar - $total);
+            
+            $sale->update([
+                'total' => $total,
+                'uang_dibayar' => $uangDibayar,
+                'kembalian' => $kembalian,
+            ]);
 
             DB::commit();
 

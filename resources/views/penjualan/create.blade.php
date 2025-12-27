@@ -71,7 +71,11 @@
             </div>
         </div>
 
-        {{-- Right: Summary & Checkout --}}
+
+
+                <form id="checkoutForm" method="POST" action="{{ route('penjualan.store') }}" enctype="multipart/form-data">
+                    @csrf
+                            {{-- Right: Summary & Checkout --}}
         <div class="space-y-4">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Ringkasan</h2>
@@ -94,17 +98,69 @@
                         <span class="font-semibold">Total</span>
                         <span id="grandTotal" class="font-bold text-green-600">Rp 0</span>
                     </div>
-                </div>
-
+                    <div id="cashFields" class="hidden mt-4">
+                        <label class="text-sm text-gray-600">Uang Dibayar</label>
+                        <input type="number" name="uang_dibayar" id="uang_dibayar"
+                            class="w-full border rounded-lg px-3 py-2"
+                            placeholder="Masukkan uang diterima">
+                    </div>
+                </div> 
                 <div class="mb-4">
-                    <label class="block text-sm text-gray-600 mb-1">Keterangan (opsional)</label>
-                    <textarea id="keterangan" rows="2" 
-                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    <label for="metode_pembayaran" class="block text-sm font-medium text-gray-600 mb-1">
+                        Metode Pembayaran
+                    </label>
+
+                    <select name="metode_pembayaran" id="metode_pembayaran"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm
+                            focus:ring-amber-500 focus:border-amber-500
+                            @error('metode_pembayaran') border-red-500 @enderror"
+                        required>
+                        <option value="">-- Pilih Metode Pembayaran --</option>
+                        <option value="cash" {{ old('metode_pembayaran') == 'cash' ? 'selected' : '' }}>
+                            Cash
+                        </option>
+                        <option value="transfer" {{ old('metode_pembayaran') == 'transfer' ? 'selected' : '' }}>
+                            Transfer
+                        </option>
+                        <option value="qris" {{ old('metode_pembayaran') == 'qris' ? 'selected' : '' }}>
+                            QRIS
+                        </option>
+                    </select>
+
+                    @error('metode_pembayaran')
+                        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div class="mb-4">
+                    <label for="keterangan" class="block text-sm font-medium text-gray-600 mb-1">
+                        Keterangan (opsional)
+                    </label>
+
+                    <textarea id="keterangan" rows="2"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm
+                            focus:ring-amber-500 focus:border-amber-500"
                         placeholder="Catatan transaksi..."></textarea>
                 </div>
+                
+                <div class="mb-4 hidden" id="bukti-pembayaran-wrapper">
+                    <label for="bukti_pembayaran" class="block text-sm font-medium text-gray-600 mb-1">
+                        Bukti Pembayaran (opsional)
+                    </label>
 
-                <form id="checkoutForm" method="POST" action="{{ route('penjualan.store') }}">
-                    @csrf
+                    <input type="file" name="bukti_pembayaran" id="bukti_pembayaran"  accept="image/*"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-amber-500 focus:border-amber-500
+                            @error('bukti_pembayaran') border-red-500 @enderror">
+
+                    <p class="text-xs text-gray-500 mt-1">
+                        Upload bukti pembayaran jika menggunakan transfer atau QRIS
+                    </p>
+
+                    @error('bukti_pembayaran')
+                        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
                     <input type="hidden" name="keterangan" id="formKeterangan">
                     <div id="formItems"></div>
                     
@@ -359,6 +415,27 @@
     function formatNumber(num) {
         return new Intl.NumberFormat('id-ID').format(num);
     }
+
+    document.getElementById('metode_pembayaran').addEventListener('change', function () {
+        const cashFields = document.getElementById('cashFields');
+        cashFields.classList.toggle('hidden', this.value !== 'cash');
+    });
+
+        const metodePembayaran = document.getElementById('metode_pembayaran');
+        const buktiWrapper = document.getElementById('bukti-pembayaran-wrapper');
+
+    function toggleBuktiPembayaran() {
+        const metode = metodePembayaran.value;
+
+        if (metode === 'transfer' || metode === 'qris') {
+            buktiWrapper.classList.remove('hidden');
+        } else {
+            buktiWrapper.classList.add('hidden');
+        }
+    }
+
+    metodePembayaran.addEventListener('change', toggleBuktiPembayaran);
+    document.addEventListener('DOMContentLoaded', toggleBuktiPembayaran);
 
     document.getElementById('keterangan').addEventListener('input', updateFormInputs);
 </script>
