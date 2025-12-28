@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
+
 @section('title', 'Profil')
+@section('page-title', 'Profil')
+@section('page-description', 'Lihat dan perbarui informasi akun serta data toko Anda')
+
 @section('content')
     <div class="max-w-4xl mx-auto space-y-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -45,6 +49,64 @@
             </div>
         </div>
 
+        {{-- Informasi Toko --}}
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Informasi Toko</h3>
+
+                @if(auth()->user()->isOwner())
+                    <button onclick="editToko()"
+                        class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                        <i class="fas fa-edit mr-2"></i>Edit Toko
+                    </button>
+                @endif
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Toko</label>
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="text-gray-900">
+                            {{ auth()->user()->toko->name ?? '-' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Toko</label>
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="text-gray-900">
+                            {{ auth()->user()->toko->email ?? '-' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">No. Telepon</label>
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="text-gray-900">
+                            {{ auth()->user()->toko->phone ?? '-' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Toko</label>
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="text-gray-900">
+                            {{ auth()->user()->toko->address ?? '-' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @if(!auth()->user()->isOwner())
+                <p class="mt-4 text-sm text-gray-500 italic">
+                    * Informasi toko hanya dapat diubah oleh owner.
+                </p>
+            @endif
+        </div>
+
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-6">Keamanan Akun</h3>
 
@@ -82,6 +144,69 @@
                 confirmButtonText: 'Simpan',
                 cancelButtonText: 'Batal',
                 confirmButtonColor: '#F59E0B'
+            });
+        }
+
+        function editToko() {
+            Swal.fire({
+                title: 'Edit Informasi Toko',
+                html: `
+                    <div class="text-left space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Nama Toko</label>
+                            <input id="toko_name" class="w-full p-2 border rounded"
+                                value="{{ auth()->user()->toko->name ?? '' }}">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Email Toko</label>
+                            <input id="toko_email" class="w-full p-2 border rounded"
+                                value="{{ auth()->user()->toko->email ?? '' }}">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">No. Telepon</label>
+                            <input id="toko_phone" class="w-full p-2 border rounded"
+                                value="{{ auth()->user()->toko->phone ?? '' }}">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Alamat</label>
+                            <textarea id="toko_address" class="w-full p-2 border rounded" rows="3">{{ auth()->user()->toko->address ?? '' }}</textarea>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Simpan',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#F59E0B',
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('toko_name').value,
+                        email: document.getElementById('toko_email').value,
+                        phone: document.getElementById('toko_phone').value,
+                        address: document.getElementById('toko_address').value,
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('profil.toko.update') }}", {
+                        method: 'PUT',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(result.value)
+                    })
+                    .then(res => {
+                        if (!res.ok) throw res;
+                        return res.json();
+                    })
+                    .then(() => {
+                        Swal.fire('Berhasil', 'Informasi toko diperbarui', 'success')
+                            .then(() => location.reload());
+                    })
+                    .catch(() => {
+                        Swal.fire('Gagal', 'Tidak dapat menyimpan data', 'error');
+                    });
+                }
             });
         }
 

@@ -104,19 +104,29 @@ class NotificationService
                 'batch_id' => $batch->id,
             ];
         }
-
-        // Batch yang hampir kadaluarsa - 7 hari (warning)
+ 
         $hampirKadaluarsa = StockBatch::with('barang')
             ->where('toko_id', $tokoId)
             ->where('status', 'hampir_kadaluarsa')
             ->where('jumlah_sisa', '>', 0)
-            ->get();
+            ->get()
+            ->map(function ($batch) {
+                $daysLeft = round(now()->diffInDays($batch->tgl_kadaluarsa, false));
+                return [
+                    'batch' => $batch,
+                    'daysLeft' => $daysLeft,
+                ];
+            })
+            ->sortBy('daysLeft') 
+            ->values();
 
-        foreach ($hampirKadaluarsa as $batch) {
-            $daysLeft = now()->diffInDays($batch->tgl_kadaluarsa, false);
+        foreach ($hampirKadaluarsa as $item) {
+            $batch = $item['batch'];
+            $daysLeft = $item['daysLeft'];
+
             $notifications[] = [
                 'type' => 'hampir_kadaluarsa',
-                'priority' => 2, // Warning
+                'priority' => 2,
                 'title' => 'Hampir Kadaluarsa',
                 'message' => "{$batch->barang->nama_barang} akan kadaluarsa dalam {$daysLeft} hari",
                 'icon' => 'fa-clock',

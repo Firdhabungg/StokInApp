@@ -76,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
     // Profil - Semua role
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    // Profil (Update toko) - Owner
+    Route::put('/profil/toko', [ProfilController::class, 'updateToko'])
+    ->name('profil.toko.update');
 
     // Penjualan (POS) - Kasir & Owner
     Route::resource('penjualan', PenjualanController::class)->only(['index', 'create', 'store', 'show']);

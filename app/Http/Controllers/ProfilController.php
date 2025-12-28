@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Toko;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\returnValue;
@@ -63,5 +63,34 @@ class ProfilController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Update informasi toko (HANYA OWNER)
+     */
+    public function updateToko(Request $request)
+    {
+        if (!auth()->user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+        
+        $validated = $request->validate([
+            'name'    => 'required|string|max:255',
+            'email'   => 'nullable|email|max:255',
+            'phone'   => 'nullable|string|max:20',
+            'address' => 'nullable|string',
+        ]);
+ 
+        $toko = auth()->user()->toko;
+
+        if (!$toko) {
+            abort(404, 'Toko tidak ditemukan.');
+        }
+ 
+        $toko->update($validated);
+
+        return response()->json([
+            'message' => 'Informasi toko berhasil diperbarui'
+        ]);
     }
 }

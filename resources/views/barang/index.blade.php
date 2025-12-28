@@ -21,7 +21,8 @@
                         <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Stok</th>
-                        <th>Harga</th>
+                        <th>Harga Supplier</th>
+                        <th>Harga Jual</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -33,6 +34,7 @@
                             <td>{{ $barang->nama_barang }}</td>
                             <td>{{ $barang->stok }}</td>
                             <td>Rp {{ number_format($barang->harga, 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
                             <td>
                                 <span class="px-3 py-1 
                                     @if ($barang->status == 'tersedia') bg-green-100 text-green-600
