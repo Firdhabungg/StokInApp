@@ -51,114 +51,157 @@
         </div>
     </div>
 
-    {{-- TABLE HEADER --}}
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-3">
-            <div class="p-2 bg-amber-50 rounded-lg">
-                <i class="fas fa-sliders-h text-amber-600"></i>
-            </div>
-            <h2 class="font-bold text-gray-900">Daftar Konfigurasi Paket</h2>
-        </div>
+    {{-- TABLE CONTAINER --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
 
-        <button class="flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-xl text-sm font-bold hover:bg-gray-800 transition-all shadow">
-            <i class="fas fa-plus text-xs"></i>
-            Buat Paket Baru
+    {{-- JUDUL TABEL --}}
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">
+            Daftar Konfigurasi Paket
+        </h2>
+
+        <button
+            class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            <i class="fas fa-plus mr-2"></i>Buat Paket Baru
         </button>
     </div>
 
-    {{-- TABLE --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm display" id="stokInTable">
-                <thead>
-                    <tr>
-                        <th>Nama Paket</th>
-                        <th>Harga / Bulan</th>
-                        <th>Limit Produk</th>
-                        <th>Limit Transaksi</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+    <div class="overflow-x-auto">
+        <table id="stokInTable" class="w-full text-sm">
+        <thead class="bg-gray-50 text-gray-700 border-b border-gray-200">
+            <tr>
+                <th class="px-6 py-4 text-left text-[12px] font-bold uppercase tracking-widest">
+                    Nama Paket
+                </th>
+                <th class="px-6 py-4 text-left text-[12px] font-bold uppercase tracking-widest">
+                    Harga / Bulan
+                </th>
+                <th class="px-6 py-4 text-left text-[12px] font-bold uppercase tracking-widest">
+                    Limit Produk
+                </th>
+                <th class="px-6 py-4 text-left text-[12px] font-bold uppercase tracking-widest">
+                    Limit Transaksi
+                </th>
+                <th class="px-6 py-4 text-center text-[12px] font-bold uppercase tracking-widest">
+                    Status
+                </th>
+                <th class="px-6 py-4 text-right text-[12px] font-bold uppercase tracking-widest">
+                    Aksi
+                </th>
+            </tr>
+        </thead>
 
-                <tbody>
-                    {{-- Starter --}}
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-8 py-4">
-                            <span class="font-bold text-gray-900 block">Starter Plan</span>
-                            <span class="text-[10px] text-gray-400">Cocok untuk UMKM</span>
-                        </td>
-                        <td class="px-6 py-4 font-bold text-gray-700">
-                            Rp 0 <span class="text-[10px] text-gray-400">(Free)</span>
-                        </td>
-                        <td class="px-6 py-4 text-gray-600">Max 50 Produk</td>
-                        <td class="px-6 py-4 text-gray-600">100 / Bulan</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase">
-                                Aktif
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="p-2 text-gray-400 hover:text-amber-500">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="p-2 text-gray-400 hover:text-rose-500">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
 
-                    {{-- Pro --}}
-                    <tr class="hover:bg-amber-50/40">
-                        <td class="px-8 py-4">
-                            <span class="font-bold text-gray-900 block">Pro Plan</span>
-                            <span class="text-[10px] text-amber-500 font-bold">Paling Banyak Dipilih</span>
-                        </td>
-                        <td class="px-6 py-4 font-bold text-gray-700">Rp 149.000</td>
-                        <td class="px-6 py-4 font-bold text-gray-600">Unlimited</td>
-                        <td class="px-6 py-4 text-gray-600">5.000 / Bulan</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase">
-                                Aktif
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="p-2 text-gray-400 hover:text-amber-500">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="p-2 text-gray-400 hover:text-rose-500">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+            <tbody class="divide-y divide-gray-100">
 
-                    {{-- Enterprise --}}
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-8 py-4">
-                            <span class="font-bold text-gray-900 block">Enterprise</span>
-                            <span class="text-[10px] text-gray-400">Custom & multi-cabang</span>
-                        </td>
-                        <td class="px-6 py-4 font-bold text-gray-700">Rp 499.000</td>
-                        <td class="px-6 py-4 font-bold text-gray-600">Unlimited</td>
-                        <td class="px-6 py-4 font-bold text-gray-600">Unlimited</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-400 text-[10px] font-black uppercase">
-                                Draft
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <button class="p-2 text-gray-400 hover:text-amber-500">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="p-2 text-gray-400 hover:text-rose-500">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <style>
+                    .dataTables_filter { display: none; }
+
+                    .dataTables_wrapper .dataTables_info {
+                        padding-top: 20px;
+                        color: #718096;
+                        font-size: 14px;
+                        font-style: italic;
+                    }
+
+                    .dataTables_wrapper .dataTables_paginate .paginate_button {
+                        padding: 0.4rem 0.75rem;
+                        margin-left: 0.25rem;
+                        border-radius: 0.75rem;
+                        border: 1px solid #e5e7eb;
+                        background: white;
+                        font-size: 0.75rem;
+                        color: #6b7280 !important;
+                    }
+
+                    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                        background: #f59e0b !important;
+                        color: white !important;
+                        border-color: #f59e0b;
+                    }
+                    </style>
+
+                {{-- Starter --}}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <p class="font-semibold text-gray-900">Starter Plan</p>
+                        <p class="text-xs text-gray-400">Cocok untuk UMKM</p>
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-700">
+                        Rp 0 <span class="text-xs text-gray-400">(Free)</span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">Max 50 Produk</td>
+                    <td class="px-6 py-4 text-gray-600">14 / Hari</td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-semibold">
+                            Aktif
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <button class="text-gray-400 hover:text-amber-600">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-rose-500">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+
+                {{-- Pro --}}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <p class="font-semibold text-gray-900">Pro Plan</p>
+                        <p class="text-xs text-gray-400">Paling Banyak Dipilih</p>
+                    
+                    <td class="px-6 py-4 font-semibold text-gray-700">Rp 149.000</td>
+                    <td class="px-6 py-4 font-semibold text-gray-600">Unlimited</td>
+                    <td class="px-6 py-4 text-gray-600">5.000 / Bulan</td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-semibold">
+                            Aktif
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <button class="text-gray-400 hover:text-amber-600">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-rose-500">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                {{-- Enterprise --}}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <p class="font-bold text-gray-900">Enterprise</p>
+                        <p class="text-[11px] text-gray-400">Custom & multi-cabang</p>
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-700">Rp 499.000</td>
+                    <td class="px-6 py-4 font-semibold text-gray-600">Unlimited</td>
+                    <td class="px-6 py-4 font-semibold text-gray-600">Unlimited</td>
+                    <td class="px-6 py-4 text-center">
+                        <span
+                            class="px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-[11px] font-bold uppercase">
+                            Draft
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <button class="text-gray-400 hover:text-amber-600">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-rose-500">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
+</div>
+
 
     
 

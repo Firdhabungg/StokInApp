@@ -5,129 +5,76 @@
 @section('header_description', 'Daftar Toko & Status Langganan Tenant') 
 
 @section('content')
-<<<<<<< HEAD
-    <div class="space-y-6">
+<div class="bg-white border border-gray-100 rounded-xl shadow-sm p-6 space-y-6">
 
-        {{-- FILTER BAR (Layout sama persis dengan Data Barang) --}}
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-            <div class="flex-1 flex flex-col md:flex-row gap-4">
-
-                {{-- Custom Search --}}
-                <div class="relative flex-1">
-                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="searchInput" placeholder="Cari nama toko atau pemilik..."
-                        class="w-full pl-10 pr-4 py-2.5 bg-gray-50 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none transition-all">
-                </div>
-
-                <div class="flex gap-3">
-                    {{-- Filter Paket --}}
-                    <div class="relative">
-                        <i class="fas fa-box absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                        <select id="filterPaket"
-                            class="appearance-none pl-10 pr-10 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer">
-                            <option value="">Semua Paket</option>
-                            <option value="Starter">Starter</option>
-                            <option value="Pro Plan">Pro Plan</option>
-                            <option value="Enterprise">Enterprise</option>
-                        </select>
-                    </div>
-
-                    {{-- Filter Status --}}
-                    <div class="relative">
-                        <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                        <select id="filterStatus"
-                            class="appearance-none pl-10 pr-10 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer">
-                            <option value="">Semua Status</option>
-                            <option value="active">Aktif</option>
-                            <option value="trial">Masa Trial</option>
-                            <option value="expired">Kedaluwarsa</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2 border-t md:border-t-0 pt-4 md:pt-0">
-                <a href="#" 
-                    class="p-2.5 bg-amber-500 text-white rounded-xl hover:bg-amber-600 shadow-sm transition-all text-sm font-semibold px-4">
-                    <i class="fas fa-plus mr-2"></i>Tambah Pelanggan
-                </a>
-            </div>
-        </div>
-
-        {{-- TABLE CONTAINER --}}
-        <div class="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm p-4">
-            <table class="w-full text-left border-collapse text-sm text-gray-600" id="pelangganTable">
-                <thead>
-                    <tr class="border-b border-gray-100 text-gray-400 text-[11px] font-bold uppercase tracking-widest">
-                        <th class="px-4 py-4 text-center">#</th>
-                        <th class="px-4 py-4">Nama Toko & Pemilik</th>
-                        <th class="px-4 py-4">Paket Langganan</th>
-                        <th class="px-4 py-4 text-center">Status</th>
-                        <th class="px-4 py-4 text-center">Sisa Waktu</th>
-                        <th class="px-4 py-4 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    {{-- Data akan diisi otomatis oleh DataTables (Logic JS) --}}
-=======
-    <div class="bg-white border border-gray-100 rounded-xl shadow-sm p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg font-semibold text-gray-900">Daftar Pelanggan</h2>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table id="stokInTable" class="w-full text-sm display">
-                <thead>
-                    <tr>
-                        <th>Nama Toko & Pemilik</th>
-                        <th>Paket</th>
-                        <th>Status</th>
-                        <th>Sisa Langganan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tokos as $toko)
-                        <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xs font-bold">
-                                        {{ strtoupper(substr($toko->name, 0, 2)) }}
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-gray-800">{{ $toko->name }}</p>
-                                        <p class="text-xs text-gray-400">Pemilik: {{ $toko->owner->name ?? '-' }}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="font-semibold text-gray-600">{{ $toko->subscription_plan ?? 'Starter' }}</td>
-                            <td>
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase
-                                    {{ $toko->subscription_status == 'active' ? 'bg-emerald-50 text-emerald-600' :
-                                       ($toko->subscription_status == 'trial' ? 'bg-amber-50 text-amber-600' : 'bg-rose-50 text-rose-600') }}">
-                                    {{ $toko->subscription_status ?? 'Active' }}
-                                </span>
-                            </td>
-                            <td class="text-gray-600">{{ $toko->subscription_days_left ?? '30' }} Hari</td>
-                            <td>
-                                <div class="flex gap-2">
-                                    <a href="{{ route('admin.pelanggan.show', $toko) }}" class="text-gray-400 hover:text-amber-500">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <button class="text-gray-400 hover:text-blue-500">
-                                        <i class="fas fa-pen"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
->>>>>>> 38f429b (dicky: update landing page pricing - simplify to Free Trial & Pro plans)
-                </tbody>
-            </table>
-        </div>
+    {{-- JUDUL TABEL --}}
+    <div class="flex items-center justify-between">
+        <h2 class="text-xl font-semibold text-gray-900">Daftar Pelanggan</h2>
     </div>
-<<<<<<< HEAD
- 
+
+    {{-- FILTER BAR --}}
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="flex-1 flex flex-col md:flex-row gap-4">
+
+            {{-- Custom Search --}}
+            <div class="relative flex-1">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Cari nama toko atau pemilik..."
+                    class="w-full pl-10 pr-4 py-2.5 bg-gray-50 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none transition-all">
+            </div>
+
+            <div class="flex gap-3">
+                {{-- Filter Paket --}}
+                <div class="relative">
+                    <i class="fas fa-box absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <select id="filterPaket"
+                        class="appearance-none pl-10 pr-10 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer">
+                        <option value="">Semua Paket</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Pro Plan">Pro Plan</option>
+                        <option value="Enterprise">Enterprise</option>
+                    </select>
+                </div>
+
+                {{-- Filter Status --}}
+                <div class="relative">
+                    <i class="fas fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <select id="filterStatus"
+                        class="appearance-none pl-10 pr-10 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer">
+                        <option value="">Semua Status</option>
+                        <option value="active">Aktif</option>
+                        <option value="trial">Masa Trial</option>
+                        <option value="expired">Kedaluwarsa</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <a href="#"
+            class="bg-amber-500 text-white px-4 py-2.5 rounded-xl hover:bg-amber-600 shadow-sm transition-all text-sm font-semibold">
+            <i class="fas fa-plus mr-2"></i>Tambah Pelanggan
+        </a>
+    </div>
+
+    {{-- TABLE --}}
+    <div class="overflow-x-auto">
+        <table id="pelangganTable" class="w-full text-left border-collapse text-sm text-gray-600">
+            <thead>
+                <tr class="border-b border-gray-100 text-gray-400 text-[12px] font-bold uppercase tracking-widest">
+                    <th class="px-4 py-4 text-center">No.</th>
+                    <th class="px-4 py-4">Nama Toko & Pemilik</th>
+                    <th class="px-4 py-4">Paket Langganan</th>
+                    <th class="px-4 py-4 text-center">Status</th>
+                    <th class="px-4 py-4 text-center">Sisa Waktu</th>
+                    <th class="px-4 py-4 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100"></tbody>
+        </table>
+    </div>
+
+</div>
+
     <style>
         .dataTables_filter { display: none; }
         
@@ -192,9 +139,9 @@
                     { 
                         data: 'id',
                         orderable: false,
-                        className: 'text-center align-middle',
-                        render: function(data) {
-                            return `<input type="checkbox" value="${data}" class="row-checkbox w-4 h-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">`;
+                        className: 'text-center align-middle font-semibold text-gray-900',
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
                     { 
@@ -307,7 +254,3 @@
 
     </script>
 @endsection 
-=======
-@endsection
-
->>>>>>> 38f429b (dicky: update landing page pricing - simplify to Free Trial & Pro plans)

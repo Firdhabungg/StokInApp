@@ -45,285 +45,393 @@
         </div>
     </div>
 
-    {{-- Filter & Aksi --}}
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-        <div class="flex flex-col md:flex-row gap-4 flex-1">
-            <div class="relative flex-1">
+    {{-- Filter + Table Invoice --}}
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+
+    {{-- HEADER + FILTER --}}
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
+        <div>
+            <h2 class="text-lg font-bold text-gray-900">Daftar Invoice</h2>
+            <p class="text-xs text-gray-500">Kelola semua tagihan pelanggan</p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <div class="relative">
                 <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="text" placeholder="Cari invoice atau nama toko..."
-                    class="w-full pl-10 pr-4 py-2.5 bg-gray-50 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <input
+                    type="text"
+                    placeholder="Cari invoice / toko..."
+                    class="pl-10 pr-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                >
             </div>
 
-            <select class="px-4 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none">
+            <select
+                class="px-4 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg font-semibold text-gray-600 focus:ring-amber-500 focus:border-amber-500">
                 <option value="">Semua Status</option>
                 <option value="paid">Lunas</option>
                 <option value="pending">Menunggu</option>
                 <option value="overdue">Jatuh Tempo</option>
             </select>
-        </div>
 
-        <button class="flex items-center gap-2 px-4 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-bold hover:bg-amber-600 transition-all">
-            <i class="fas fa-plus-circle"></i>
-            Buat Invoice
-        </button>
+            <button
+                class="flex items-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-600 transition">
+                <i class="fas fa-plus"></i>
+                Buat Invoice
+            </button>
+        </div>
     </div>
 
+
     {{-- Tabel Invoice --}}
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <div class="rounded-xl border-gray-100 shadow-sm">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr>
-                        <th>Invoice</th>
-                        <th>Nama Toko</th>
-                        <th>Tanggal</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00124</td>
-                        <td class="px-6 py-4">Coffee Shop Senja</td>
-                        <td class="px-6 py-4 text-gray-500">12 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 299.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">
-                                Lunas
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="p-2 text-gray-400 hover:text-blue-500">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+            <thead class="bg-gray-50 text-gray-700 border-b border-gray-200">
+                <tr class="border-b border-gray-400 text-gray-600 text-[12px] font-bold uppercase tracking-widest">
+                    <th class="px-4 py-4 text-center">Invoice</th>
+                    <th class="px-4 py-4">Toko</th>
+                    <th class="px-4 py-4">Tanggal</th>
+                    <th class="px-4 py-4">Total</th>
+                    <th class="px-4 py-4 text-center">Status</th>
+                    <th class="px-4 py-4 text-center">Aksi</th>
+                </tr>
+            </thead>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00125</td>
-                        <td class="px-6 py-4">Laundry Wangi</td>
-                        <td class="px-6 py-4 text-gray-500">14 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 99.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase">
-                                Menunggu
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+            <tbody class="divide-y divide-gray-100">
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 font-semibold text-gray-900 text-center">
+                        INV-0015
+                    </td>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00126</td>
-                        <td class="px-6 py-4">Toko Sembako Makmur</td>
-                        <td class="px-6 py-4 text-gray-500">15 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 1.250.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase">
-                                Jatuh Tempo
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Coffee Shop Senja</p>
+                    </td>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00127</td>
-                        <td class="px-6 py-4">Bakery Manis</td>
-                        <td class="px-6 py-4 text-gray-500">16 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 450.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">
-                                Lunas
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-blue-500"><i class="fas fa-download"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <td class="px-4 py-4 text-gray-500 text-sm">
+                        12 Des 2025
+                    </td>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00128</td>
-                        <td class="px-6 py-4">Apotek Sehat</td>
-                        <td class="px-6 py-4 text-gray-500">17 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 320.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase">
-                                Menunggu
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 309.000
+                    </td>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00129</td>
-                        <td class="px-6 py-4">Toko Elektronik Jaya</td>
-                        <td class="px-6 py-4 text-gray-500">18 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 2.150.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">
-                                Lunas
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-blue-500"><i class="fas fa-download"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                            Lunas
+                        </span>
+                    </td>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00130</td>
-                        <td class="px-6 py-4">Percetakan Sinar</td>
-                        <td class="px-6 py-4 text-gray-500">19 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 680.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase">
-                                Menunggu
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00131</td>
-                        <td class="px-6 py-4">Restoran Nusantara</td>
-                        <td class="px-6 py-4 text-gray-500">20 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 890.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase">
-                                Jatuh Tempo
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-001
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Senja Coffee</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        12 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 299.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                            Lunas
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00132</td>
-                        <td class="px-6 py-4">Toko Bangunan Sentosa</td>
-                        <td class="px-6 py-4 text-gray-500">21 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 3.200.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">
-                                Lunas
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-blue-500"><i class="fas fa-download"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-002
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Pagi Cerah</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        10 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 149.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold">
+                            Menunggu
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00133</td>
-                        <td class="px-6 py-4">Salon Cantika</td>
-                        <td class="px-6 py-4 text-gray-500">22 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 210.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase">
-                                Menunggu
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-003
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Langit Biru</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        05 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 99.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 text-[11px] font-bold">
+                            Jatuh Tempo
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00134</td>
-                        <td class="px-6 py-4">Toko Buku Ilmu</td>
-                        <td class="px-6 py-4 text-gray-500">23 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 560.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase">
-                                Lunas
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-blue-500"><i class="fas fa-download"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+               <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-0010
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Buku Ilmu</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        15 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 100.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 text-[11px] font-bold">
+                            Jatuh Tempo
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00135</td>
-                        <td class="px-6 py-4">Klinik Pratama</td>
-                        <td class="px-6 py-4 text-gray-500">24 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 740.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase">
-                                Jatuh Tempo
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-002
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Pagi Cerah</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        10 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 149.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold">
+                            Menunggu
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-                    <tr class="hover:bg-gray-50/60">
-                        <td class="px-6 py-4 font-bold text-gray-900">INV-00136</td>
-                        <td class="px-6 py-4">Studio Foto Kenangan</td>
-                        <td class="px-6 py-4 text-gray-500">25 Des 2025</td>
-                        <td class="px-6 py-4 font-semibold">Rp 380.000</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase">
-                                Menunggu
-                            </span>
-                        </td>
-                        <td class="px-8 py-4 text-right">
-                            <div class="flex justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-amber-500"><i class="fas fa-eye"></i></button>
-                                <button class="p-2 text-gray-400 hover:text-rose-500"><i class="fas fa-paper-plane"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-005
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Mart ADB</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        01 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 222.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                            Lunas
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+               <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-0033
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">SRC Bu Ratih</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        29 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 1.000.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                            Lunas
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-0020
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Siang Cerah</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        11 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 199.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold">
+                            Lunas
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-012
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Makmur Jaya</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        05 Nov 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 992.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold">
+                            Menunggu
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+               <tr class="hover:bg-gray-50/60 transition-colors">
+                    <td class="px-4 py-4 text-center font-semibold text-gray-900">
+                        INV-0011
+                    </td>
+                    <td class="px-4 py-4">
+                        <p class="font-semibold text-gray-800 text-sm">Toko Pastik Emma</p>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500">
+                        11 Des 2025
+                    </td>
+                    <td class="px-4 py-4 font-semibold text-gray-800">
+                        Rp 110.000
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 text-[11px] font-bold">
+                            Jatuh Tempo
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <div class="flex justify-center gap-2">
+                            <button class="p-2 text-gray-400 hover:text-amber-500 transition">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-blue-500 transition">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
