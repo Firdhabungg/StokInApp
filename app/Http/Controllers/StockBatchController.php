@@ -41,7 +41,7 @@ class StockBatchController extends Controller
         }
 
         $batches = $query->orderBy('tgl_kadaluarsa', 'asc')
-            ->paginate(15);
+            ->get();
 
         $barangs = Barang::where('toko_id', $tokoId)
             ->orderBy('nama_barang')

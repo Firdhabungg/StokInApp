@@ -64,14 +64,14 @@
     .sidebar-mini .nav-text,
     .sidebar-mini .logout-text,
     .sidebar-mini .nav-text-saas,
-    .sidebar-mini #logo-text-brand {
+    .sidebar-mini #logo-text,
+    .sidebar-mini #userInfo {
         display: none !important;
     }
 
     .sidebar-mini .nav-link,
     .sidebar-mini .logout-btn,
-    .sidebar-mini #logo-desktop,
-    .sidebar-mini #desktopSidebarToggle {
+    .sidebar-mini #logo-desktop {
         justify-content: center !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -79,6 +79,11 @@
 
     .sidebar-mini #desktopSidebarToggle i {
         transform: rotate(180deg);
+    }
+    
+    .sidebar-mini #logo-desktop {
+        width: 100%;
+        justify-content: center !important;
     }
 
     /* DataTables Custom Styling */

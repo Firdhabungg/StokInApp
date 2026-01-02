@@ -128,4 +128,60 @@ class Toko extends Model
         
         return $subscription->plan->name;
     }
+
+    /**
+     * Get a specific feature value from active subscription.
+     */
+    public function getFeature(string $key, $default = null)
+    {
+        $subscription = $this->activeSubscription;
+        
+        if (!$subscription || !$subscription->plan) {
+            return $default;
+        }
+        
+        return $subscription->plan->features[$key] ?? $default;
+    }
+
+    /**
+     * Check if toko can add more users based on subscription limit.
+     */
+    public function canAddUser(): bool
+    {
+        $maxUsers = $this->getFeature('max_users', 1);
+        
+        // -1 means unlimited
+        if ($maxUsers == -1) {
+            return true;
+        }
+        
+        $currentUserCount = $this->users()->count();
+        
+        return $currentUserCount < $maxUsers;
+    }
+
+    /**
+     * Get remaining user slots.
+     */
+    public function remainingUserSlots(): int
+    {
+        $maxUsers = $this->getFeature('max_users', 1);
+        
+        // -1 means unlimited
+        if ($maxUsers == -1) {
+            return 999; // large number for unlimited
+        }
+        
+        $currentUserCount = $this->users()->count();
+        
+        return max(0, $maxUsers - $currentUserCount);
+    }
+
+    /**
+     * Check if toko can export reports based on subscription.
+     */
+    public function canExportReport(): bool
+    {
+        return (bool) $this->getFeature('export_report', false);
+    }
 }

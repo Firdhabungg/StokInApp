@@ -7,10 +7,29 @@
 @section('content')
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-semibold text-gray-900">Daftar Kasir</h2>
-        <a href="{{ route('staff.create') }}" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-            <i class="fas fa-plus mr-2"></i>Tambah Kasir
-        </a>
+        <div>
+            <h2 class="text-xl font-semibold text-gray-900">Daftar Kasir</h2>
+            @if($maxUsers != -1)
+                <p class="text-sm text-gray-500 mt-1">
+                    Kuota pengguna: {{ $kasirs->count() + 1 }}/{{ $maxUsers }} 
+                    ({{ $remainingSlots }} slot tersisa)
+                </p>
+            @endif
+        </div>
+        @if($canAddUser)
+            <a href="{{ route('kasir.create') }}" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                <i class="fas fa-plus mr-2"></i>Tambah Kasir
+            </a>
+        @else
+            <div class="text-right">
+                <button disabled class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed">
+                    <i class="fas fa-lock mr-2"></i>Batas Tercapai
+                </button>
+                <a href="{{ route('subscription.index') }}" class="block text-sm text-amber-600 hover:underline mt-1">
+                    Upgrade paket →
+                </a>
+            </div>
+        @endif
     </div>
 
     @if(session('success'))
@@ -19,8 +38,14 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+            <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
+        </div>
+    @endif
+
     <div class="overflow-x-auto">
-        <table id="staffTable" class="w-full text-sm display">
+        <table id="kasirTable" class="w-full text-sm display">
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -30,20 +55,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($staff as $member)
+                @foreach($kasirs as $kasir)
                 <tr>
-                    <td class="font-medium text-gray-900">{{ $member->name }}</td>
-                    <td class="text-gray-600">{{ $member->email }}</td>
+                    <td class="font-medium text-gray-900">{{ $kasir->name }}</td>
+                    <td class="text-gray-600">{{ $kasir->email }}</td>
                     <td>
                         <span class="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
                             Kasir
                         </span>
                     </td>
                     <td>
-                        <form id="delete-form-{{ $member->id }}" action="{{ route('staff.destroy', $member) }}" method="POST" class="inline">
+                        <form id="delete-form-{{ $kasir->id }}" action="{{ route('kasir.destroy', $kasir) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="text-red-600 hover:text-red-800" onclick="deleteStaff({{ $member->id }}, '{{ $member->name }}')">
+                            <button type="button" class="text-red-600 hover:text-red-800" onclick="deleteKasir({{ $kasir->id }}, '{{ $kasir->name }}')">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>
@@ -59,7 +84,7 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#staffTable', {
+            let table = new DataTable('#kasirTable', {
                 responsive: true,
                 pageLength: 10,
                 language: {
@@ -76,7 +101,7 @@
             });
         });
 
-    function deleteStaff(id, nama) {
+    function deleteKasir(id, nama) {
         Swal.fire({
             title: "Yakin hapus kasir?",
             text: `"${nama}" akan dihapus dari sistem!`,

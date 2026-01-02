@@ -16,6 +16,9 @@
     <div class="flex min-h-screen">
         <x-sidebar />
 
+        {{-- Hidden elements for Tailwind safelist --}}
+        <span class="hidden md:ml-20 md:ml-64"></span>
+        
         <div id="mainWrapper" class="flex-1 flex flex-col min-w-0 md:ml-64 transition-all duration-300">
             <x-header />
 
@@ -47,6 +50,16 @@
                 }
             });
         }
+        
+        // Initialize sidebar state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainWrapper = document.getElementById('mainWrapper');
+            const isMini = localStorage.getItem('sidebarMini') === 'true';
+            if (isMini && mainWrapper) {
+                mainWrapper.classList.remove('md:ml-64');
+                mainWrapper.classList.add('md:ml-20');
+            }
+        });
     </script>
 </body>
 

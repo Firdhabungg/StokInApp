@@ -16,11 +16,13 @@ class SubscriptionPlanSeeder extends Seeder
                 'price' => 0,
                 'duration_days' => 14,
                 'features' => [
-                    'max_products' => 50,
-                    'max_transactions' => 100,
-                    'max_users' => 1,
+                    'max_products' => -1, // unlimited
+                    'max_transactions' => -1, // unlimited
+                    'max_users' => 2, // max 2 user (owner + 1 kasir)
                     'export_report' => false,
                     'priority_support' => false,
+                    'analytics_dashboard' => false,
+                    'description' => 'Coba gratis 14 hari',
                 ],
                 'is_active' => true,
             ],
@@ -32,9 +34,12 @@ class SubscriptionPlanSeeder extends Seeder
                 'features' => [
                     'max_products' => -1, // unlimited
                     'max_transactions' => -1, // unlimited
-                    'max_users' => 10,
+                    'max_users' => -1, // unlimited
                     'export_report' => true,
                     'priority_support' => true,
+                    'analytics_dashboard' => true,
+                    'description' => 'Fitur lengkap untuk bisnis Anda',
+                    'badge' => 'Rekomendasi',
                 ],
                 'is_active' => true,
             ],

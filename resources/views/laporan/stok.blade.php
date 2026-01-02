@@ -4,6 +4,27 @@
 @section('page-title', 'Laporan Stok')
 
 @section('content')
+    {{-- Export Buttons --}}
+    <div class="flex justify-end gap-2 mb-4">
+        @if($canExportReport)
+            <button class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                <i class="fas fa-file-excel mr-2"></i> Export Excel
+            </button>
+            <button class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                <i class="fas fa-file-pdf mr-2"></i> Export PDF
+            </button>
+        @else
+            <div class="flex items-center gap-2">
+                <button disabled class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
+                    <i class="fas fa-lock mr-2"></i> Export (Pro)
+                </button>
+                <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">
+                    Upgrade →
+                </a>
+            </div>
+        @endif
+    </div>
+
     {{-- Summary --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">

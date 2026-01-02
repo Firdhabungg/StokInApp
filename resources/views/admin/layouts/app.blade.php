@@ -81,9 +81,6 @@
                             <x-sidebar.links title="Semua Toko" icon="fas fa-store" route="admin.toko.index" />
                         </li>
                         <li>
-                            <x-sidebar.links title="Pelanggan (Toko)" icon="fas fa-users" route="admin.pelanggan.index" />
-                        </li>
-                        <li>
                             <x-sidebar.links title="Paket Berlangganan" icon="fas fa-layer-group" route="admin.kelola-paket.index" />
                         </li>
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\KasirController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController as UserDashboardController;
@@ -47,9 +47,10 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
     });
 
     Route::prefix('kelola-paket')->name('kelola-paket.')->group(function () {
-        Route::get('/', function () {
-            return view('admin.kelola-paket.index');
-        })->name('index');
+        Route::get('/', [\App\Http\Controllers\Admin\AdminPaketController::class, 'index'])->name('index');
+        Route::get('/{plan}/edit', [\App\Http\Controllers\Admin\AdminPaketController::class, 'edit'])->name('edit');
+        Route::put('/{plan}', [\App\Http\Controllers\Admin\AdminPaketController::class, 'update'])->name('update');
+        Route::patch('/{plan}/toggle', [\App\Http\Controllers\Admin\AdminPaketController::class, 'toggleStatus'])->name('toggle');
     });
 });
 
@@ -125,7 +126,7 @@ Route::middleware('auth')->group(function () {
         });
 
         // Manajemen Kasir - Owner only
-        Route::resource('staff', StaffController::class)->except(['show', 'edit', 'update']);
+        Route::resource('kasir', KasirController::class)->except(['show', 'edit', 'update']);
     });
 
     // Subscription Management

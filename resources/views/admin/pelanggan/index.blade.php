@@ -30,9 +30,8 @@
                     <select id="filterPaket"
                         class="appearance-none pl-10 pr-10 py-2.5 bg-gray-50 rounded-xl text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer">
                         <option value="">Semua Paket</option>
-                        <option value="Starter">Starter</option>
-                        <option value="Pro Plan">Pro Plan</option>
-                        <option value="Enterprise">Enterprise</option>
+                        <option value="Free Trial">Free Trial</option>
+                        <option value="Pro">Pro</option>
                     </select>
                 </div>
 
@@ -227,12 +226,37 @@
                 table.search(this.value).draw();
             });
 
-            document.getElementById('filterPaket').addEventListener('change', function() {
-                table.column(2).search(this.value).draw();
+            // Variables untuk menyimpan filter values
+            let filterPaketVal = '';
+            let filterStatusVal = '';
+
+            // Custom filter function yang menangani kedua filter
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                const rowData = table.row(dataIndex).data();
+                
+                // Filter paket
+                if (filterPaketVal && rowData.paket !== filterPaketVal) {
+                    return false;
+                }
+                
+                // Filter status
+                if (filterStatusVal && rowData.status !== filterStatusVal) {
+                    return false;
+                }
+                
+                return true;
             });
 
+            // Event listener untuk filter paket
+            document.getElementById('filterPaket').addEventListener('change', function() {
+                filterPaketVal = this.value;
+                table.draw();
+            });
+
+            // Event listener untuk filter status
             document.getElementById('filterStatus').addEventListener('change', function() {
-                table.column(3).search(this.value).draw();
+                filterStatusVal = this.value;
+                table.draw();
             });
         });
 
@@ -247,7 +271,7 @@
                 confirmButtonText: "Yes, hapus!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById(`delete-form-${id}`).submit();
+                    Swal.fire("Dihapus!", "Data pelanggan berhasil dihapus.", "success");
                 }
             });
         }

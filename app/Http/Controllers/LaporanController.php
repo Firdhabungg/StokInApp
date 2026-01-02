@@ -26,7 +26,7 @@ class LaporanController extends Controller
         // Summary data
         $totalBarang = Barang::where('toko_id', $tokoId)->count();
         $totalStok = StockBatch::where('toko_id', $tokoId)->sum('jumlah_sisa');
-        
+
         $penjualanBulanIni = Sale::where('toko_id', $tokoId)
             ->whereMonth('tanggal', now()->month)
             ->whereYear('tanggal', now()->year)
@@ -56,6 +56,7 @@ class LaporanController extends Controller
     public function stok(Request $request)
     {
         $tokoId = Auth::user()->toko_id;
+        $toko = Auth::user()->toko;
 
         $barangs = Barang::with('kategori')
             ->where('toko_id', $tokoId)
@@ -64,17 +65,21 @@ class LaporanController extends Controller
             ->get();
 
         // Summary per kategori
-        $stokPerKategori = Barang::where('toko_id', $tokoId)
+        $stokPerKategori = Barang::where('barangs.toko_id', $tokoId)
             ->join('kategoris', 'barangs.kategori_id', '=', 'kategoris.kategori_id')
             ->select('kategoris.nama_kategori', DB::raw('SUM(barangs.stok) as total_stok'), DB::raw('COUNT(barangs.id) as jumlah_barang'))
             ->groupBy('kategoris.nama_kategori')
             ->get();
 
+
         $totalStok = $barangs->sum('stok');
         $stokMenipis = $barangs->where('status', 'menipis')->count();
         $stokHabis = $barangs->where('status', 'habis')->count();
+        
+        // Check subscription feature
+        $canExportReport = $toko ? $toko->canExportReport() : false;
 
-        return view('laporan.stok', compact('barangs', 'stokPerKategori', 'totalStok', 'stokMenipis', 'stokHabis'));
+        return view('laporan.stok', compact('barangs', 'stokPerKategori', 'totalStok', 'stokMenipis', 'stokHabis', 'canExportReport'));
     }
 
     /**
@@ -96,7 +101,7 @@ class LaporanController extends Controller
             $labelPeriode = Carbon::parse($tanggal)->format('d F Y');
         } else {
             $query->whereYear('tanggal', substr($bulan, 0, 4))
-                  ->whereMonth('tanggal', substr($bulan, 5, 2));
+                ->whereMonth('tanggal', substr($bulan, 5, 2));
             $labelPeriode = Carbon::parse($bulan . '-01')->format('F Y');
         }
 
@@ -113,19 +118,26 @@ class LaporanController extends Controller
                 $q->whereDate('tanggal', $tanggal);
             } else {
                 $q->whereYear('tanggal', substr($bulan, 0, 4))
-                  ->whereMonth('tanggal', substr($bulan, 5, 2));
+                    ->whereMonth('tanggal', substr($bulan, 5, 2));
             }
         })
-        ->with('barang')
-        ->select('barang_id', DB::raw('SUM(jumlah) as total_qty'), DB::raw('SUM(subtotal) as total_nilai'))
-        ->groupBy('barang_id')
-        ->orderByDesc('total_qty')
-        ->limit(5)
-        ->get();
+            ->with('barang')
+            ->select('barang_id', DB::raw('SUM(jumlah) as total_qty'), DB::raw('SUM(subtotal) as total_nilai'))
+            ->groupBy('barang_id')
+            ->orderByDesc('total_qty')
+            ->limit(5)
+            ->get();
 
         return view('laporan.penjualan', compact(
-            'sales', 'filter', 'tanggal', 'bulan', 'labelPeriode',
-            'totalPenjualan', 'totalTransaksi', 'rataRata', 'topItems'
+            'sales',
+            'filter',
+            'tanggal',
+            'bulan',
+            'labelPeriode',
+            'totalPenjualan',
+            'totalTransaksi',
+            'rataRata',
+            'topItems'
         ));
     }
 

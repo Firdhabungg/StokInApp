@@ -1,16 +1,22 @@
 <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden"></div>
 
 <aside id="sidebar"
-    class="fixed top-0 left-0 z-50 w-64 h-screen bg-white border-r border-slate-100 flex flex-col md:translate-x-0 -translate-x-full">
-    <div class="h-20 flex items-center px-6 flex-shrink-0 border-b border-slate-50">
-        <div class="flex items-center gap-3">
+    class="fixed top-0 left-0 z-50 w-64 h-screen bg-white border-r border-slate-100 flex flex-col md:translate-x-0 -translate-x-full transition-all duration-300">
+    
+    {{-- Header with Toggle --}}
+    <div class="h-20 flex items-center justify-between px-4 flex-shrink-0 border-b border-slate-50">
+        <div id="logo-desktop" class="flex items-center gap-3">
             <div class="bg-amber-500 p-2 rounded-xl shadow-lg shadow-amber-200 flex-shrink-0">
                 <i class="fa-solid fa-box text-white w-5 h-5 flex items-center justify-center"></i>
             </div>
-            <span id="logo-text" class="text-xl font-bold tracking-tight text-slate-800 whitespace-nowrap">
+            <span id="logo-text" class="nav-text text-xl font-bold tracking-tight text-slate-800 whitespace-nowrap">
                 Stok<span class="text-amber-500">In</span>
             </span>
         </div>
+        {{-- Desktop Toggle Button --}}
+        <button id="desktopSidebarToggle" class="hidden md:flex p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600">
+            <i class="fas fa-chevron-left text-sm transition-transform duration-300"></i>
+        </button>
     </div>
 
     <div class="flex-1 px-3 py-4 overflow-y-auto no-scrollbar">
@@ -69,7 +75,7 @@
                     Administrator
                 </p>
                 <li>
-                    <x-sidebar.links title="Manajemen Kasir" icon="fas fa-users" route="staff.index"
+                    <x-sidebar.links title="Manajemen Kasir" icon="fas fa-users" route="kasir.index"
                         class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                 </li>
                 <li>
@@ -82,17 +88,72 @@
     </div>
 
     <div class="p-4 border-slate-50">
-        <div class="mb-2 px-2 py-1 bg-slate-100 rounded-lg text-center">
-            <p class="text-xs text-slate-500">Login sebagai</p>
-            <p class="text-sm font-semibold text-slate-700">{{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
+        <div id="userInfo" class="mb-2 px-2 py-1 bg-slate-100 rounded-lg text-center">
+            <p class="nav-text text-xs text-slate-500">Login sebagai</p>
+            <p class="nav-text text-sm font-semibold text-slate-700">{{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
         </div>
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
             <button type="button" onclick="confirmLogout()"
-                class="w-full px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-md shadow-black outline-0">
-                <i class="fas fa-sign-out-alt w-5 h-5 flex items-center justify-center"></i>
-                <span class="logout-text whitespace-nowrap">Keluar</span>
+                class="logout-btn w-full px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-text whitespace-nowrap">Keluar</span>
             </button>
         </form>
     </div>
 </aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+    const desktopToggle = document.getElementById('desktopSidebarToggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    // Check saved state
+    const isMini = localStorage.getItem('sidebarMini') === 'true';
+    if (isMini) {
+        sidebar.classList.add('sidebar-mini');
+        if (mainWrapper) mainWrapper.classList.remove('md:ml-64');
+        if (mainWrapper) mainWrapper.classList.add('md:ml-20');
+    }
+    
+    // Desktop toggle
+    if (desktopToggle) {
+        desktopToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('sidebar-mini');
+            
+            if (sidebar.classList.contains('sidebar-mini')) {
+                if (mainWrapper) {
+                    mainWrapper.classList.remove('md:ml-64');
+                    mainWrapper.classList.add('md:ml-20');
+                }
+                localStorage.setItem('sidebarMini', 'true');
+            } else {
+                if (mainWrapper) {
+                    mainWrapper.classList.remove('md:ml-20');
+                    mainWrapper.classList.add('md:ml-64');
+                }
+                localStorage.setItem('sidebarMini', 'false');
+            }
+        });
+    }
+    
+    // Mobile toggle (from header hamburger if exists)
+    window.toggleMobileSidebar = function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('translate-x-0');
+        overlay.classList.toggle('hidden');
+    };
+    
+    // Close on overlay click
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+        });
+    }
+});
+</script>
+

@@ -5,7 +5,6 @@
 @section('page-description', 'Informasi stok barang per batch beserta masa berlaku')
 
 @section('content')
-    {{-- Status Summary Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center justify-between">
@@ -100,21 +99,29 @@
 @push('scripts')
     <script> 
         document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#batchTable', {
-                responsive: true,
-                pageLength: 10,
-                language: {
-                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
-                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
-                    info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
-                    paginate: {
-                        first: '<<',
-                        last: '>>',
-                        next: '>',
-                        previous: '<'
+            // Only initialize if table has data rows
+            if (document.querySelectorAll('#batchTable tbody tr').length > 0 && 
+                !document.querySelector('#batchTable tbody tr td[colspan]')) {
+                let table = new DataTable('#batchTable', {
+                    responsive: true,
+                    pageLength: 10,
+                    columnDefs: [
+                        { targets: '_all', defaultContent: '-' }
+                    ],
+                    language: {
+                        search: '<i class="fa-solid fa-magnifying-glass"></i> ',
+                        lengthMenu: 'Tampilkan _MENU_ data per halaman',
+                        info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
+                        paginate: {
+                            first: '<<',
+                            last: '>>',
+                            next: '>',
+                            previous: '<'
+                        },
+                        emptyTable: 'Belum ada data batch'
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 @endpush
