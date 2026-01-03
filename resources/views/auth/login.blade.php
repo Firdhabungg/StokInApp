@@ -12,9 +12,9 @@
 
             <!-- Login Form -->
             <div class="bg-white rounded-xl shadow-lg p-8">
-                @if($errors->any())
+                @if ($errors->any())
                     <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-                        @foreach($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             <p>{{ $error }}</p>
                         @endforeach
                     </div>

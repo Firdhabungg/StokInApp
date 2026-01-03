@@ -61,6 +61,7 @@
     }
 
     .sidebar-mini #nav-label,
+    .sidebar-mini .nav-label,
     .sidebar-mini .nav-text,
     .sidebar-mini .logout-text,
     .sidebar-mini .nav-text-saas,
@@ -80,7 +81,7 @@
     .sidebar-mini #desktopSidebarToggle i {
         transform: rotate(180deg);
     }
-    
+
     .sidebar-mini #logo-desktop {
         width: 100%;
         justify-content: center !important;
@@ -121,8 +122,8 @@
 
     table.dataTable thead th {
         @apply font-semibold text-gray-700 bg-gray-50 px-4 py-3 border-b border-gray-200;
-        text-align: center !important; 
-    } 
+        text-align: center !important;
+    }
 
     table.dataTable tbody td {
         @apply px-4 py-4 border-b border-gray-100;

@@ -13,7 +13,7 @@
             </div>
             <div>
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total Produk</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">1,240</h3>
+                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($totalProduk) }}</h3>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             </div>
             <div>
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total Toko</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">128</h3>
+                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($totalToko) }}</h3>
             </div>
         </div>
 
@@ -32,8 +32,8 @@
                 <i class="fas fa-triangle-exclamation text-lg"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Stok Tipis</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">24</h3>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Stok Menipis</p>
+                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($stokMenipis) }}</h3>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
             </div>
             <div>
                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pertumbuhan Omzet</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">84%</h3>
+                <h3 class="text-2xl font-extrabold text-gray-900">{{ $pertumbuhanOmzet }}%</h3>
             </div>
         </div>
     </div>
@@ -74,21 +74,15 @@
             <div class="mt-6 space-y-3 text-xs">
                 <div class="flex justify-between font-semibold text-gray-500">
                     <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 bg-amber-500 rounded-full"></span> Pro Plan
-                    </span>
-                    <span class="text-gray-900 font-bold">45%</span>
-                </div>
-                <div class="flex justify-between font-semibold text-gray-500">
-                    <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span> Enterprise
-                    </span>
-                    <span class="text-gray-900 font-bold">30%</span>
-                </div>
-                <div class="flex justify-between font-semibold text-gray-500">
-                    <span class="flex items-center gap-2">
                         <span class="w-2 h-2 bg-gray-300 rounded-full"></span> Starter
                     </span>
                     <span class="text-gray-900 font-bold">25%</span>
+                </div>
+                <div class="flex justify-between font-semibold text-gray-500">
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-amber-500 rounded-full"></span> Pro Plan
+                    </span>
+                    <span class="text-gray-900 font-bold">45%</span>
                 </div>
             </div>
         </div>

@@ -31,15 +31,35 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-semibold text-gray-900">Riwayat Transaksi</h2>
+    {{-- Header Section --}}
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">Riwayat Transaksi</h2>
+                <p class="text-gray-500 mt-1">Kelola semua transaksi penjualan toko Anda</p>
+            </div>
             <a href="{{ route('penjualan.create') }}"
-                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                <i class="fas fa-plus mr-2"></i>Transaksi Baru
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span>Transaksi Baru</span>
             </a>
         </div>
+    </div>
 
+    {{-- Search Card - Full Width --}}
+    <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-green-500 text-lg"></i>
+            </div>
+            <input type="text" id="customSearchInput" 
+                class="w-full pl-12 pr-4 py-4 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-base shadow-sm"
+                placeholder="Cari transaksi berdasarkan kode, tanggal, atau kasir...">
+        </div>
+    </div>
+
+    {{-- Table Card --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         @if (session('success'))
             <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
                 {{ session('success') }}
@@ -82,12 +102,14 @@
 
 @push('scripts')
     <script>
+        let table;
+        
         document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#penjualanTable', {
+            table = new DataTable('#penjualanTable', {
                 responsive: true,
                 pageLength: 10,
+                dom: 'lrtip',
                 language: {
-                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
                     lengthMenu: 'Tampilkan _MENU_ data per halaman',
                     info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
                     paginate: {
@@ -95,8 +117,17 @@
                         last: '>>',
                         next: '>',
                         previous: '<'
-                    }
+                    },
+                    zeroRecords: 'Tidak ada data yang ditemukan',
+                    infoEmpty: 'Menampilkan 0 data',
+                    infoFiltered: '(disaring dari _MAX_ total data)'
                 }
+            });
+
+            // Connect custom search input to DataTable
+            const customSearch = document.getElementById('customSearchInput');
+            customSearch.addEventListener('keyup', function() {
+                table.search(this.value).draw();
             });
         });
     </script>

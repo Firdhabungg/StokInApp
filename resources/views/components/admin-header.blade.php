@@ -23,15 +23,15 @@
             <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white"></span>
         </button>
 
-        {{-- Profile --}}
-        <div class="flex items-center gap-3">
+        <a href="{{ route('admin.profil.index') }}" 
+           class="flex items-center gap-3 p-1.5 pr-4 rounded-2xl hover:bg-amber-50 transition-colors group">
+            <div class="w-11 h-11 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-md group-hover:shadow-lg transition-shadow">
+                <i class="fas fa-user"></i>
+            </div>
             <div class="text-right hidden md:block">
-                <p class="text-sm font-bold">{{ auth()->user()->name }}</p>
-                <p class="text-[10px] text-amber-500 font-bold uppercase">Super Admin</p>
+                <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">{{ auth()->user()->name }}</p>
             </div>
-            <div class="w-11 h-11 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-amber-200 shadow-md">
-                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-            </div>
-        </div>
+        </a>
     </div>
 </header>
+

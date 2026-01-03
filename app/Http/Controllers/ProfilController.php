@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Toko;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\returnValue;
+use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
@@ -18,51 +18,54 @@ class ProfilController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display profil for super admin.
      */
-    public function create()
+    public function adminIndex()
     {
-        //
+        $user = auth()->user();
+        return view('admin.profil.index', compact('user'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update profil user (nama & email).
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . auth()->id(),
+        ]);
+
+        auth()->user()->update($validated);
+
+        return response()->json([
+            'message' => 'Profil berhasil diperbarui'
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Update password user.
      */
-    public function show(string $id)
+    public function updatePassword(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if (!Hash::check($request->current_password, auth()->user()->password)) {
+            return response()->json([
+                'message' => 'Password lama tidak sesuai'
+            ], 422);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        auth()->user()->update([
+            'password' => Hash::make($validated['password'])
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'message' => 'Password berhasil diperbarui'
+        ]);
     }
 
     /**
@@ -73,20 +76,20 @@ class ProfilController extends Controller
         if (!auth()->user()->isOwner()) {
             abort(403, 'Anda tidak memiliki akses.');
         }
-        
+
         $validated = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'nullable|email|max:255',
             'phone'   => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
- 
+
         $toko = auth()->user()->toko;
 
         if (!$toko) {
             abort(404, 'Toko tidak ditemukan.');
         }
- 
+
         $toko->update($validated);
 
         return response()->json([

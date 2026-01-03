@@ -8,7 +8,6 @@ use App\Models\SaleItem;
 use App\Models\StockIn;
 use App\Models\StockOut;
 use App\Models\StockBatch;
-use App\Models\KategoriBarang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +74,7 @@ class LaporanController extends Controller
         $totalStok = $barangs->sum('stok');
         $stokMenipis = $barangs->where('status', 'menipis')->count();
         $stokHabis = $barangs->where('status', 'habis')->count();
-        
+
         // Check subscription feature
         $canExportReport = $toko ? $toko->canExportReport() : false;
 

@@ -5,7 +5,15 @@
 @section('header_description', 'Daftar semua toko yang terdaftar dan status langganan')
 
 @section('content')
-    {{-- Summary Cards --}}
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">Daftar Toko</h2>
+                <p class="text-gray-500 mt-1">Kelola semua toko yang terdaftar di StokIn</p>
+            </div>
+        </div>
+    </div>
+    
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
             <div class="flex items-center gap-3">
@@ -80,12 +88,37 @@
         </div>
     </div>
 
+    <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-amber-500 text-lg"></i>
+            </div>
+            <input type="text" id="customSearchInput" 
+                class="w-full pl-12 pr-4 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
+                placeholder="Cari toko berdasarkan nama, email, atau paket...">
+        </div>
+        <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
+            <span class="flex items-center gap-1.5">
+                <i class="fas fa-filter text-amber-500"></i>
+                <span>Filter cepat:</span>
+            </span>
+            <button type="button" onclick="filterByStatus('Aktif')" class="filter-btn px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full hover:bg-emerald-200 transition-colors font-medium">
+                <i class="fas fa-check-circle mr-1"></i> Aktif
+            </button>
+            <button type="button" onclick="filterByStatus('Trial')" class="filter-btn px-3 py-1 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition-colors font-medium">
+                <i class="fas fa-clock mr-1"></i> Trial
+            </button>
+            <button type="button" onclick="filterByStatus('Expired')" class="filter-btn px-3 py-1 bg-rose-100 text-rose-600 rounded-full hover:bg-rose-200 transition-colors font-medium">
+                <i class="fas fa-times-circle mr-1"></i> Expired
+            </button>
+            <button type="button" onclick="clearFilter()" class="filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors font-medium">
+                <i class="fas fa-redo mr-1"></i> Reset
+            </button>
+        </div>
+    </div>
+
     {{-- Toko List --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-semibold text-gray-900">Daftar Toko</h2>
-        </div>
-        
         <div class="overflow-x-auto">
             <table id="tokoTable" class="w-full text-sm display">
             <thead class="bg-gray-50 text-gray-700 border-b border-gray-200">
@@ -175,20 +208,58 @@
 
 @push('scripts')
 <script>
+    let table;
+    
     document.addEventListener('DOMContentLoaded', function() {
         if (document.querySelectorAll('#tokoTable tbody tr').length > 0) {
-            new DataTable('#tokoTable', {
+            table = new DataTable('#tokoTable', {
                 responsive: true,
                 pageLength: 10,
+                dom: 'lrtip',
                 language: {
-                    search: '<i class="fa-solid fa-magnifying-glass"></i> ',
                     lengthMenu: 'Tampilkan _MENU_ data per halaman',
                     info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> toko',
                     paginate: { first: '<<', last: '>>', next: '>', previous: '<' },
+                    zeroRecords: 'Tidak ada data yang ditemukan',
+                    infoEmpty: 'Menampilkan 0 data',
+                    infoFiltered: '(disaring dari _MAX_ total data)',
                     emptyTable: 'Belum ada data toko'
                 }
             });
+
+            // Connect custom search input to DataTable
+            const customSearch = document.getElementById('customSearchInput');
+            customSearch.addEventListener('keyup', function() {
+                table.search(this.value).draw();
+            });
         }
     });
+
+    // Filter by status
+    function filterByStatus(status) {
+        if (table) {
+            document.getElementById('customSearchInput').value = status;
+            table.search(status).draw();
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-offset-1');
+            });
+            event.target.closest('.filter-btn').classList.add('ring-2', 'ring-offset-1');
+        }
+    }
+
+    // Clear filter
+    function clearFilter() {
+        if (table) {
+            document.getElementById('customSearchInput').value = '';
+            table.search('').draw();
+            
+            // Remove active state from all filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-offset-1');
+            });
+        }
+    }
 </script>
 @endpush

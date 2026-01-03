@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPaketController;
+use App\Http\Controllers\Admin\AdminPelangganController;
+use App\Http\Controllers\Admin\AdminTokoController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\BarangController;
@@ -17,6 +21,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotificationController;
 
+// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,8 +31,8 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     // Toko Management
-    Route::get('/toko', [\App\Http\Controllers\Admin\AdminTokoController::class, 'index'])->name('toko.index');
-    Route::get('/toko/{toko}', [\App\Http\Controllers\Admin\AdminTokoController::class, 'show'])->name('toko.show');
+    Route::get('/toko', [AdminTokoController::class, 'index'])->name('toko.index');
+    Route::get('/toko/{toko}', [AdminTokoController::class, 'show'])->name('toko.show');
 
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
@@ -42,18 +47,24 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
 
 
     Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\AdminPelangganController::class, 'index'])->name('index');
-        Route::get('/{toko}', [\App\Http\Controllers\Admin\AdminPelangganController::class, 'show'])->name('show');
+        Route::get('/', [AdminPelangganController::class, 'index'])->name('index');
+        Route::get('/{toko}', [AdminPelangganController::class, 'show'])->name('show');
     });
 
     Route::prefix('kelola-paket')->name('kelola-paket.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\AdminPaketController::class, 'index'])->name('index');
-        Route::get('/{plan}/edit', [\App\Http\Controllers\Admin\AdminPaketController::class, 'edit'])->name('edit');
-        Route::put('/{plan}', [\App\Http\Controllers\Admin\AdminPaketController::class, 'update'])->name('update');
-        Route::patch('/{plan}/toggle', [\App\Http\Controllers\Admin\AdminPaketController::class, 'toggleStatus'])->name('toggle');
+        Route::get('/', [AdminPaketController::class, 'index'])->name('index');
+        Route::get('/{plan}/edit', [AdminPaketController::class, 'edit'])->name('edit');
+        Route::put('/{plan}', [AdminPaketController::class, 'update'])->name('update');
+        Route::patch('/{plan}/toggle', [AdminPaketController::class, 'toggleStatus'])->name('toggle');
+    });
+
+    // Profil Super Admin
+    Route::prefix('profil')->name('profil.')->group(function () {
+        Route::get('/', [ProfilController::class, 'adminIndex'])->name('index');
+        Route::put('/update', [ProfilController::class, 'update'])->name('update');
+        Route::put('/password', [ProfilController::class, 'updatePassword'])->name('password');
     });
 });
-
 
 // Guest routes
 Route::middleware('guest')->group(function () {
@@ -79,7 +90,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
     // Profil (Update toko) - Owner
     Route::put('/profil/toko', [ProfilController::class, 'updateToko'])
-    ->name('profil.toko.update');
+        ->name('profil.toko.update');
 
     // Penjualan (POS) - Kasir & Owner
     Route::resource('penjualan', PenjualanController::class)->only(['index', 'create', 'store', 'show']);
@@ -131,15 +142,15 @@ Route::middleware('auth')->group(function () {
 
     // Subscription Management
     Route::prefix('subscription')->name('subscription.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\SubscriptionController::class, 'index'])->name('index');
-        Route::get('/checkout/{plan}', [\App\Http\Controllers\SubscriptionController::class, 'checkout'])->name('checkout');
-        Route::get('/callback', [\App\Http\Controllers\SubscriptionController::class, 'callback'])->name('callback');
-        Route::get('/expired', [\App\Http\Controllers\SubscriptionController::class, 'expired'])->name('expired');
+        Route::get('/', [SubscriptionController::class, 'index'])->name('index');
+        Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
+        Route::get('/callback', [SubscriptionController::class, 'callback'])->name('callback');
+        Route::get('/expired', [SubscriptionController::class, 'expired'])->name('expired');
     });
 });
 
 // Public pricing page
-Route::get('/pricing', [\App\Http\Controllers\SubscriptionController::class, 'plans'])->name('pricing');
+Route::get('/pricing', [SubscriptionController::class, 'plans'])->name('pricing');
 
 // Midtrans Webhook (no auth, verified by Midtrans signature)
-Route::post('/midtrans/webhook', [\App\Http\Controllers\SubscriptionController::class, 'webhook'])->name('midtrans.webhook');
+Route::post('/midtrans/webhook', [SubscriptionController::class, 'webhook'])->name('midtrans.webhook');

@@ -17,7 +17,7 @@
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
                         {{ auth()->user()->isOwner() ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800' }}">
-                        {{ auth()->user()->isOwner() ? 'Administrator' : 'Staff' }}
+                        {{ auth()->user()->isOwner() ? 'Owner' : 'Kasir' }}
                     </span>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-semibold text-gray-900">Informasi Toko</h3>
 
-                @if(auth()->user()->isOwner())
+                @if (auth()->user()->isOwner())
                     <button onclick="editToko()"
                         class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                         <i class="fas fa-edit mr-2"></i>Edit Toko
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            @if(!auth()->user()->isOwner())
+            @if (!auth()->user()->isOwner())
                 <p class="mt-4 text-sm text-gray-500 italic">
                     * Informasi toko hanya dapat diubah oleh owner.
                 </p>
@@ -188,24 +188,24 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch("{{ route('profil.toko.update') }}", {
-                        method: 'PUT',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(result.value)
-                    })
-                    .then(res => {
-                        if (!res.ok) throw res;
-                        return res.json();
-                    })
-                    .then(() => {
-                        Swal.fire('Berhasil', 'Informasi toko diperbarui', 'success')
-                            .then(() => location.reload());
-                    })
-                    .catch(() => {
-                        Swal.fire('Gagal', 'Tidak dapat menyimpan data', 'error');
-                    });
+                            method: 'PUT',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(result.value)
+                        })
+                        .then(res => {
+                            if (!res.ok) throw res;
+                            return res.json();
+                        })
+                        .then(() => {
+                            Swal.fire('Berhasil', 'Informasi toko diperbarui', 'success')
+                                .then(() => location.reload());
+                        })
+                        .catch(() => {
+                            Swal.fire('Gagal', 'Tidak dapat menyimpan data', 'error');
+                        });
                 }
             });
         }

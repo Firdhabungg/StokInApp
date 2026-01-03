@@ -1,22 +1,17 @@
 <div x-data="{ mobileOpen: false }" x-cloak>
     {{-- Mobile Overlay --}}
-    <div x-show="mobileOpen" 
-         x-transition:enter="transition-opacity ease-out duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition-opacity ease-in duration-200"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         @click="mobileOpen = false"
-         class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden">
+    <div x-show="mobileOpen" x-transition:enter="transition-opacity ease-out duration-300"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity ease-in duration-200" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0" @click="mobileOpen = false"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden">
     </div>
 
     {{-- Sidebar --}}
     <aside :class="{ '-translate-x-full': !mobileOpen, 'translate-x-0': mobileOpen }"
-           class="fixed top-0 left-0 z-50 w-64 h-screen bg-white border-r border-gray-100 flex flex-col transition-transform duration-300 md:translate-x-0"
-           x-bind:class="$store.adminSidebar.mini ? 'sidebar-mini' : ''">
+        class="fixed top-0 left-0 z-50 w-64 h-screen bg-white border-r border-gray-100 flex flex-col transition-transform duration-300 md:translate-x-0"
+        x-bind:class="$store.adminSidebar.mini ? 'sidebar-mini' : ''">
 
-        {{-- Logo --}}
         <div class="h-20 flex items-center justify-center md:justify-start md:px-6 border-b border-transparent">
             <div class="hidden md:flex items-center gap-3 w-full transition-all duration-300">
                 <div class="bg-amber-500 px-3 py-2 rounded-xl shadow-sm shrink-0">
@@ -34,7 +29,6 @@
             </div>
         </div>
 
-        {{-- Navigation --}}
         <div class="flex-1 px-3 py-4 space-y-8 overflow-y-auto no-scrollbar flex flex-col">
             <nav class="space-y-1.5 flex-1">
 
@@ -44,10 +38,10 @@
 
                 <ul class="space-y-1.5">
                     <li>
-                        <x-sidebar.links title="Dashboard Admin" icon="fas fa-gauge-high" route="admin.dashboard" />
+                        <x-sidebar.links title="Dashboard" icon="fas fa-gauge-high" route="admin.dashboard" />
                     </li>
-
-                    <p class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
+                    <p
+                        class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
                         Pengelolaan SaaS
                     </p>
 
@@ -58,23 +52,28 @@
                         <x-sidebar.links title="Pelanggan (Toko)" icon="fas fa-users" route="admin.pelanggan.index" />
                     </li>
                     <li>
-                        <x-sidebar.links title="Paket Berlangganan" icon="fas fa-layer-group" route="admin.kelola-paket.index" />
+                        <x-sidebar.links title="Paket Berlangganan" icon="fas fa-layer-group"
+                            route="admin.kelola-paket.index" />
                     </li>
 
-                    <p class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
+                    <p
+                        class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
                         Keuangan
                     </p>
 
                     <li>
-                        <x-sidebar.links title="Tagihan & Faktur" icon="fas fa-file-invoice" route="admin.keuangan.index" />
+                        <x-sidebar.links title="Tagihan & Faktur" icon="fas fa-file-invoice"
+                            route="admin.keuangan.index" />
                     </li>
 
-                    <p class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
+                    <p
+                        class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
                         Sistem
                     </p>
 
                     <li>
-                        <x-sidebar.links title="Pengaturan Aplikasi" icon="fas fa-gear" route="admin.pengaturan.index" />
+                        <x-sidebar.links title="Pengaturan Aplikasi" icon="fas fa-gear"
+                            route="admin.pengaturan.index" />
                     </li>
                 </ul>
 
@@ -84,7 +83,8 @@
             <div class="mt-4 hidden md:block">
                 <button @click="$store.adminSidebar.toggle()"
                     class="w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-gray-50 hover:text-amber-500 rounded-xl transition-all duration-200">
-                    <i class="fas fa-chevron-left transition-transform duration-300" :class="$store.adminSidebar.mini ? 'rotate-180' : ''"></i>
+                    <i class="fas fa-chevron-left transition-transform duration-300"
+                        :class="$store.adminSidebar.mini ? 'rotate-180' : ''"></i>
                     <span class="nav-text text-sm font-semibold">Tutup</span>
                 </button>
             </div>

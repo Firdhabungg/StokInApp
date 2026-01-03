@@ -95,14 +95,14 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div data-aos="fade-up" data-aos-delay="0"
                     class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">10.000+</h3>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">100+</h3>
                     <p class="text-gray-600 font-medium">Pengguna Aktif</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="150"
                     class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">5K+</h3>
-                    <p class="text-gray-600 font-medium">Transaksi per Hari</p>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2">500+</h3>
+                    <p class="text-gray-600 font-medium">Transaksi per Bulan</p>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="300"
@@ -154,8 +154,7 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div
-                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-check-double text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -164,8 +163,7 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div
-                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-chart-line text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -260,20 +258,21 @@
         <div class="py-4 md:py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
             <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-6 md:mb-8 lg:mb-12">
                 <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-gray-900">Paket Harga</h2>
-                <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
+                <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan
+                    bisnis Anda</p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div data-aos="fade-up" data-aos-delay="100"
                     class="flex flex-col p-6 md:p-8 text-center text-gray-900 bg-white rounded-2xl border-2 border-gray-200 shadow-lg hover:border-amber-500 hover:shadow-amber-200 transition-all duration-300">
                     <h3 class="mb-2 text-xl md:text-2xl font-bold text-gray-800">Free Trial</h3>
                     <p class="text-sm text-gray-500 mb-4">Coba gratis selama 14 hari</p>
-                    
+
                     <div class="flex justify-center items-baseline my-6">
                         <span class="text-4xl md:text-5xl font-extrabold text-gray-900">Rp 0</span>
                         <span class="ml-2 text-gray-500">/14 hari</span>
                     </div>
-                    
+
                     <ul class="mb-8 space-y-4 text-left">
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
@@ -312,7 +311,7 @@
                             <span>Multi User</span>
                         </li>
                     </ul>
-                    
+
                     <a href="{{ route('register') }}?plan=free"
                         class="mt-auto w-full py-3 px-6 text-amber-600 bg-amber-50 border-2 border-amber-500 rounded-xl font-bold hover:bg-amber-500 hover:text-white transition-all">
                         Mulai Free Trial
@@ -320,20 +319,20 @@
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="200"
-                    class="flex flex-col p-6 md:p-8 text-center text-white bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl shadow-xl shadow-amber-200 relative overflow-hidden">
-                    
+                    class="flex flex-col p-6 md:p-8 text-center text-white bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl hover:shadow-xl shadow-amber-200 relative overflow-hidden">
+
                     <div class="absolute top-4 right-4 bg-white text-amber-600 text-xs font-bold px-3 py-1 rounded-full">
                         POPULER
                     </div>
-                    
+
                     <h3 class="mb-2 text-xl md:text-2xl font-bold">Pro</h3>
                     <p class="text-sm text-amber-100 mb-4">Untuk bisnis yang berkembang</p>
-                    
+
                     <div class="flex justify-center items-baseline my-6">
                         <span class="text-4xl md:text-5xl font-extrabold">Rp 149K</span>
                         <span class="ml-2 text-amber-100">/bulan</span>
                     </div>
-                    
+
                     <ul class="mb-8 space-y-4 text-left">
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
@@ -372,7 +371,7 @@
                             <span>Prioritas Support</span>
                         </li>
                     </ul>
-                    
+
                     <a href="{{ route('register') }}?plan=pro"
                         class="mt-auto w-full py-3 px-6 text-amber-600 bg-white rounded-xl font-bold hover:bg-gray-100 transition-all shadow-lg">
                         Pilih Pro

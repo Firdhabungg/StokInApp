@@ -10,8 +10,8 @@
             Halo {{ Auth::user()->role_label }} {{ Auth::user()->toko_name }} 👋
         </h1>
 
-        <p class="text-sm text-gray-500">
-            @if(Auth::user()->isOwner())
+        <p class="text-sm text-gray-500 mb-4">
+            @if (Auth::user()->isOwner())
                 Pantau performa toko dan laporan hari ini
             @elseif(Auth::user()->isKasir())
                 Siap melayani transaksi hari ini
@@ -29,7 +29,8 @@
             </div>
             <div>
                 <h4 class="font-semibold text-orange-800">Perhatian!</h4>
-                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluarsa dalam 7 hari ke depan.</p>
+                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluarsa dalam 7
+                    hari ke depan.</p>
             </div>
         </div>
     @endif
@@ -54,7 +55,7 @@
             </div>
             <p class="text-3xl font-bold text-gray-900">{{ $barangMasukHariIni + $barangKeluarHariIni }}</p>
             <p class="text-sm text-gray-400 mt-1">
-                <span class="text-green-500">+{{ $barangMasukHariIni }} masuk</span> • 
+                <span class="text-green-500">+{{ $barangMasukHariIni }} masuk</span> •
                 <span class="text-red-500">-{{ $barangKeluarHariIni }} keluar</span>
             </p>
         </div>
@@ -137,7 +138,8 @@
                             <p class="font-medium text-gray-900">{{ $barang->nama_barang }}</p>
                             <p class="text-xs text-gray-500">Stok: {{ $barang->stok }} item</p>
                         </div>
-                        <span class="px-3 py-1 {{ $barang->stok <= 5 ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600' }} text-xs font-medium rounded-full">
+                        <span
+                            class="px-3 py-1 {{ $barang->stok <= 5 ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600' }} text-xs font-medium rounded-full">
                             {{ $barang->stok <= 5 ? 'Kritis' : 'Menipis' }}
                         </span>
                     </div>
@@ -170,7 +172,8 @@
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
                             <p class="font-medium text-gray-900">{{ $batch->barang->nama_barang }}</p>
-                            <p class="text-xs text-gray-500">{{ $daysLeft }} hari lagi • Sisa: {{ $batch->jumlah_sisa }}</p>
+                            <p class="text-xs text-gray-500">{{ $daysLeft }} hari lagi • Sisa:
+                                {{ $batch->jumlah_sisa }}</p>
                         </div>
                         <span class="px-3 py-1 {{ $colorClass }} text-xs font-medium rounded-full">
                             {{ $batch->tgl_kadaluarsa->format('d M') }}
@@ -197,8 +200,10 @@
                 @forelse ($transaksiTerbaru as $trx)
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center {{ $trx['type'] == 'masuk' ? 'bg-green-100' : 'bg-red-100' }}">
-                                <i class="fas fa-arrow-{{ $trx['type'] == 'masuk' ? 'down' : 'up' }} {{ $trx['type'] == 'masuk' ? 'text-green-600' : 'text-red-600' }} text-xs"></i>
+                            <div
+                                class="w-8 h-8 rounded-full flex items-center justify-center {{ $trx['type'] == 'masuk' ? 'bg-green-100' : 'bg-red-100' }}">
+                                <i
+                                    class="fas fa-arrow-{{ $trx['type'] == 'masuk' ? 'down' : 'up' }} {{ $trx['type'] == 'masuk' ? 'text-green-600' : 'text-red-600' }} text-xs"></i>
                             </div>
                             <div>
                                 <p class="font-medium text-gray-900 text-sm">{{ $trx['barang'] }}</p>
@@ -221,7 +226,8 @@
 
     <!-- Quick Actions -->
     <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="{{ route('stock.in.create') }}" class="flex items-center gap-4 p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-100 transition-colors">
+        <a href="{{ route('stock.in.create') }}"
+            class="flex items-center gap-4 p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-100 transition-colors">
             <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
                 <i class="fas fa-arrow-down text-white"></i>
             </div>
@@ -230,7 +236,8 @@
                 <p class="text-sm text-green-600">Catat stok baru</p>
             </div>
         </a>
-        <a href="{{ route('stock.out.create') }}" class="flex items-center gap-4 p-4 bg-red-50 hover:bg-red-100 rounded-xl border border-red-100 transition-colors">
+        <a href="{{ route('stock.out.create') }}"
+            class="flex items-center gap-4 p-4 bg-red-50 hover:bg-red-100 rounded-xl border border-red-100 transition-colors">
             <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
                 <i class="fas fa-arrow-up text-white"></i>
             </div>
@@ -239,7 +246,8 @@
                 <p class="text-sm text-red-600">Kurangi stok (FIFO)</p>
             </div>
         </a>
-        <a href="{{ route('barang.create') }}" class="flex items-center gap-4 p-4 bg-amber-50 hover:bg-amber-100 rounded-xl border border-amber-100 transition-colors">
+        <a href="{{ route('barang.create') }}"
+            class="flex items-center gap-4 p-4 bg-amber-50 hover:bg-amber-100 rounded-xl border border-amber-100 transition-colors">
             <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center">
                 <i class="fas fa-plus text-white"></i>
             </div>
