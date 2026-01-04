@@ -2,6 +2,7 @@
 
 @section('title', 'Laporan Penjualan')
 @section('page-title', 'Laporan Penjualan')
+@section('page-description', 'Ringkasan data penjualan dan performa transaksi')
 
 @section('content')
     {{-- Filter --}}

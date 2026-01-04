@@ -2,6 +2,7 @@
 
 @section('title', 'Laporan Barang Masuk')
 @section('page-title', 'Laporan Barang Masuk')
+@section('page-description', 'Ringkasan data barang masuk dan penambahan stok')
 
 @section('content')
     {{-- Filter --}}

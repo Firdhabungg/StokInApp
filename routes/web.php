@@ -131,9 +131,11 @@ Route::middleware('auth')->group(function () {
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::get('/', [LaporanController::class, 'index'])->name('index');
             Route::get('/stok', [LaporanController::class, 'stok'])->name('stok');
+            Route::get('/laporan/stok/export/excel', [LaporanStokController::class, 'exportExcel'])->name('laporan.stok.export.excel');
+            Route::get('/laporan/stok/export/pdf', [LaporanStokController::class, 'exportPdf'])->name('laporan.stok.export.pdf');
             Route::get('/penjualan', [LaporanController::class, 'penjualan'])->name('penjualan');
             Route::get('/barang-masuk', [LaporanController::class, 'barangMasuk'])->name('barang-masuk');
-            Route::get('/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('barang-keluar');
+            Route::get('/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('barang-keluar'); 
         });
 
         // Manajemen Kasir - Owner only

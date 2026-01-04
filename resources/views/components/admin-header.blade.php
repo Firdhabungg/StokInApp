@@ -1,5 +1,12 @@
 <header x-data
-    class="sticky top-0 z-30 h-20 bg-white/80 backdrop-blur border-b border-gray-100 flex items-center justify-between px-6 transition-all duration-300">
+    class="sticky top-0 z-30 h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-6 md:px-10"
+    x-data="{ open: false, notifOpen: false, notifications: [], count: 0 }" x-init="fetch('/notifications/get')
+        .then(r => r.json())
+        .then(data => {
+            notifications = data.notifications;
+            count = data.count;
+        })
+        .catch(e => console.log('No notifications'));">
     <div class="flex items-center gap-4">
 
         {{-- Mobile Toggle --}}
