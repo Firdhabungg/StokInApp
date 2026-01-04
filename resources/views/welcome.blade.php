@@ -119,8 +119,8 @@
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" class="relative">
-                    <img src="{{ asset('images/why-stokin.png') }}" alt="StokIn Dashboard di Tablet"
-                        class="rounded-xl shadow-2xl w-full max-w-lg mx-auto">
+                    <img src="{{ asset('images/tablet.png') }}" alt="StokIn Dashboard di Tablet"
+                        class="w-full max-w-lg mx-auto">
                 </div>
 
                 <div data-aos="fade-left" data-aos-delay="100">

@@ -2,6 +2,7 @@
 
 @section('title', 'Laporan Stok')
 @section('page-title', 'Laporan Stok')
+@section('page-description', 'Ringkasan kondisi stok dan ketersediaan inventaris')
 
 @section('content')
     {{-- Export Buttons --}}

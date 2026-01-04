@@ -4,199 +4,258 @@
 @section('header_description', 'Analisis Real-time Performa StokIn')
 
 @section('content')
+
+@php
+    /*
+    |--------------------------------------------------------------------------
+    | FALLBACK DATA (ANTI ERROR)
+    |--------------------------------------------------------------------------
+    */
+
+    // Distribusi paket
+    $paketLabels = $paketLabels ?? [];
+    $paketData   = $paketData ?? [];
+    $totalPaket  = $totalPaket ?? 0;
+
+    // Log aktivitas
+    $activityLogs = $activityLogs ?? [];
+
+    // Kesehatan sistem
+    $cpu             = $system['cpu'] ?? 0;
+    $storageUsed     = $system['storage_used'] ?? 0;
+    $storageTotal    = $system['storage_total'] ?? 0;
+    $storagePercent  = $system['storage_percent'] ?? 0;
+@endphp
+
 <div class="space-y-6">
- 
+
+    {{-- ================= SUMMARY ================= --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
-            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
-                <i class="fas fa-boxes-stacked text-lg"></i>
-            </div>
-            <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total Produk</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($totalProduk) }}</h3>
-            </div>
-        </div>
+        @php
+            $cards = [
+                ['icon'=>'boxes-stacked','color'=>'blue','title'=>'Total Produk','value'=>$totalProduk ?? 0],
+                ['icon'=>'store','color'=>'amber','title'=>'Total Toko','value'=>$totalToko ?? 0],
+                ['icon'=>'triangle-exclamation','color'=>'rose','title'=>'Stok Menipis','value'=>$stokMenipis ?? 0],
+                ['icon'=>'credit-card','color'=>'emerald','title'=>'Pertumbuhan Omzet','value'=>($pertumbuhanOmzet ?? 0).'%'],
+            ];
+        @endphp
 
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
-            <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
-                <i class="fas fa-store text-lg"></i>
-            </div>
-            <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total Toko</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($totalToko) }}</h3>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
-            <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
-                <i class="fas fa-triangle-exclamation text-lg"></i>
-            </div>
-            <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Stok Menipis</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">{{ number_format($stokMenipis) }}</h3>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
-            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
-                <i class="fas fa-credit-card text-lg"></i>
-            </div>
-            <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pertumbuhan Omzet</p>
-                <h3 class="text-2xl font-extrabold text-gray-900">{{ $pertumbuhanOmzet }}%</h3>
-            </div>
-        </div>
-    </div>
- 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-lg font-bold text-gray-900">Pertumbuhan Langganan</h3>
-                    <p class="text-xs text-gray-400 font-medium">Data pendaftaran toko 7 hari terakhir</p>
+        @foreach ($cards as $c)
+            <div class="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4">
+                <div class="p-3 bg-{{ $c['color'] }}-50 text-{{ $c['color'] }}-600 rounded-xl">
+                    <i class="fas fa-{{ $c['icon'] }}"></i>
                 </div>
-                <select class="text-xs font-bold bg-gray-50 rounded-lg px-3 py-2 outline-none">
-                    <option>7 Hari Terakhir</option>
-                    <option>30 Hari Terakhir</option>
-                </select>
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                        {{ $c['title'] }}
+                    </p>
+                    <h3 class="text-2xl font-extrabold text-gray-900">
+                        {{ $c['value'] }}
+                    </h3>
+                </div>
             </div>
-            <div class="h-[300px]">
-                <canvas id="growthChart"></canvas>
-            </div>
+        @endforeach
+    </div>
+
+    {{-- ================= CHART ================= --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {{-- Pertumbuhan Langganan --}}
+        <div class="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm">
+            <h3 class="text-lg font-bold mb-1">Pertumbuhan Langganan</h3>
+            <p class="text-xs text-gray-400 mb-6">7 hari terakhir</p>
+            <canvas id="growthChart"></canvas>
         </div>
 
+        {{-- Distribusi Paket --}}
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <h3 class="text-lg font-bold text-gray-900 mb-6">Distribusi Paket</h3>
-            <div class="h-[220px] flex items-center justify-center">
+            <h3 class="text-lg font-bold mb-6">Distribusi Paket</h3>
+
+            <div class="h-[220px] flex justify-center">
                 <canvas id="packageChart"></canvas>
             </div>
 
             <div class="mt-6 space-y-3 text-xs">
-                <div class="flex justify-between font-semibold text-gray-500">
-                    <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 bg-gray-300 rounded-full"></span> Starter
-                    </span>
-                    <span class="text-gray-900 font-bold">25%</span>
-                </div>
-                <div class="flex justify-between font-semibold text-gray-500">
-                    <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 bg-amber-500 rounded-full"></span> Pro Plan
-                    </span>
-                    <span class="text-gray-900 font-bold">45%</span>
-                </div>
+                @forelse ($paketLabels as $i => $planName)
+                    @php
+                        $jumlah = $paketData[$i];
+                        $persen = $totalPaket > 0
+                            ? round(($jumlah / $totalPaket) * 100)
+                            : 0;
+
+                        $color = match (strtolower($planName)) {
+                            'pro'      => '#f59e0b',
+                            'premium' => '#10b981',
+                            default   => '#3b82f6',
+                        };
+                    @endphp
+
+                    <div class="flex justify-between items-center font-semibold text-gray-600">
+                        <span class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full"
+                                style="background-color: {{ $color }}"></span>
+                            {{ $planName }}
+                        </span>
+
+                        <span class="font-bold text-gray-900">
+                            {{ $persen }}%
+                        </span>
+                    </div>
+                @empty
+                    <p class="text-center text-gray-400">
+                        Belum ada langganan
+                    </p>
+                @endforelse
             </div>
         </div>
     </div>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    {{-- ================= LOG & SYSTEM ================= --}}
+    <div class="">
+
+        {{-- Log Aktivitas --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+
+            {{-- Header --}}
             <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-gray-900">Log Aktivitas Toko</h3>
-                <button class="p-2 rounded-lg hover:bg-gray-50">
-                    <i class="fas fa-ellipsis-h text-gray-400"></i>
-                </button>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">Log Aktivitas Toko</h3>
+                    <p class="text-xs text-gray-400 mt-1">Transaksi terbaru</p>
+                </div>
+
+                <div class="flex gap-2">
+                    <button id="prevLog"
+                        class="px-3 py-1 text-sm border rounded-lg hover:bg-gray-50">
+                        ‹
+                    </button>
+                    <button id="nextLog"
+                        class="px-3 py-1 text-sm border rounded-lg hover:bg-gray-50">
+                        ›
+                    </button>
+                </div>
             </div>
 
-            <div class="p-4 space-y-4">
-                <div class="flex gap-4 p-3 rounded-xl hover:bg-gray-50">
-                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-gray-900">Kopi Kenangan - Jakarta</p>
-                        <p class="text-xs text-gray-500">Menambahkan 24 stok baru</p>
-                        <p class="text-[10px] text-gray-400 font-bold mt-1 uppercase">2 menit lalu</p>
-                    </div>
-                </div>
+            {{-- List --}}
+            <div id="logContainer" class="p-4 space-y-4">
+                @foreach ($activityLogs as $index => $sale)
+                    <div class="log-item {{ $index >= 5 ? 'hidden' : '' }}">
+                        <div class="flex gap-4 p-3 rounded-xl hover:bg-gray-50 transition">
+                            <div
+                                class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-cart-shopping"></i>
+                            </div>
 
-                <div class="flex gap-4 p-3 rounded-xl hover:bg-gray-50">
-                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-rotate"></i>
+                            <div class="flex-1">
+                                <p class="text-sm font-bold text-gray-900">
+                                    {{ $sale->toko->name ?? 'Toko tidak diketahui' }}
+                                </p>
+
+                                <p class="text-xs text-gray-500">
+                                    {{ $sale->user->name ?? 'Kasir' }}
+                                    • Rp {{ number_format($sale->total, 0, ',', '.') }}
+                                </p>
+
+                                <p class="text-[10px] text-gray-400 font-bold mt-1 uppercase">
+                                    {{ $sale->created_at->diffForHumans() }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-sm font-bold text-gray-900">Toko Berkah</p>
-                        <p class="text-xs text-gray-500">Memperbarui profil toko</p>
-                        <p class="text-[10px] text-gray-400 font-bold mt-1 uppercase">15 menit lalu</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
-        <div class="bg-gray-900 rounded-xl p-8 text-white relative overflow-hidden">
-            <h3 class="text-xl font-bold mb-2">Kesehatan Sistem</h3>
-            <p class="text-gray-400 text-sm mb-8">Status server & database</p>
-
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between text-xs font-bold uppercase text-gray-500 mb-2">
-                        <span>Beban Server</span>
-                        <span class="text-emerald-400">Optimal</span>
-                    </div>
-                    <div class="h-1.5 bg-gray-800 rounded-full">
-                        <div class="h-full w-[32%] bg-emerald-500 rounded-full"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-xs font-bold uppercase text-gray-500 mb-2">
-                        <span>Penyimpanan</span>
-                        <span class="text-amber-400">64 / 128 GB</span>
-                    </div>
-                    <div class="h-1.5 bg-gray-800 rounded-full">
-                        <div class="h-full w-[50%] bg-amber-500 rounded-full"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 flex items-center gap-4">
-                <div class="flex -space-x-2">
-                    <div class="w-8 h-8 bg-gray-700 rounded-full border-2 border-gray-900 flex items-center justify-center text-[10px] font-bold">JD</div>
-                    <div class="w-8 h-8 bg-gray-700 rounded-full border-2 border-gray-900 flex items-center justify-center text-[10px] font-bold">AS</div>
-                </div>
-                <p class="text-[10px] uppercase font-bold text-gray-500">2 Admin Online</p>
-            </div>
-        </div>
     </div>
-
 </div>
- 
+
+{{-- ================= SCRIPT ================= --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    const growthLabels = @json($growthLabels ?? []);
+    const growthData   = @json($growthData ?? []);
+    const paketLabels = @json($paketLabels ?? []);
+    const paketData   = @json($paketData ?? []);
 
-    new Chart(document.getElementById('growthChart'), {
-        type: 'line',
-        data: {
-            labels: ['Sen','Sel','Rab','Kam','Jum','Sab','Min'],
-            datasets: [{
-                data: [12,19,15,25,22,30,45],
-                borderColor: '#f59e0b',
-                backgroundColor: 'rgba(245,158,11,0.15)',
-                fill: true,
-                tension: 0.4,
-                borderWidth: 3,
-                pointRadius: 0
-            }]
-        },
-        options: {
-            plugins: { legend: { display: false }},
-            scales: { y: { display: false }, x: { grid: { display: false }}}
+    if (document.getElementById('growthChart')) {
+        new Chart(growthChart, {
+            type: 'line',
+            data: {
+                labels: growthLabels,
+                datasets: [{
+                    data: growthData,
+                    backgroundColor: 'rgba(245,158,11,.15)',
+                    fill: true,
+                    tension: .4,
+                    pointRadius: 0
+                }]
+            },
+            options: { plugins:{ legend:{ display:false }}}
+        });
+    }
+
+    if (document.getElementById('packageChart')) {
+
+        const paketLabels = @json($paketLabels ?? []);
+        const paketData   = @json($paketData ?? []);
+
+        const colors = paketLabels.map(label => {
+            label = label.toLowerCase();
+            if (label.includes('pro')) return '#f59e0b';
+            if (label.includes('premium')) return '#10b981';
+            return '#3b82f6';
+        });
+
+        new Chart(packageChart, {
+            type: 'doughnut',
+            data: {
+                labels: paketLabels,
+                datasets: [{
+                    data: paketData,
+                    backgroundColor: colors,
+                    cutout: '75%'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const logs = document.querySelectorAll('.log-item');
+    const perPage = 5;
+    let page = 0;
+    const totalPage = Math.ceil(logs.length / perPage);
+
+    function render() {
+        logs.forEach((el, i) => {
+            el.classList.toggle(
+                'hidden',
+                i < page * perPage || i >= (page + 1) * perPage
+            );
+        });
+    }
+
+    document.getElementById('nextLog').addEventListener('click', () => {
+        if (page < totalPage - 1) {
+            page++;
+            render();
         }
     });
 
-    new Chart(document.getElementById('packageChart'), {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [45,30,25],
-                backgroundColor: ['#f59e0b','#3b82f6','#e5e7eb'],
-                borderWidth: 0,
-                cutout: '80%'
-            }]
-        },
-        options: { plugins: { legend: { display: false }}}
+    document.getElementById('prevLog').addEventListener('click', () => {
+        if (page > 0) {
+            page--;
+            render();
+        }
     });
 
+    render();
 });
 </script>
+
 @endsection
