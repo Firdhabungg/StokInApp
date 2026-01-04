@@ -30,7 +30,7 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Toko Management
+    // Management Toko
     Route::get('/toko', [AdminTokoController::class, 'index'])->name('toko.index');
     Route::get('/toko/{toko}', [AdminTokoController::class, 'show'])->name('toko.show');
 
