@@ -2,20 +2,21 @@
 
 @section('title', 'Data Barang')
 @section('page-title', 'Data Barang')
-@section('page-description', 'Monitoring data barang, stok, dan ketersediaan')
+@section('page-description', 'Monitoring data barang, stok, dan ketersediaan (readonly)')
 
 @section('content')
     <div class="mb-6">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900">Data Barang</h2>
-                <p class="text-gray-500 mt-1">Kelola semua data barang toko Anda</p>
             </div>
-            <a href="{{ route('barang.create') }}"
-                class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
-                <i class="fas fa-plus"></i>
-                <span>Tambah Barang</span>
-            </a>
+            @if (auth()->user()->canManageToko())
+                <a href="{{ route('barang.create') }}"
+                    class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
+                    <i class="fas fa-plus"></i>
+                    <span>Tambah Barang</span>
+                </a>
+            @endif
         </div>
     </div>
 
@@ -60,7 +61,9 @@
                         <th>Harga Supplier</th>
                         <th>Harga Jual</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        @if (auth()->user()->canManageToko())
+                            <th>Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -79,24 +82,26 @@
                                     @else bg-red-100 text-red-600 @endif
                                     text-xs font-medium rounded-full">{{ ucfirst($barang->status) }}</span>
                             </td>
-                            <td>
-                                <div class="flex gap-3">
-                                    <a href="{{ route('barang.edit', $barang->id) }}"
-                                        class="text-blue-600 hover:text-blue-800">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </a>
+                            @if (auth()->user()->canManageToko())
+                                <td>
+                                    <div class="flex gap-3">
+                                        <a href="{{ route('barang.edit', $barang->id) }}"
+                                            class="text-blue-600 hover:text-blue-800">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </a>
 
-                                    <form id="delete-form-{{ $barang->id }}"
-                                        action="{{ route('barang.destroy', $barang->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="text-red-600 hover:text-red-800"
-                                            onclick="deleteBarang({{ $barang->id }}, '{{ $barang->nama_barang }}')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+                                        <form id="delete-form-{{ $barang->id }}"
+                                            action="{{ route('barang.destroy', $barang->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="text-red-600 hover:text-red-800"
+                                                onclick="deleteBarang({{ $barang->id }}, '{{ $barang->nama_barang }}')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

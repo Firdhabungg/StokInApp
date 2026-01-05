@@ -108,7 +108,7 @@
                 </a>
                 <button type="submit"
                     class="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan Barang Masuk
+                    <i class="fas fa-save mr-2"></i>Simpan
                 </button>
             </div>
         </form>

@@ -48,7 +48,7 @@
                         <th>Barang</th>
                         <th>Jumlah</th>
                         <th>Kode Batch</th>
-                        <th>Kadaluarsa</th>
+                        <th>Kadaluwarsa</th>
                         <th>Supplier</th>
                         <th>Diinput Oleh</th>
                     </tr>

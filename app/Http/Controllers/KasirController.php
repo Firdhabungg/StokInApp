@@ -18,9 +18,9 @@ class KasirController extends Controller
         
         $canAddUser = $toko ? $toko->canAddUser() : false;
         $remainingSlots = $toko ? $toko->remainingUserSlots() : 0;
-        $maxUsers = $toko ? $toko->getFeature('max_users', 1) : 1;
+        $maxKasir = $toko ? $toko->getFeature('max_kasir', 1) : 1;
         
-        return view('kasir.index', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxUsers'));
+        return view('kasir.index', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
     }
 
     public function create()

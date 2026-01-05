@@ -94,36 +94,15 @@
                                 </li>
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
-                                    <span>{{ $plan->features['max_users'] == -1 ? 'Pengguna Unlimited' : $plan->features['max_users'] . ' pengguna' }}</span>
+                                    <span>{{ ($plan->features['max_kasir'] ?? 1) == -1 ? 'Kasir Unlimited' : 'Max ' . ($plan->features['max_kasir'] ?? 1) . ' kasir' }}</span>
                                 </li>
                                 <li class="flex items-center gap-2">
-                                    @if ($plan->features['export_report'])
+                                    @if ($plan->features['export_report'] ?? false)
                                         <i class="fas fa-check text-green-500"></i>
                                     @else
                                         <i class="fas fa-times text-gray-400"></i>
                                     @endif
-                                    <span class="{{ $plan->features['export_report'] ? '' : 'text-gray-400' }}">Export
-                                        Laporan</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    @if ($plan->features['priority_support'] ?? false)
-                                        <i class="fas fa-check text-green-500"></i>
-                                    @else
-                                        <i class="fas fa-times text-gray-400"></i>
-                                    @endif
-                                    <span
-                                        class="{{ $plan->features['priority_support'] ?? false ? '' : 'text-gray-400' }}">Priority
-                                        Support</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    @if ($plan->features['analytics_dashboard'] ?? false)
-                                        <i class="fas fa-check text-green-500"></i>
-                                    @else
-                                        <i class="fas fa-times text-gray-400"></i>
-                                    @endif
-                                    <span
-                                        class="{{ $plan->features['analytics_dashboard'] ?? false ? '' : 'text-gray-400' }}">Analytics
-                                        Dashboard</span>
+                                    <span class="{{ ($plan->features['export_report'] ?? false) ? '' : 'text-gray-400' }}">Export Laporan (PDF/Excel)</span>
                                 </li>
                             @endif
                         </ul>

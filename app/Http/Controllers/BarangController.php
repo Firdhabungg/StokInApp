@@ -60,7 +60,7 @@ class BarangController extends Controller
             'nama_barang' => 'required|string|max:255',
             'kategori_id' => 'required|integer|exists:kategoris,kategori_id',
             'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+            'harga_jual' => 'required|numeric|min:0',
             'tgl_kadaluwarsa' => 'nullable|date|after:today'
         ]);
         
@@ -70,26 +70,17 @@ class BarangController extends Controller
             $kodeBarang = $this->generateKodeBarang($tokoId);
         }
         
-        // Tentukan status berdasarkan stok
-        $status = 'habis';
-        if ($request->stok > 10) {
-            $status = 'tersedia';
-        } elseif ($request->stok > 0) {
-            $status = 'menipis';
-        }
-        
-        $hargaJual = $request->harga * 1.2;
-        
+        // Stok default 0 - harus ditambah via Barang Masuk
         Barang::create([
             'toko_id' => $tokoId,
             'nama_barang' => $request->nama_barang,
             'kode_barang' => $kodeBarang,
             'kategori_id' => $request->kategori_id,
             'harga' => $request->harga,
-            'harga_jual' => $hargaJual,
-            'stok' => $request->stok,
+            'harga_jual' => $request->harga_jual,
+            'stok' => 0,
             'tgl_kadaluwarsa' => $request->tgl_kadaluwarsa,
-            'status' => $status
+            'status' => 'habis'
         ]);
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
@@ -124,28 +115,18 @@ class BarangController extends Controller
         
         $request->validate([
             'nama_barang' => 'required|string|max:255',
-            'kode_barang' => 'required|string|max:50|unique:barangs,kode_barang,' . $id . ',id,toko_id,' . $tokoId,
             'kategori_id' => 'required|integer|exists:kategoris,kategori_id',
             'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+            'harga_jual' => 'required|numeric|min:0',
             'tgl_kadaluwarsa' => 'nullable|date|after:today'
         ]);
-        
-        $status = 'habis';
-        if ($request->stok > 10) {
-            $status = 'tersedia';
-        } elseif ($request->stok > 0) {
-            $status = 'menipis';
-        }
 
         $barang->update([
             'nama_barang' => $request->nama_barang,
-            'kode_barang' => $request->kode_barang,
             'kategori_id' => $request->kategori_id,
             'harga' => $request->harga,
-            'stok' => $request->stok,
+            'harga_jual' => $request->harga_jual,
             'tgl_kadaluwarsa' => $request->tgl_kadaluwarsa,
-            'status' => $status
         ]);
 
         return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui');

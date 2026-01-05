@@ -73,10 +73,12 @@
                     </label>
                     <select name="alasan" id="alasan" required
                         class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                        <option value="penjualan" {{ old('alasan') == 'penjualan' ? 'selected' : '' }}>Penjualan</option>
+                        <option value="">-- Pilih Alasan --</option>
                         <option value="rusak" {{ old('alasan') == 'rusak' ? 'selected' : '' }}>Rusak</option>
                         <option value="kadaluarsa" {{ old('alasan') == 'kadaluarsa' ? 'selected' : '' }}>Kadaluarsa</option>
-                        <option value="retur" {{ old('alasan') == 'retur' ? 'selected' : '' }}>Retur</option>
+                        <option value="retur" {{ old('alasan') == 'retur' ? 'selected' : '' }}>Retur ke Supplier</option>
+                        <option value="hilang" {{ old('alasan') == 'hilang' ? 'selected' : '' }}>Hilang/Selisih Stock</option>
+                        <option value="sample" {{ old('alasan') == 'sample' ? 'selected' : '' }}>Sample/Promosi</option>
                         <option value="lainnya" {{ old('alasan') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                 </div>
@@ -107,7 +109,7 @@
                 </a>
                 <button type="submit"
                     class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan Barang Keluar
+                    <i class="fas fa-save mr-2"></i>Simpan
                 </button>
             </div>
         </form>

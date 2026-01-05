@@ -144,37 +144,39 @@ class Toko extends Model
     }
 
     /**
-     * Check if toko can add more users based on subscription limit.
+     * Check if toko can add more kasir based on subscription limit.
      */
     public function canAddUser(): bool
     {
-        $maxUsers = $this->getFeature('max_users', 1);
+        $maxKasir = $this->getFeature('max_kasir', 1);
         
         // -1 means unlimited
-        if ($maxUsers == -1) {
+        if ($maxKasir == -1) {
             return true;
         }
         
-        $currentUserCount = $this->users()->count();
+        // Count only kasir users (not owner)
+        $currentKasirCount = $this->users()->where('role', 'kasir')->count();
         
-        return $currentUserCount < $maxUsers;
+        return $currentKasirCount < $maxKasir;
     }
 
     /**
-     * Get remaining user slots.
+     * Get remaining kasir slots.
      */
     public function remainingUserSlots(): int
     {
-        $maxUsers = $this->getFeature('max_users', 1);
+        $maxKasir = $this->getFeature('max_kasir', 1);
         
         // -1 means unlimited
-        if ($maxUsers == -1) {
+        if ($maxKasir == -1) {
             return 999; // large number for unlimited
         }
         
-        $currentUserCount = $this->users()->count();
+        // Count only kasir users (not owner)
+        $currentKasirCount = $this->users()->where('role', 'kasir')->count();
         
-        return max(0, $maxUsers - $currentUserCount);
+        return max(0, $maxKasir - $currentKasirCount);
     }
 
     /**

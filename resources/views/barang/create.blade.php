@@ -58,13 +58,26 @@
                             <p class="mt-1 text-xs text-gray-500">Kode otomatis</p>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="harga" class="block text-sm/6 font-medium text-gray-900">Harga Barang</label>
+                            <label for="harga" class="block text-sm/6 font-medium text-gray-900">Harga Beli</label>
                             <div
                                 class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
-                                <input id="harga" type="number" name="harga" placeholder="20.000"
+                                <span class="text-gray-500 sm:text-sm">Rp</span>
+                                <input id="harga" type="number" name="harga" placeholder="50000"
                                     value="{{ old('harga') }}" required
                                     class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
                             </div>
+                            <p class="mt-1 text-xs text-gray-500">Harga beli dari supplier</p>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="harga_jual" class="block text-sm/6 font-medium text-gray-900">Harga Jual</label>
+                            <div
+                                class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
+                                <span class="text-gray-500 sm:text-sm">Rp</span>
+                                <input id="harga_jual" type="number" name="harga_jual" placeholder="65000"
+                                    value="{{ old('harga_jual') }}" required
+                                    class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
+                            </div>
+                            <p class="mt-1 text-xs text-gray-500">Harga jual ke customer</p>
                         </div>
 
                         <div class="sm:col-span-2">
@@ -78,15 +91,6 @@
                                     class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
                             </div>
                             <p class="mt-1 text-xs text-gray-500">Kosongkan jika barang tidak memiliki tanggal kadaluwarsa</p>
-                        </div>
-                        <div class="sm:col-span-1">
-                            <label for="stok" class="block text-sm/6 font-medium text-gray-900">Stok</label>
-                            <div
-                                class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
-                                <input id="stok" type="number" name="stok" value="{{ old('stok') }}" required
-                                    class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                    minlength="1" />
-                            </div>
                         </div>
                     </div>
                 </div>

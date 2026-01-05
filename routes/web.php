@@ -89,6 +89,8 @@ Route::middleware('auth')->group(function () {
 
     // Profil - Semua role
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::put('/profil/password', [ProfilController::class, 'updatePassword'])->name('profil.password.update');
     // Profil (Update toko) - Owner
     Route::put('/profil/toko', [ProfilController::class, 'updateToko'])
         ->name('profil.toko.update');
@@ -97,10 +99,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('penjualan', PenjualanController::class)->only(['index', 'create', 'store', 'show']);
     Route::get('/penjualan/get-barang/{id}', [PenjualanController::class, 'getBarang'])->name('penjualan.getBarang');
 
+    // Data Barang - Read-only untuk semua (termasuk kasir)
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+
     // Routes untuk Owner & Super Admin only
     Route::middleware('role:owner,super_admin')->group(function () {
-        // Barang
-        Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+        // Barang Management - Create, Edit, Delete
         Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
         Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
         Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
@@ -160,12 +164,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('kasir', KasirController::class)->except(['show', 'edit', 'update']);
     });
 
-    // Subscription Management
+    // Subscription Management - Owner only (except expired page)
     Route::prefix('subscription')->name('subscription.')->group(function () {
+        Route::get('/expired', [SubscriptionController::class, 'expired'])->name('expired');
+    });
+    
+    Route::prefix('subscription')->name('subscription.')->middleware('role:owner,super_admin')->group(function () {
         Route::get('/', [SubscriptionController::class, 'index'])->name('index');
         Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');
         Route::get('/callback', [SubscriptionController::class, 'callback'])->name('callback');
-        Route::get('/expired', [SubscriptionController::class, 'expired'])->name('expired');
     });
 });
 

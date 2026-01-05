@@ -143,7 +143,37 @@
                 showCancelButton: true,
                 confirmButtonText: 'Simpan',
                 cancelButtonText: 'Batal',
-                confirmButtonColor: '#F59E0B'
+                confirmButtonColor: '#F59E0B',
+                preConfirm: () => {
+                    return {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('profil.update') }}", {
+                        method: 'PUT',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(result.value)
+                    })
+                    .then(res => {
+                        if (!res.ok) throw res;
+                        return res.json();
+                    })
+                    .then(() => {
+                        Swal.fire('Berhasil', 'Profil berhasil diperbarui', 'success')
+                            .then(() => location.reload());
+                    })
+                    .catch((err) => {
+                        err.json().then(data => {
+                            Swal.fire('Gagal', data.message || 'Tidak dapat menyimpan data', 'error');
+                        });
+                    });
+                }
             });
         }
 
@@ -217,22 +247,60 @@
             <div class="text-left space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-1">Password Lama</label>
-                    <input type="password" id="old_password" class="w-full p-2 border rounded">
+                    <input type="password" id="current_password" class="w-full p-2 border rounded">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Password Baru</label>
-                    <input type="password" id="new_password" class="w-full p-2 border rounded">
+                    <input type="password" id="password" class="w-full p-2 border rounded">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1">Konfirmasi Password</label>
-                    <input type="password" id="confirm_password" class="w-full p-2 border rounded">
+                    <input type="password" id="password_confirmation" class="w-full p-2 border rounded">
                 </div>
             </div>
         `,
                 showCancelButton: true,
                 confirmButtonText: 'Ubah Password',
                 cancelButtonText: 'Batal',
-                confirmButtonColor: '#F59E0B'
+                confirmButtonColor: '#F59E0B',
+                preConfirm: () => {
+                    const password = document.getElementById('password').value;
+                    const confirmation = document.getElementById('password_confirmation').value;
+                    
+                    if (password !== confirmation) {
+                        Swal.showValidationMessage('Konfirmasi password tidak cocok');
+                        return false;
+                    }
+                    
+                    return {
+                        current_password: document.getElementById('current_password').value,
+                        password: password,
+                        password_confirmation: confirmation
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('profil.password.update') }}", {
+                        method: 'PUT',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(result.value)
+                    })
+                    .then(res => {
+                        if (!res.ok) throw res;
+                        return res.json();
+                    })
+                    .then(() => {
+                        Swal.fire('Berhasil', 'Password berhasil diubah', 'success');
+                    })
+                    .catch((err) => {
+                        err.json().then(data => {
+                            Swal.fire('Gagal', data.message || 'Tidak dapat mengubah password', 'error');
+                        });
+                    });
+                }
             });
         }
     </script>
