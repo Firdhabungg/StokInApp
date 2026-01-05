@@ -52,6 +52,23 @@ class KategoriController extends Controller
     }
 
     /**
+     * Display the specified resource with its items.
+     */
+    public function show(string $id)
+    {
+        $tokoId = Auth::user()->toko_id;
+        $kategori = KategoriBarang::where('toko_id', $tokoId)
+            ->withCount('barangs')
+            ->findOrFail($id);
+        
+        $barangs = $kategori->barangs()
+            ->orderBy('nama_barang')
+            ->get();
+        
+        return view('kategori.show', compact('kategori', 'barangs'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
