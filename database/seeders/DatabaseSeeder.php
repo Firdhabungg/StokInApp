@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            SubscriptionPlanSeeder::class, // 0. Buat Paket Langganan
             UserSeeder::class,      // 1. Buat Toko + User (Owner, Kasir, Staff)
             KategoriSeeder::class,  // 2. Buat Kategori Barang
             BarangSeeder::class,    // 3. Buat Data Barang

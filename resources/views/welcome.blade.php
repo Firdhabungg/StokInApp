@@ -11,7 +11,7 @@
                 <a href="{{ route('login') }}"
                     class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
                            focus:outline-none font-medium
-                           rounded-lg text-md px-6 py-2.5 text-center transition-colors shadow-lg">
+                           rounded-lg text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
                     Masuk
                 </a>
 

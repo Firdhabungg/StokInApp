@@ -35,7 +35,6 @@
         </div>
     @endif
 
-    {{-- Kategori Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse ($kategoris as $kategori)
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">

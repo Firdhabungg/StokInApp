@@ -68,13 +68,16 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="kadaluwarsa" class="block text-sm/6 font-medium text-gray-900">Kadaluwarsa</label>
+                            <label for="kadaluwarsa" class="block text-sm/6 font-medium text-gray-900">
+                                Kadaluwarsa <span class="text-gray-400 font-normal">(Opsional)</span>
+                            </label>
                             <div
                                 class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
                                 <input id="kadaluwarsa" type="date" name="tgl_kadaluwarsa"
-                                    value="{{ old('kadaluwarsa') }}" required
+                                    value="{{ old('tgl_kadaluwarsa') }}"
                                     class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
                             </div>
+                            <p class="mt-1 text-xs text-gray-500">Kosongkan jika barang tidak memiliki tanggal kadaluwarsa</p>
                         </div>
                         <div class="sm:col-span-1">
                             <label for="stok" class="block text-sm/6 font-medium text-gray-900">Stok</label>

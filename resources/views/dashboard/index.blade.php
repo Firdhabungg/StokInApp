@@ -166,7 +166,7 @@
             <div class="space-y-3">
                 @forelse ($listBatchKadaluarsa as $batch)
                     @php
-                        $daysLeft = now()->diffInDays($batch->tgl_kadaluarsa, false);
+                        $daysLeft = (int) now()->diffInDays($batch->tgl_kadaluarsa, false);
                         $colorClass = $daysLeft <= 7 ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600';
                     @endphp
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">

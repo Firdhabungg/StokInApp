@@ -35,11 +35,11 @@
                 {{-- Data Barang - Owner & Super Admin only --}}
                 @if (auth()->user()->canManageToko())
                     <li>
-                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
+                        <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
                     <li>
-                        <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
+                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
                 @endif
@@ -102,7 +102,7 @@
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
             <button type="button" onclick="confirmLogout()"
-                class="logout-btn w-full px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
+                class="logout-btn w-full px-4 py-3 bg-slate-900 text-white rounded-xl outline-none text-sm font-bold hover:bg-rose-600 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2">
                 <i class="fas fa-sign-out-alt"></i>
                 <span class="nav-text whitespace-nowrap">Keluar</span>
             </button>
