@@ -107,12 +107,24 @@ class Toko extends Model
     public function isSubscriptionExpired(): bool
     {
         $subscription = $this->subscriptions()->latest()->first();
-        
+
         if (!$subscription) {
             return true;
         }
-        
+
         return $subscription->isExpired();
+    }
+
+    /**
+     * Check if toko has ever used a free trial.
+     */
+    public function hasUsedFreeTrial(): bool
+    {
+        return $this->subscriptions()
+            ->whereHas('plan', function ($query) {
+                $query->where('slug', 'free');
+            })
+            ->exists();
     }
 
     /**
@@ -121,11 +133,11 @@ class Toko extends Model
     public function getCurrentPlanName(): string
     {
         $subscription = $this->activeSubscription;
-        
+
         if (!$subscription) {
             return 'Tidak Ada';
         }
-        
+
         return $subscription->plan->name;
     }
 
@@ -135,11 +147,11 @@ class Toko extends Model
     public function getFeature(string $key, $default = null)
     {
         $subscription = $this->activeSubscription;
-        
+
         if (!$subscription || !$subscription->plan) {
             return $default;
         }
-        
+
         return $subscription->plan->features[$key] ?? $default;
     }
 
@@ -149,15 +161,15 @@ class Toko extends Model
     public function canAddUser(): bool
     {
         $maxKasir = $this->getFeature('max_kasir', 1);
-        
+
         // -1 means unlimited
         if ($maxKasir == -1) {
             return true;
         }
-        
+
         // Count only kasir users (not owner)
         $currentKasirCount = $this->users()->where('role', 'kasir')->count();
-        
+
         return $currentKasirCount < $maxKasir;
     }
 
@@ -167,15 +179,15 @@ class Toko extends Model
     public function remainingUserSlots(): int
     {
         $maxKasir = $this->getFeature('max_kasir', 1);
-        
+
         // -1 means unlimited
         if ($maxKasir == -1) {
             return 999; // large number for unlimited
         }
-        
+
         // Count only kasir users (not owner)
         $currentKasirCount = $this->users()->where('role', 'kasir')->count();
-        
+
         return max(0, $maxKasir - $currentKasirCount);
     }
 

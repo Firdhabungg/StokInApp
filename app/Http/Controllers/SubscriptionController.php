@@ -40,8 +40,9 @@ class SubscriptionController extends Controller
 
         $subscription = $toko->activeSubscription;
         $plans = SubscriptionPlan::where('is_active', true)->get();
+        $hasUsedFreeTrial = $toko->hasUsedFreeTrial();
 
-        return view('subscription.index', compact('subscription', 'plans', 'toko'));
+        return view('subscription.index', compact('subscription', 'plans', 'toko', 'hasUsedFreeTrial'));
     }
 
     /**

@@ -102,7 +102,9 @@
                                     @else
                                         <i class="fas fa-times text-gray-400"></i>
                                     @endif
-                                    <span class="{{ ($plan->features['export_report'] ?? false) ? '' : 'text-gray-400' }}">Export Laporan (PDF/Excel)</span>
+                                    <span
+                                        class="{{ $plan->features['export_report'] ?? false ? '' : 'text-gray-400' }}">Export
+                                        Laporan (PDF/Excel)</span>
                                 </li>
                             @endif
                         </ul>
@@ -112,6 +114,15 @@
                                 class="w-full py-3 bg-gray-200 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
                                 Paket Aktif
                             </button>
+                        @elseif ($plan->isFree() && $hasUsedFreeTrial)
+                            {{-- Free Trial sudah pernah digunakan --}}
+                            <div class="text-center">
+                                <button disabled
+                                    class="w-full py-3 bg-gray-200 text-gray-400 rounded-lg font-semibold cursor-not-allowed">
+                                    <i class="fas fa-lock mr-2"></i>Trial Sudah Digunakan
+                                </button>
+                                <p class="mt-2 text-xs text-gray-500">Upgrade ke Pro untuk melanjutkan</p>
+                            </div>
                         @else
                             <a href="{{ route('subscription.checkout', $plan->slug) }}"
                                 class="block w-full py-3 text-center bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-semibold transition-colors">

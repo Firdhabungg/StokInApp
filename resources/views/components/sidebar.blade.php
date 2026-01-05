@@ -21,58 +21,94 @@
     </div>
 
     <div class="flex-1 px-3 py-4 overflow-y-auto no-scrollbar">
+        @php
+            $hasActiveSubscription = auth()->user()->toko?->hasActiveSubscription() ?? false;
+            $isSuperAdmin = auth()->user()->isSuperAdmin();
+        @endphp
+
         <nav class="space-y-1.5">
             <p id="nav-label" class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Main
                 Menu</p>
 
             <ul class="space-y-1.5">
-                {{-- Dashboard - Semua role --}}
-                <li>
-                    <x-sidebar.links title="Dashboard" icon="fa-solid fa-gauge" route="dashboard"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
-                </li>
-
-                {{-- Data Barang - Semua role (read-only untuk kasir) --}}
-                <li>
-                    <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
-                </li>
-
-                {{-- Kategori - Owner & Super Admin only --}}
-                @if (auth()->user()->canManageToko())
+                @if ($hasActiveSubscription || $isSuperAdmin)
+                    {{-- Dashboard - Semua role --}}
                     <li>
-                        <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
+                        <x-sidebar.links title="Dashboard" icon="fa-solid fa-gauge" route="dashboard"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
-                @endif
 
-                {{-- Penjualan - Kasir & Owner --}}
-                <li>
-                    <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="penjualan.index"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
-                </li>
+                    {{-- Data Barang - Semua role (read-only untuk kasir) --}}
+                    <li>
+                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
+                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                    </li>
 
-                {{-- Stock Management Section - Owner & Super Admin --}}
-                @if (auth()->user()->canManageToko())
-                    <p id="nav-label"
-                        class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
-                        Stock Management
-                    </p>
+                    {{-- Kategori - Owner & Super Admin only --}}
+                    @if (auth()->user()->canManageToko())
+                        <li>
+                            <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                    @endif
+
+                    {{-- Penjualan - Kasir & Owner --}}
                     <li>
-                        <x-sidebar.links title="Barang Masuk" icon="fas fa-arrow-down" route="stock.in.index"
+                        <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="penjualan.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
+
+                    {{-- Stock Management Section - Owner & Super Admin --}}
+                    @if (auth()->user()->canManageToko())
+                        <p id="nav-label"
+                            class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
+                            Stock Management
+                        </p>
+                        <li>
+                            <x-sidebar.links title="Barang Masuk" icon="fas fa-arrow-down" route="stock.in.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                        <li>
+                            <x-sidebar.links title="Barang Keluar" icon="fas fa-arrow-up" route="stock.out.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                        <li>
+                            <x-sidebar.links title="Daftar Batch" icon="fas fa-layer-group" route="stock.batch.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                        <li>
+                            <x-sidebar.links title="Laporan" icon="fas fa-chart-bar" route="laporan.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                    @endif
+                @else
+                    {{-- Tampilan untuk user tanpa subscription aktif --}}
                     <li>
-                        <x-sidebar.links title="Barang Keluar" icon="fas fa-arrow-up" route="stock.out.index"
-                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 cursor-not-allowed">
+                            <i class="fa-solid fa-gauge w-5 text-center"></i>
+                            <span class="nav-text font-semibold">Dashboard</span>
+                            <i class="fas fa-lock text-xs ml-auto"></i>
+                        </div>
                     </li>
                     <li>
-                        <x-sidebar.links title="Daftar Batch" icon="fas fa-layer-group" route="stock.batch.index"
-                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 cursor-not-allowed">
+                            <i class="fa-solid fa-box w-5 text-center"></i>
+                            <span class="nav-text font-semibold">Data Barang</span>
+                            <i class="fas fa-lock text-xs ml-auto"></i>
+                        </div>
                     </li>
                     <li>
-                        <x-sidebar.links title="Laporan" icon="fas fa-chart-bar" route="laporan.index"
-                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-cash-register w-5 text-center"></i>
+                            <span class="nav-text font-semibold">Penjualan</span>
+                            <i class="fas fa-lock text-xs ml-auto"></i>
+                        </div>
+                    </li>
+                    <li class="mt-4">
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-700">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Pilih paket langganan untuk mengakses fitur
+                        </div>
                     </li>
                 @endif
 
@@ -82,10 +118,20 @@
                         class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
                         Administrator
                     </p>
-                    <li>
-                        <x-sidebar.links title="Manajemen Kasir" icon="fas fa-users" route="kasir.index"
-                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
-                    </li>
+                    @if ($hasActiveSubscription || $isSuperAdmin)
+                        <li>
+                            <x-sidebar.links title="Manajemen Kasir" icon="fas fa-users" route="kasir.index"
+                                class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                        </li>
+                    @else
+                        <li>
+                            <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 cursor-not-allowed">
+                                <i class="fas fa-users w-5 text-center"></i>
+                                <span class="nav-text font-semibold">Manajemen Kasir</span>
+                                <i class="fas fa-lock text-xs ml-auto"></i>
+                            </div>
+                        </li>
+                    @endif
                     <li>
                         <x-sidebar.links title="Langganan" icon="fas fa-crown" route="subscription.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />

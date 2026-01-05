@@ -22,20 +22,31 @@ class CheckSubscription
             return $next($request);
         }
 
-        // Skip if no toko
+        // Skip if no user or no toko
         if (!$user || !$user->toko) {
             return $next($request);
         }
 
         $toko = $user->toko;
+        
+        // Allow access to subscription routes, logout, and profil
+        $allowedRoutes = ['subscription.*', 'logout', 'profil.*'];
+        foreach ($allowedRoutes as $pattern) {
+            if ($request->routeIs($pattern)) {
+                return $next($request);
+            }
+        }
+
+        // Check if user has NO subscription at all (new registration)
+        $hasAnySubscription = $toko->subscriptions()->exists();
+        
+        if (!$hasAnySubscription) {
+            return redirect()->route('subscription.index')
+                ->with('info', 'Silakan pilih paket langganan untuk memulai menggunakan StokIn.');
+        }
 
         // Check if subscription is expired
         if ($toko->isSubscriptionExpired()) {
-            // Allow access to subscription routes
-            if ($request->routeIs('subscription.*') || $request->routeIs('logout')) {
-                return $next($request);
-            }
-
             return redirect()->route('subscription.expired');
         }
 

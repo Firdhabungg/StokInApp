@@ -154,7 +154,8 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-check-double text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -163,7 +164,8 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-chart-line text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -278,37 +280,27 @@
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
-                            <span>Maksimal 50 produk</span>
+                            <span>Produk <strong>Unlimited</strong></span>
+
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
-                            <span>100 transaksi per bulan</span>
+                            <span>Transaksi <strong>Unlimited</strong></span>
                         </li>
+
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
-                            <span>Dashboard Analytics</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
-                                <i class="fas fa-check text-green-600 text-xs"></i>
-                            </div>
-                            <span>1 pengguna</span>
+                            <span>Max 1 Kasir</span>
                         </li>
                         <li class="flex items-center gap-3 text-gray-400">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
                                 <i class="fas fa-times text-gray-400 text-xs"></i>
                             </div>
                             <span>Export Laporan</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-400">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
-                                <i class="fas fa-times text-gray-400 text-xs"></i>
-                            </div>
-                            <span>Multi User</span>
                         </li>
                     </ul>
 
@@ -350,25 +342,19 @@
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
+                            <span>Pengguna <strong>Unlimited</strong></span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
                             <span>Dashboard Analytics</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
-                            <span>Hingga 10 pengguna</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
                             <span>Export Laporan PDF/Excel</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <span>Prioritas Support</span>
                         </li>
                     </ul>
 
