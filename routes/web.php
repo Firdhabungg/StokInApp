@@ -20,6 +20,7 @@ use App\Http\Controllers\StockBatchController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\KategoriController;
 
 // Landing page
 Route::get('/', function () {
@@ -106,6 +107,14 @@ Route::middleware('auth')->group(function () {
         Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
         Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
+        // Kategori Barang
+        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
             // Barang Masuk
@@ -131,11 +140,19 @@ Route::middleware('auth')->group(function () {
         Route::prefix('laporan')->name('laporan.')->group(function () {
             Route::get('/', [LaporanController::class, 'index'])->name('index');
             Route::get('/stok', [LaporanController::class, 'stok'])->name('stok');
-            Route::get('/laporan/stok/export/excel', [LaporanStokController::class, 'exportExcel'])->name('laporan.stok.export.excel');
-            Route::get('/laporan/stok/export/pdf', [LaporanStokController::class, 'exportPdf'])->name('laporan.stok.export.pdf');
             Route::get('/penjualan', [LaporanController::class, 'penjualan'])->name('penjualan');
             Route::get('/barang-masuk', [LaporanController::class, 'barangMasuk'])->name('barang-masuk');
-            Route::get('/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('barang-keluar'); 
+            Route::get('/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('barang-keluar');
+            
+            // Export Routes
+            Route::get('/stok/export/excel', [LaporanController::class, 'exportStokExcel'])->name('stok.export.excel');
+            Route::get('/stok/export/pdf', [LaporanController::class, 'exportStokPdf'])->name('stok.export.pdf');
+            Route::get('/penjualan/export/excel', [LaporanController::class, 'exportPenjualanExcel'])->name('penjualan.export.excel');
+            Route::get('/penjualan/export/pdf', [LaporanController::class, 'exportPenjualanPdf'])->name('penjualan.export.pdf');
+            Route::get('/barang-masuk/export/excel', [LaporanController::class, 'exportBarangMasukExcel'])->name('barang-masuk.export.excel');
+            Route::get('/barang-masuk/export/pdf', [LaporanController::class, 'exportBarangMasukPdf'])->name('barang-masuk.export.pdf');
+            Route::get('/barang-keluar/export/excel', [LaporanController::class, 'exportBarangKeluarExcel'])->name('barang-keluar.export.excel');
+            Route::get('/barang-keluar/export/pdf', [LaporanController::class, 'exportBarangKeluarPdf'])->name('barang-keluar.export.pdf');
         });
 
         // Manajemen Kasir - Owner only

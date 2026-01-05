@@ -59,6 +59,6 @@ class Subscription extends Model
         if ($this->expires_at->isPast()) {
             return 0;
         }
-        return now()->diffInDays($this->expires_at);
+        return (int) ceil(now()->diffInHours($this->expires_at) / 24);
     }
 }

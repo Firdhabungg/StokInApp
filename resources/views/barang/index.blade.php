@@ -5,7 +5,6 @@
 @section('page-description', 'Monitoring data barang, stok, dan ketersediaan')
 
 @section('content')
-    {{-- Header Section --}}
     <div class="mb-6">
         <div class="flex items-center justify-between">
             <div>
@@ -26,7 +25,7 @@
                 <i class="fas fa-search text-amber-500 text-lg"></i>
             </div>
             <input type="text" id="customSearchInput" 
-                class="w-full pl-12 pr-12 py-4 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
+                class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
                 placeholder="Cari barang berdasarkan kode, nama, atau status...">
         </div>
         <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">

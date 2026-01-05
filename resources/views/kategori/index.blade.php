@@ -1,0 +1,122 @@
+@extends('layouts.dashboard')
+
+@section('title', 'Kelola Kategori')
+@section('page-title', 'Kelola Kategori')
+@section('page-description', 'Kelola kategori barang untuk toko Anda')
+
+@section('content')
+    {{-- Header Section --}}
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">Kategori Barang</h2>
+                <p class="text-gray-500 mt-1">Kelola kategori untuk mengelompokkan barang</p>
+            </div>
+            <a href="{{ route('kategori.create') }}"
+                class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
+                <i class="fas fa-plus"></i>
+                <span>Tambah Kategori</span>
+            </a>
+        </div>
+    </div>
+
+    {{-- Alert Messages --}}
+    @if (session('success'))
+        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
+
+    {{-- Kategori Grid --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @forelse ($kategoris as $kategori)
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-folder text-amber-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">{{ $kategori->nama_kategori }}</h3>
+                                <p class="text-sm text-gray-500">{{ $kategori->barangs_count }} barang</p>
+                            </div>
+                        </div>
+                        @if ($kategori->deskripsi_kategori)
+                            <p class="mt-3 text-sm text-gray-600">{{ $kategori->deskripsi_kategori }}</p>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('kategori.edit', $kategori->kategori_id) }}"
+                            class="text-blue-600 hover:text-blue-800 p-2">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form id="delete-form-{{ $kategori->kategori_id }}"
+                            action="{{ route('kategori.destroy', $kategori->kategori_id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="text-red-600 hover:text-red-800 p-2"
+                                onclick="deleteKategori({{ $kategori->kategori_id }}, '{{ $kategori->nama_kategori }}', {{ $kategori->barangs_count }})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-span-full">
+                <div class="bg-gray-50 rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-folder-open text-gray-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Belum ada kategori</h3>
+                    <p class="text-gray-500 mb-4">Buat kategori pertama Anda untuk mengelompokkan barang</p>
+                    <a href="{{ route('kategori.create') }}"
+                        class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-plus"></i>
+                        <span>Tambah Kategori</span>
+                    </a>
+                </div>
+            </div>
+        @endforelse
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
+        function deleteKategori(id, nama, jumlahBarang) {
+            if (jumlahBarang > 0) {
+                Swal.fire({
+                    title: "Tidak bisa dihapus!",
+                    text: `Kategori "${nama}" masih memiliki ${jumlahBarang} barang. Pindahkan atau hapus barang terlebih dahulu.`,
+                    icon: "warning",
+                    confirmButtonColor: "#f59e0b"
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: "Yakin hapus kategori?",
+                text: `"${nama}" akan dihapus permanen!`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#bf0603",
+                cancelButtonColor: "#6b7280",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${id}`).submit();
+                }
+            });
+        }
+    </script>
+@endpush

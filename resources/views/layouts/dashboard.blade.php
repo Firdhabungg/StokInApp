@@ -16,7 +16,6 @@
     <div class="flex min-h-screen">
         <x-sidebar />
 
-        {{-- Hidden elements for Tailwind safelist --}}
         <span class="hidden md:ml-20 md:ml-64"></span>
         
         <div id="mainWrapper" class="flex-1 flex flex-col min-w-0 md:ml-64 transition-all duration-300">

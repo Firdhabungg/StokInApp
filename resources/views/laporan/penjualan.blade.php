@@ -7,26 +7,47 @@
 @section('content')
     {{-- Filter --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <form method="GET" class="flex flex-wrap items-end gap-4">
-            <div>
-                <label class="block text-sm text-gray-600 mb-1">Filter</label>
-                <select name="filter" onchange="toggleFilter(this.value)" class="border border-gray-300 rounded-lg px-4 py-2">
-                    <option value="harian" {{ $filter == 'harian' ? 'selected' : '' }}>Harian</option>
-                    <option value="bulanan" {{ $filter == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
-                </select>
-            </div>
-            <div id="filterHarian" class="{{ $filter == 'bulanan' ? 'hidden' : '' }}">
-                <label class="block text-sm text-gray-600 mb-1">Tanggal</label>
-                <input type="date" name="tanggal" value="{{ $tanggal }}" class="border border-gray-300 rounded-lg px-4 py-2">
-            </div>
-            <div id="filterBulanan" class="{{ $filter == 'harian' ? 'hidden' : '' }}">
-                <label class="block text-sm text-gray-600 mb-1">Bulan</label>
-                <input type="month" name="bulan" value="{{ $bulan }}" class="border border-gray-300 rounded-lg px-4 py-2">
-            </div>
-            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
-                <i class="fas fa-filter mr-1"></i> Filter
-            </button>
-        </form>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <form method="GET" class="flex flex-wrap items-end gap-4">
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">Filter</label>
+                    <select name="filter" onchange="toggleFilter(this.value)" class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="harian" {{ $filter == 'harian' ? 'selected' : '' }}>Harian</option>
+                        <option value="bulanan" {{ $filter == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
+                    </select>
+                </div>
+                <div id="filterHarian" class="{{ $filter == 'bulanan' ? 'hidden' : '' }}">
+                    <label class="block text-sm text-gray-600 mb-1">Tanggal</label>
+                    <input type="date" name="tanggal" value="{{ $tanggal }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                </div>
+                <div id="filterBulanan" class="{{ $filter == 'harian' ? 'hidden' : '' }}">
+                    <label class="block text-sm text-gray-600 mb-1">Bulan</label>
+                    <input type="month" name="bulan" value="{{ $bulan }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                </div>
+                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
+                    <i class="fas fa-filter mr-1"></i> Filter
+                </button>
+            </form>
+            
+            {{-- Export Buttons --}}
+            @if($canExportReport ?? false)
+                <div class="flex gap-2">
+                    <a href="{{ route('laporan.penjualan.export.excel', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-excel mr-2"></i> Excel
+                    </a>
+                    <a href="{{ route('laporan.penjualan.export.pdf', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-pdf mr-2"></i> PDF
+                    </a>
+                </div>
+            @else
+                <div class="flex items-center gap-2">
+                    <button disabled class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
+                        <i class="fas fa-lock mr-2"></i> Export (Pro)
+                    </button>
+                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
+                </div>
+            @endif
+        </div>
     </div>
 
     {{-- Summary --}}

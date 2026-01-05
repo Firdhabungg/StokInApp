@@ -7,7 +7,7 @@
 @section('content')
     <div>
         <h1 class="text-xl font-semibold">
-            Halo {{ Auth::user()->role_label }} {{ Auth::user()->toko_name }} 👋
+            Hello {{ Auth::user()->role_label }} {{ Auth::user()->toko_name }} 👋
         </h1>
 
         <p class="text-sm text-gray-500 mb-4">

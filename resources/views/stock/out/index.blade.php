@@ -27,7 +27,7 @@
                 <i class="fas fa-search text-red-500 text-lg"></i>
             </div>
             <input type="text" id="customSearchInput" 
-                class="w-full pl-12 pr-4 py-4 bg-white border-2 border-red-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-4 focus:ring-red-100 transition-all duration-300 text-base shadow-sm"
+                class="w-full pl-12 pr-4 py-2 bg-white border-2 border-red-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-red-400 focus:ring-4 focus:ring-red-100 transition-all duration-300 text-base shadow-sm"
                 placeholder="Cari barang keluar berdasarkan nama, batch, atau alasan...">
         </div>
     </div>

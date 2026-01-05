@@ -73,8 +73,9 @@
             <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
                 <i class="fas fa-user text-white text-sm"></i>
             </div>
-            <div class="text-right hidden md:block">
+            <div class="text-center hidden md:block">
                 <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">{{ auth()->user()->name }}</p>
+                <span class="text-xs text-gray-500">{{ auth()->user()->isOwner() ? 'Owner' : 'Kasir' }}</span>
             </div>
         </a>
     </div>

@@ -38,6 +38,10 @@
                         <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
+                    <li>
+                        <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
+                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                    </li>
                 @endif
 
                 {{-- Penjualan - Kasir & Owner --}}

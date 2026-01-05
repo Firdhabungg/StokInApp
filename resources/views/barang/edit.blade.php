@@ -50,11 +50,12 @@
                         <div class="sm:col-span-1">
                             <label for="kode_barang" class="block text-sm/6 font-medium text-gray-900">Kode Barang</label>
                             <div
-                                class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
+                                class="mt-2 flex items-center rounded-md bg-gray-50 pl-3 outline-1 -outline-offset-1 outline-gray-300">
                                 <input id="kode_barang" type="text" name="kode_barang"
-                                    value="{{ old('kode_barang', $barang->kode_barang) }}" required
-                                    class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
+                                    value="{{ old('kode_barang', $barang->kode_barang) }}" readonly
+                                    class="block min-w-0 grow bg-gray-50 py-1.5 pr-3 pl-1 text-base text-gray-700 font-medium focus:outline-none sm:text-sm/6 cursor-not-allowed" />
                             </div>
+                            <p class="mt-1 text-xs text-gray-500">Tidak dapat diubah</p>
                         </div>
                         <div class="sm:col-span-2">
                             <label for="harga" class="block text-sm/6 font-medium text-gray-900">Harga Barang</label>
@@ -71,7 +72,7 @@
                             <div
                                 class="mt-2 flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-amber-600">
                                 <input id="kadaluwarsa" type="date" name="tgl_kadaluwarsa"
-                                    value="{{ old('kadaluwarsa', $barang->tgl_kadaluwarsa) }}" required
+                                    value="{{ old('tgl_kadaluwarsa', $barang->tgl_kadaluwarsa ? $barang->tgl_kadaluwarsa->format('Y-m-d') : '') }}"
                                     class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
                             </div>
                         </div>

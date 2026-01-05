@@ -45,7 +45,7 @@
             <i class="fas fa-search text-amber-500 text-lg"></i>
         </div>
         <input type="text" id="customSearchInput" 
-            class="w-full pl-12 pr-4 py-4 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
+            class="w-full pl-12 pr-4 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
             placeholder="Cari kasir berdasarkan nama atau email...">
     </div>
 </div>

@@ -20,6 +20,7 @@ class Barang extends Model
         'kode_barang',
         'stok',
         'harga',
+        'harga_jual',
         'tgl_kadaluwarsa',
         'status',
     ];

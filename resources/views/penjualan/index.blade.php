@@ -46,14 +46,13 @@
         </div>
     </div>
 
-    {{-- Search Card - Full Width --}}
     <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <i class="fas fa-search text-green-500 text-lg"></i>
             </div>
             <input type="text" id="customSearchInput" 
-                class="w-full pl-12 pr-4 py-4 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-base shadow-sm"
+                class="w-full pl-12 pr-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-base shadow-sm"
                 placeholder="Cari transaksi berdasarkan kode, tanggal, atau kasir...">
         </div>
     </div>
