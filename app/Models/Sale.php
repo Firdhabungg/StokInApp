@@ -26,7 +26,7 @@ class Sale extends Model
     ];
 
     protected $casts = [
-        'tanggal' => 'date',
+        'tanggal' => 'datetime',
         'total' => 'decimal:2',
         'uang_dibayar' => 'decimal:2',
         'kembalian' => 'decimal:2',

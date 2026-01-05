@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             KategoriSeeder::class,  // 2. Buat Kategori Barang
             BarangSeeder::class,    // 3. Buat Data Barang
             StockSeeder::class,     // 4. Buat Stok Masuk & Keluar (Batch)
+            SaleSeeder::class,
         ]);
     }
 }

@@ -131,7 +131,7 @@ class PenjualanController extends Controller
                 'toko_id' => $tokoId,
                 'user_id' => Auth::id(),
                 'kode_transaksi' => Sale::generateKodeTransaksi($tokoId),
-                'tanggal' => now()->toDateString(),
+                'tanggal' => now(),
                 'total' => 0,
                 'status' => 'selesai',
                 'keterangan' => $request->keterangan,
