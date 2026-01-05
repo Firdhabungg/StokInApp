@@ -37,32 +37,36 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse ($kategoris as $kategori)
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow group">
                 <div class="flex items-start justify-between">
-                    <div class="flex-1">
+                    <a href="{{ route('kategori.show', $kategori->kategori_id) }}" class="flex-1 cursor-pointer">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center group-hover:bg-amber-200 transition-colors">
                                 <i class="fas fa-folder text-amber-600"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900">{{ $kategori->nama_kategori }}</h3>
+                                <h3 class="font-semibold text-gray-900 group-hover:text-amber-600 transition-colors">{{ $kategori->nama_kategori }}</h3>
                                 <p class="text-sm text-gray-500">{{ $kategori->barangs_count }} barang</p>
                             </div>
                         </div>
                         @if ($kategori->deskripsi_kategori)
                             <p class="mt-3 text-sm text-gray-600">{{ $kategori->deskripsi_kategori }}</p>
                         @endif
-                    </div>
-                    <div class="flex items-center gap-2">
+                    </a>
+                    <div class="flex items-center gap-1 ml-2">
+                        <a href="{{ route('kategori.show', $kategori->kategori_id) }}"
+                            class="text-gray-400 hover:text-amber-600 p-2" title="Lihat Barang">
+                            <i class="fas fa-eye"></i>
+                        </a>
                         <a href="{{ route('kategori.edit', $kategori->kategori_id) }}"
-                            class="text-blue-600 hover:text-blue-800 p-2">
+                            class="text-gray-400 hover:text-blue-600 p-2" title="Edit">
                             <i class="fas fa-edit"></i>
                         </a>
                         <form id="delete-form-{{ $kategori->kategori_id }}"
                             action="{{ route('kategori.destroy', $kategori->kategori_id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="text-red-600 hover:text-red-800 p-2"
+                            <button type="button" class="text-gray-400 hover:text-red-600 p-2" title="Hapus"
                                 onclick="deleteKategori({{ $kategori->kategori_id }}, '{{ $kategori->nama_kategori }}', {{ $kategori->barangs_count }})">
                                 <i class="fas fa-trash"></i>
                             </button>
