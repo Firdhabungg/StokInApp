@@ -26,7 +26,7 @@ use App\Http\Controllers\KategoriController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Admin routes
 Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');

@@ -18,12 +18,12 @@ class RegisterController extends Controller
      * Default categories for new stores.
      */
     protected $defaultCategories = [
-        ['nama_kategori' => 'Makanan', 'deskripsi' => 'Produk makanan dan snack'],
-        ['nama_kategori' => 'Minuman', 'deskripsi' => 'Produk minuman'],
-        ['nama_kategori' => 'Kebutuhan Rumah Tangga', 'deskripsi' => 'Produk kebutuhan sehari-hari'],
-        ['nama_kategori' => 'Elektronik', 'deskripsi' => 'Produk elektronik dan aksesoris'],
-        ['nama_kategori' => 'Alat Tulis', 'deskripsi' => 'Alat tulis dan perlengkapan kantor'],
-        ['nama_kategori' => 'Lainnya', 'deskripsi' => 'Kategori lainnya'],
+        ['nama_kategori' => 'Makanan', 'deskripsi_kategori' => 'Produk makanan dan snack'],
+        ['nama_kategori' => 'Minuman', 'deskripsi_kategori' => 'Produk minuman'],
+        ['nama_kategori' => 'Kebutuhan Rumah Tangga', 'deskripsi_kategori' => 'Produk kebutuhan sehari-hari'],
+        ['nama_kategori' => 'Elektronik', 'deskripsi_kategori' => 'Produk elektronik dan aksesoris'],
+        ['nama_kategori' => 'Alat Tulis', 'deskripsi_kategori' => 'Alat tulis dan perlengkapan kantor'],
+        ['nama_kategori' => 'Lainnya', 'deskripsi_kategori' => 'Kategori lainnya'],
     ];
 
     /**
@@ -86,7 +86,7 @@ class RegisterController extends Controller
                 KategoriBarang::create([
                     'toko_id' => $toko->id,
                     'nama_kategori' => $category['nama_kategori'],
-                    'deskripsi' => $category['deskripsi'],
+                    'deskripsi_kategori' => $category['deskripsi_kategori'],
                 ]);
             }
 
@@ -99,7 +99,8 @@ class RegisterController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan. Silakan coba lagi.']);
+            \Log::error('Registration error: ' . $e->getMessage() . ' - ' . $e->getFile() . ':' . $e->getLine());
+            return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }

@@ -6,7 +6,6 @@
 
 @section('content')
     <div class="space-y-6">
-        {{-- Current Subscription Status --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-bold text-gray-900">Status Langganan</h2>

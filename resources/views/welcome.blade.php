@@ -300,7 +300,7 @@
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
-                            <span>1 pengguna (owner)</span>
+                            <span>Max 1 pengguna (kasir)</span>
                         </li>
                         <li class="flex items-center gap-3 text-gray-400">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
@@ -355,12 +355,6 @@
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Dashboard Analytics</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
-                                <i class="fas fa-check text-white text-xs"></i>
-                            </div>
-                            <span>Hingga 10 pengguna (1 owner + 9 kasir)</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
