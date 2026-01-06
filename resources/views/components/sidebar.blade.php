@@ -38,12 +38,6 @@
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
 
-                    {{-- Data Barang - Semua role (read-only untuk kasir) --}}
-                    <li>
-                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
-                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
-                    </li>
-
                     {{-- Kategori - Owner & Super Admin only --}}
                     @if (auth()->user()->canManageToko())
                         <li>
@@ -51,6 +45,13 @@
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                     @endif
+                    
+                    {{-- Data Barang - Semua role (read-only untuk kasir) --}}
+                    <li>
+                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
+                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                    </li>
+
 
                     {{-- Penjualan - Kasir & Owner --}}
                     <li>

@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+
 class StokExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithTitle
 {
     public function collection()
