@@ -12,31 +12,81 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // ================= SUMMARY =================
+        /*
+        |--------------------------------------------------------------------------
+        | SUMMARY (TIDAK DIUBAH)
+        |--------------------------------------------------------------------------
+        */
         $totalProduk = Barang::count();
         $totalToko   = Toko::count();
         $stokMenipis = Barang::where('status', 'menipis')->count();
-        $pertumbuhanOmzet = 0;
 
-        // ================= GRAFIK (TIDAK DIUBAH) =================
-        $sales = Sale::selectRaw('DAYOFWEEK(created_at) as day, COUNT(*) as total')
-            ->groupBy('day')
-            ->pluck('total', 'day');
+        /*
+        |--------------------------------------------------------------------------
+        | OMZET PLATFORM (DIBENAHI – DARI SUBSCRIPTION)
+        |--------------------------------------------------------------------------
+        */
 
-        $dayMap = [
-            2 => 'Sen', 3 => 'Sel', 4 => 'Rab',
-            5 => 'Kam', 6 => 'Jum', 7 => 'Sab', 1 => 'Min',
-        ];
+        // TOTAL OMZET = semua subscription aktif & berbayar
+        $omzetTotal = Subscription::where('status', 'active')
+            ->whereHas('plan', function ($q) {
+                $q->where('price', '>', 0)
+                  ->where('is_active', true);
+            })
+            ->with('plan:id,price')
+            ->get()
+            ->sum(fn ($s) => $s->plan->price ?? 0);
 
-        $growthLabels = [];
-        $growthData   = [];
+        // FORMAT RUPIAH (AMAN, TANPA HELPER)
+        $omzetFormatted = 'Rp ' . number_format($omzetTotal, 0, ',', '.');
 
-        foreach ($dayMap as $day => $label) {
-            $growthLabels[] = $label;
-            $growthData[]   = $sales[$day] ?? 0;
+        // STATUS OMZET (TEKS)
+        if ($omzetTotal >= 5_000_000) {
+            $omzetStatus = 'Sangat Baik';
+        } elseif ($omzetTotal >= 1_000_000) {
+            $omzetStatus = 'Naik Signifikan';
+        } elseif ($omzetTotal > 0) {
+            $omzetStatus = 'Naik';
+        } else {
+            $omzetStatus = 'Belum Ada Pendapatan';
         }
 
-        // ================= DISTRIBUSI PAKET =================
+        /*
+|--------------------------------------------------------------------------
+| GRAFIK PENDAPATAN BULANAN (SAAS)
+|--------------------------------------------------------------------------
+*/
+
+$monthlyRevenue = Subscription::where('status', 'active')
+    ->whereHas('plan', function ($q) {
+        $q->where('price', '>', 0)
+          ->where('is_active', true);
+    })
+    ->with('plan:id,price')
+    ->get()
+    ->groupBy(function ($sub) {
+        return $sub->starts_at->format('Y-m');
+    })
+    ->map(function ($subs) {
+        return $subs->sum(fn ($s) => $s->plan->price ?? 0);
+    });
+
+// ambil 12 bulan terakhir
+$growthLabels = [];
+$growthData   = [];
+
+for ($i = 11; $i >= 0; $i--) {
+    $monthKey = now()->subMonths($i)->format('Y-m');
+    $growthLabels[] = now()->subMonths($i)->format('M Y');
+    $growthData[]   = $monthlyRevenue[$monthKey] ?? 0;
+}
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DISTRIBUSI PAKET (TIDAK DIUBAH)
+        |--------------------------------------------------------------------------
+        */
         $paket = Subscription::whereIn('status', ['trial', 'active'])
             ->selectRaw("
                 CASE
@@ -54,23 +104,35 @@ class DashboardController extends Controller
         $paketData   = $paket->pluck('total');
         $totalPaket  = $paketData->sum();
 
-        // ================= LOG AKTIVITAS (AMBIL 20 DATA) =================
-        $activityLogs = Sale::with(['toko', 'user'])
-            ->latest()
-            ->take(20)
-            ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | INSIGHT PLATFORM (TIDAK DIUBAH)
+        |--------------------------------------------------------------------------
+        */
+        $tokoTidakAktif = Toko::where('updated_at', '<=', now()->subDays(14))->count();
+
+        $langgananHampirHabis = Subscription::where('status', 'active')
+            ->whereDate('expires_at', '<=', now()->addDays(3))
+            ->count();
+
+        $trialAktif = Subscription::where('status', 'trial')
+            ->where('expires_at', '>', now())
+            ->count();
 
         return view('admin.dashboard.index', compact(
             'totalProduk',
             'totalToko',
             'stokMenipis',
-            'pertumbuhanOmzet',
+            'omzetFormatted',
+            'omzetStatus',
             'growthLabels',
             'growthData',
             'paketLabels',
             'paketData',
             'totalPaket',
-            'activityLogs'
+            'tokoTidakAktif',
+            'langgananHampirHabis',
+            'trialAktif'
         ));
     }
 }
