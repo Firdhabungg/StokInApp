@@ -83,57 +83,51 @@
                                         <span>{{ $plan->features['description'] }}</span>
                                     </li>
                                 @endif
+                                
+                                {{-- Produk & Transaksi Unlimited --}}
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
-                                    <span>{{ $plan->features['max_products'] == -1 ? 'Produk Unlimited' : 'Max ' . $plan->features['max_products'] . ' produk' }}</span>
+                                    <span>Produk & Transaksi Unlimited</span>
                                 </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-green-500"></i>
-                                    <span>{{ $plan->features['max_transactions'] == -1 ? 'Transaksi Unlimited' : 'Max ' . $plan->features['max_transactions'] . ' transaksi/bulan' }}</span>
-                                </li>
+                                
+                                {{-- Limit Kasir --}}
                                 @php
-                                    $maxUsers = $plan->features['max_users'] ?? 1;
+                                    $maxKasir = $plan->features['max_kasir'] ?? 1;
                                 @endphp
-
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
-
-                                    @if ($maxUsers == -1)
-                                        <span>1 Owner + Unlimited Kasir</span>
-                                    @elseif ($maxUsers == 1)
-                                        <span>1 Owner</span>
+                                    @if ($maxKasir == -1)
+                                        <span>Unlimited Pengguna</span>
+                                    @elseif ($maxKasir == 1)
+                                        <span>1 Owner + 1 Kasir</span>
                                     @else
-                                        <span>1 Owner + {{ $maxUsers - 1 }} Kasir</span>
+                                        <span>1 Owner + {{ $maxKasir }} Kasir</span>
                                     @endif
                                 </li>
+                                
+                                {{-- Fitur Utama --}}
                                 <li class="flex items-center gap-2">
-                                    @if ($plan->features['export_report'])
-                                        <i class="fas fa-check text-green-500"></i>
-                                    @else
-                                        <i class="fas fa-times text-gray-400"></i>
-                                    @endif
-                                    <span class="{{ $plan->features['export_report'] ? '' : 'text-gray-400' }}">Export
-                                        Laporan</span>
+                                    <i class="fas fa-check text-green-500"></i>
+                                    <span>Manajemen Stok Barang</span>
                                 </li>
                                 <li class="flex items-center gap-2">
-                                    @if ($plan->features['priority_support'] ?? false)
-                                        <i class="fas fa-check text-green-500"></i>
-                                    @else
-                                        <i class="fas fa-times text-gray-400"></i>
-                                    @endif
-                                    <span
-                                        class="{{ $plan->features['priority_support'] ?? false ? '' : 'text-gray-400' }}">Priority
-                                        Support</span>
+                                    <i class="fas fa-check text-green-500"></i>
+                                    <span>Transaksi Penjualan</span>
                                 </li>
                                 <li class="flex items-center gap-2">
-                                    @if ($plan->features['analytics_dashboard'] ?? false)
+                                    <i class="fas fa-check text-green-500"></i>
+                                    <span>Laporan & Dashboard</span>
+                                </li>
+                                
+                                {{-- Export Laporan --}}
+                                <li class="flex items-center gap-2">
+                                    @if ($plan->features['export_report'] ?? false)
                                         <i class="fas fa-check text-green-500"></i>
+                                        <span>Export Laporan</span>
                                     @else
                                         <i class="fas fa-times text-gray-400"></i>
+                                        <span class="text-gray-400">Export Laporan</span>
                                     @endif
-                                    <span
-                                        class="{{ $plan->features['analytics_dashboard'] ?? false ? '' : 'text-gray-400' }}">Analytics
-                                        Dashboard</span>
                                 </li>
                             @endif
                         </ul>

@@ -13,8 +13,7 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        // $toko = Toko::first();
-        $toko = Toko::find(4);
+        $toko = Toko::first();
 
         $kategoris = [
             ['nama_kategori' => 'Sembako', 'deskripsi_kategori' => 'Barang kebutuhan pokok sehari-hari'],

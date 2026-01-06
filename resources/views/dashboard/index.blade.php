@@ -29,14 +29,13 @@
             </div>
             <div>
                 <h4 class="font-semibold text-orange-800">Perhatian!</h4>
-                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluarsa dalam 7
-                    hari ke depan.</p>
+                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluarsa</p>
             </div>
         </div>
     @endif
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <!-- Stats Cards 1 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <!-- Total Stok Barang -->
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-4">
@@ -69,16 +68,6 @@
             <p class="text-3xl font-bold text-gray-900">{{ $stokMenipis }}</p>
             <p class="text-sm text-orange-500 mt-1">Perlu restock segera</p>
         </div>
-
-        <!-- Batch Hampir Kadaluarsa -->
-        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-sm text-gray-500">Hampir Kadaluarsa</span>
-                <i class="fas fa-clock text-red-500"></i>
-            </div>
-            <p class="text-3xl font-bold text-gray-900">{{ $batchHampirKadaluarsa }}</p>
-            <p class="text-sm text-red-500 mt-1">Dalam 7 hari</p>
-        </div>
     </div>
 
     <!-- Status Batch Summary -->
@@ -98,7 +87,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm text-orange-600">Hampir Kadaluarsa</p>
-                    <p class="text-2xl font-bold text-orange-700">{{ $statusBatch['hampir_kadaluarsa'] }}</p>
+                    <p class="text-2xl font-bold text-orange-700">{{ $batchHampirKadaluarsa }}</p>
                 </div>
                 <div class="bg-orange-100 p-3 rounded-full">
                     <i class="fas fa-exclamation-triangle text-orange-600"></i>
