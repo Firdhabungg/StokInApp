@@ -2533,22 +2533,19 @@
         },
         {
             "name": "midtrans/midtrans-php",
-            "version": "2.6.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Midtrans/midtrans-php.git",
-                "reference": "8ed7fc58ff1ababe675da17acf8233f4028eb3be"
+                "reference": "6d3b1f953e317b64b81a34b355ae72566ede4676"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Midtrans/midtrans-php/zipball/8ed7fc58ff1ababe675da17acf8233f4028eb3be",
-                "reference": "8ed7fc58ff1ababe675da17acf8233f4028eb3be",
+                "url": "https://api.github.com/repos/Midtrans/midtrans-php/zipball/6d3b1f953e317b64b81a34b355ae72566ede4676",
+                "reference": "6d3b1f953e317b64b81a34b355ae72566ede4676",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-openssl": "*",
                 "php": ">=5.4"
             },
             "require-dev": {
@@ -2558,13 +2555,12 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "SnapBi\\": "SnapBi/",
                     "Midtrans\\": "Midtrans/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "GPL-3.0"
             ],
             "authors": [
                 {
@@ -2578,19 +2574,15 @@
                 {
                     "name": "Ismail Faruqi",
                     "email": "ismail.faruqi@veritrans.co.id"
-                },
-                {
-                    "name": "Muhammad Fauzi Masykur",
-                    "email": "muhammad.masykur@gojek.com"
                 }
             ],
             "description": "PHP Wrapper for Midtrans Payment API.",
             "homepage": "https://midtrans.com",
             "support": {
                 "issues": "https://github.com/Midtrans/midtrans-php/issues",
-                "source": "https://github.com/Midtrans/midtrans-php/tree/v2.6.2"
+                "source": "https://github.com/Midtrans/midtrans-php/tree/master"
             },
-            "time": "2025-03-18T06:30:17+00:00"
+            "time": "2019-12-30T08:34:23+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -9275,5 +9267,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
