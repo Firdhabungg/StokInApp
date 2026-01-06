@@ -61,7 +61,6 @@ class BarangController extends Controller
             'kategori_id' => 'required|integer|exists:kategoris,kategori_id',
             'harga' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
-            'tgl_kadaluwarsa' => 'nullable|date|after:today'
         ]);
         
         // Generate kode barang jika tidak diinput atau kosong
@@ -71,6 +70,7 @@ class BarangController extends Controller
         }
         
         // Stok default 0 - harus ditambah via Barang Masuk
+        // tgl_kadaluwarsa diatur per batch via Barang Masuk
         Barang::create([
             'toko_id' => $tokoId,
             'nama_barang' => $request->nama_barang,
@@ -79,7 +79,6 @@ class BarangController extends Controller
             'harga' => $request->harga,
             'harga_jual' => $request->harga_jual,
             'stok' => 0,
-            'tgl_kadaluwarsa' => $request->tgl_kadaluwarsa,
             'status' => 'habis'
         ]);
 

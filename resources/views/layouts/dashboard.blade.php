@@ -7,6 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Dashboard') - {{ config('app.name', 'StokIn') }}</title>
+    
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -23,7 +27,9 @@
 
             <main class="p-4 md:p-6">
                 <div class="max-w-7xl mx-auto">
-                    {{-- Alert Success & Error Tetap Disini --}}
+                    {{-- Flash Alert dengan Auto-Close --}}
+                    <x-flash-alert />
+                    
                     @yield('content')
                 </div>
             </main>

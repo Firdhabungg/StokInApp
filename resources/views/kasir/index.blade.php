@@ -11,10 +11,10 @@
         <div>
             <h2 class="text-2xl font-bold text-gray-900">Daftar Kasir</h2>
             <p class="text-gray-500 mt-1">Manajemen akun kasir untuk operasional penjualan</p>
-            @if($maxUsers != -1)
+            @if($maxKasir != -1)
                 <p class="text-sm text-amber-600 mt-1">
                     <i class="fas fa-users mr-1"></i>
-                    Kuota pengguna: {{ $kasirs->count() + 1 }}/{{ $maxUsers }} 
+                    Kuota kasir: {{ $kasirs->count() }}/{{ $maxKasir }} 
                     ({{ $remainingSlots }} slot tersisa)
                 </p>
             @endif
@@ -52,18 +52,6 @@
 
 {{-- Table Card --}}
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-    @if(session('success'))
-        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-            <i class="fas fa-exclamation-circle mr-2"></i>{{ session('error') }}
-        </div>
-    @endif
-
     <div class="overflow-x-auto">
         <table id="kasirTable" class="w-full text-sm display">
             <thead>

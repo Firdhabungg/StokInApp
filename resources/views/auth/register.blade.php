@@ -18,6 +18,12 @@
                     </div>
                 @endif
 
+                @if ($errors->has('error'))
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                        <p>{{ $errors->first('error') }}</p>
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('register') }}" class="space-y-8">
                     @csrf
                     <div>

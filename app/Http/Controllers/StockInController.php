@@ -57,11 +57,13 @@ class StockInController extends Controller
             'tgl_masuk' => 'required|date',
             'tgl_kadaluarsa' => 'nullable|date|after_or_equal:tgl_masuk',
             'supplier' => 'nullable|string|max:255',
-            'harga_beli' => 'nullable|numeric|min:0',
             'keterangan' => 'nullable|string|max:500',
         ]);
 
         try {
+            // Ambil harga beli dari data barang
+            $barang = Barang::findOrFail($request->barang_id);
+
             $this->stockService->processStockIn([
                 'barang_id' => $request->barang_id,
                 'toko_id' => Auth::user()->toko_id,
@@ -70,7 +72,7 @@ class StockInController extends Controller
                 'tgl_masuk' => $request->tgl_masuk,
                 'tgl_kadaluarsa' => $request->tgl_kadaluarsa,
                 'supplier' => $request->supplier,
-                'harga_beli' => $request->harga_beli,
+                'harga_beli' => $barang->harga, // Ambil dari data barang
                 'keterangan' => $request->keterangan,
             ]);
 

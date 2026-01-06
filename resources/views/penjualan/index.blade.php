@@ -59,12 +59,6 @@
 
     {{-- Table Card --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        @if (session('success'))
-            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <div class="overflow-x-auto">
             <table id="penjualanTable" class="w-full text-sm display">
                 <thead>
