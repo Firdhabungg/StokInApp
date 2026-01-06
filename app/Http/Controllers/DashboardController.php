@@ -40,21 +40,19 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        // Batch hampir kadaluarsa (7 hari ke depan)
+        // Batch hampir kadaluarsa (7 hari ke depan) ATAU sudah kadaluarsa
         $tanggalBatas = Carbon::now()->addDays(7);
         $batchHampirKadaluarsa = StockBatch::where('toko_id', $tokoId)
             ->whereNotNull('tgl_kadaluarsa')
             ->where('tgl_kadaluarsa', '<=', $tanggalBatas)
-            ->where('tgl_kadaluarsa', '>=', Carbon::now())
             ->where('jumlah_sisa', '>', 0)
             ->count();
 
-        // List batch hampir kadaluarsa
+        // List batch hampir kadaluarsa DAN sudah kadaluarsa
         $listBatchKadaluarsa = StockBatch::with('barang')
             ->where('toko_id', $tokoId)
             ->whereNotNull('tgl_kadaluarsa')
             ->where('tgl_kadaluarsa', '<=', Carbon::now()->addDays(30))
-            ->where('tgl_kadaluarsa', '>=', Carbon::now())
             ->where('jumlah_sisa', '>', 0)
             ->orderBy('tgl_kadaluarsa', 'asc')
             ->limit(5)

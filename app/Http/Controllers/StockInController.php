@@ -63,7 +63,7 @@ class StockInController extends Controller
         try {
             // Ambil harga beli dari data barang
             $barang = Barang::findOrFail($request->barang_id);
-            
+
             $this->stockService->processStockIn([
                 'barang_id' => $request->barang_id,
                 'toko_id' => Auth::user()->toko_id,
