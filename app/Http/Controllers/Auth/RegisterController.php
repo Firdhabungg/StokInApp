@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Toko;
 use App\Models\User;
-use App\Models\Subscription;
-use App\Models\SubscriptionPlan;
+use App\Models\KategoriBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +14,18 @@ use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
+    /**
+     * Default categories for new stores.
+     */
+    protected $defaultCategories = [
+        ['nama_kategori' => 'Makanan', 'deskripsi' => 'Produk makanan dan snack'],
+        ['nama_kategori' => 'Minuman', 'deskripsi' => 'Produk minuman'],
+        ['nama_kategori' => 'Kebutuhan Rumah Tangga', 'deskripsi' => 'Produk kebutuhan sehari-hari'],
+        ['nama_kategori' => 'Elektronik', 'deskripsi' => 'Produk elektronik dan aksesoris'],
+        ['nama_kategori' => 'Alat Tulis', 'deskripsi' => 'Alat tulis dan perlengkapan kantor'],
+        ['nama_kategori' => 'Lainnya', 'deskripsi' => 'Kategori lainnya'],
+    ];
+
     /**
      * Show the registration form.
      */
@@ -70,6 +81,15 @@ class RegisterController extends Controller
                 'role' => 'owner',
             ]);
 
+            // Membuat kategori default untuk toko baru
+            foreach ($this->defaultCategories as $category) {
+                KategoriBarang::create([
+                    'toko_id' => $toko->id,
+                    'nama_kategori' => $category['nama_kategori'],
+                    'deskripsi' => $category['deskripsi'],
+                ]);
+            }
+
             DB::commit();
             Auth::login($user);
 
@@ -83,3 +103,4 @@ class RegisterController extends Controller
         }
     }
 }
+

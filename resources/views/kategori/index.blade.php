@@ -20,21 +20,6 @@
         </div>
     </div>
 
-    {{-- Alert Messages --}}
-    @if (session('success'))
-        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
-            <i class="fas fa-check-circle"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 flex items-center gap-2">
-            <i class="fas fa-exclamation-circle"></i>
-            <span>{{ session('error') }}</span>
-        </div>
-    @endif
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse ($kategoris as $kategori)
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow group">
