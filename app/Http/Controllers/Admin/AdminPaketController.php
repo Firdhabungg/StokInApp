@@ -14,18 +14,24 @@ class AdminPaketController extends Controller
      */
     public function index()
     {
-        $plans = SubscriptionPlan::withCount([
-            'subscriptions as active_count' => function ($q) {
-                $q->whereIn('status', ['active', 'trial'])
-                  ->where('expires_at', '>', now());
-            }
-        ])->get();
+        
+        $latestSubscriptionIds = Subscription::selectRaw('MAX(id)')
+            ->groupBy('toko_id')
+            ->pluck('MAX(id)');
+            
+        // 2. Ambil paket dengan menghitung hanya subscription terbaru yang masih aktif
+        $plans = SubscriptionPlan::all()->map(function ($plan) use ($latestSubscriptionIds) {
+            $plan->active_count = Subscription::whereIn('id', $latestSubscriptionIds)
+                ->where('plan_id', $plan->id)
+                ->whereIn('status', ['active', 'trial'])
+                ->where('expires_at', '>', now())
+                ->count();
+            return $plan;
+        });
 
         // Summary stats
         $totalPlans = $plans->count();
-        $totalActiveSubscriptions = Subscription::whereIn('status', ['active', 'trial'])
-            ->where('expires_at', '>', now())
-            ->count();
+        $totalActiveSubscriptions = $plans->sum('active_count');
 
         return view('admin.kelola-paket.index', compact('plans', 'totalPlans', 'totalActiveSubscriptions'));
     }
@@ -87,4 +93,3 @@ class AdminPaketController extends Controller
             ->with('success', "Paket {$plan->name} berhasil {$status}.");
     }
 }
-

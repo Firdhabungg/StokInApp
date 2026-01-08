@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Semua Toko')
+@section('title', 'Daftar Toko')
 @section('header_title', 'Manajemen Toko')
 @section('header_description', 'Daftar semua toko yang terdaftar dan status langganan')
 
@@ -14,7 +14,7 @@
         </div>
     </div>
     
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
         <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
             <div class="flex items-center gap-3">
                 <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
@@ -71,18 +71,6 @@
                 <div>
                     <p class="text-xs text-gray-400">Total Users</p>
                     <p class="text-xl font-bold text-gray-900">{{ $totalUsers }}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-cyan-50 text-cyan-600 rounded-lg">
-                    <i class="fas fa-box"></i>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-400">Total Barang</p>
-                    <p class="text-xl font-bold text-gray-900">{{ $totalBarang }}</p>
                 </div>
             </div>
         </div>
@@ -239,27 +227,31 @@
     function filterByStatus(status) {
         if (table) {
             document.getElementById('customSearchInput').value = status;
-            table.search(status).draw();
-            
-            // Update active filter button
+    
+            // kolom STATUS = index ke-2 (mulai dari 0)
+            table.column(2).search('^' + status + '$', true, false).draw();
+    
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-offset-1');
             });
-            event.target.closest('.filter-btn').classList.add('ring-2', 'ring-offset-1');
+    
+            event.target.closest('.filter-btn')
+                .classList.add('ring-2', 'ring-offset-1');
         }
     }
+
 
     // Clear filter
     function clearFilter() {
         if (table) {
             document.getElementById('customSearchInput').value = '';
-            table.search('').draw();
-            
-            // Remove active state from all filter buttons
+            table.search('').columns().search('').draw();
+    
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-offset-1');
             });
         }
     }
+
 </script>
 @endpush

@@ -56,15 +56,15 @@ class SubscriptionController extends Controller
         if (!$toko) {
             return redirect()->route('dashboard')->with('error', 'Anda belum memiliki toko.');
         }
-
+    
         $plan = SubscriptionPlan::where('slug', $planSlug)->where('is_active', true)->firstOrFail();
-
-        // If free plan, create trial directly
-        if ($plan->isFree()) {
+    
+        // Perbaikan: Jika paket gratis, langsung alihkan ke fungsi trial tanpa Midtrans
+        if ($plan->isFree() || $plan->price <= 0) {
             return $this->createTrialSubscription($toko, $plan);
         }
-
-        // Create or get pending subscription for this toko
+    
+        // Tetap buat data pending untuk paket berbayar
         $subscription = Subscription::updateOrCreate(
             [
                 'toko_id' => $toko->id,
@@ -73,13 +73,13 @@ class SubscriptionController extends Controller
             [
                 'plan_id' => $plan->id,
                 'starts_at' => now(),
-                'expires_at' => now()->addDays($plan->duration_days),
+                'expires_at' => now()->addDays((int) $plan->duration_days),
             ]
         );
-
-        // Get snap token
+    
+        // Ambil snap token untuk pembayaran berbayar
         $snapData = $this->midtransService->createSnapToken($subscription, $plan);
-
+    
         return view('subscription.checkout', [
             'subscription' => $subscription,
             'plan' => $plan,
@@ -94,26 +94,29 @@ class SubscriptionController extends Controller
      */
     protected function createTrialSubscription($toko, $plan)
     {
-        // Check if already had trial
-        $existingTrial = Subscription::where('toko_id', $toko->id)
-            ->where('status', 'trial')
-            ->exists();
-
-        if ($existingTrial) {
+        // Periksa apakah toko sedang memiliki langganan yang benar-benar aktif
+        if ($toko->activeSubscription && $toko->activeSubscription->status === 'active') {
             return redirect()->route('subscription.index')
-                ->with('error', 'Anda sudah pernah menggunakan trial.');
+                ->with('error', 'Anda masih memiliki langganan aktif.');
         }
-
+    
+        // Periksa apakah sudah pernah menggunakan jatah trial
+        if ($toko->hasUsedFreeTrial()) {
+            return redirect()->route('subscription.index')
+                ->with('error', 'Anda sudah pernah menggunakan jatah trial sebelumnya.');
+        }
+    
+        // Buat langganan baru dengan proteksi tipe data (int)
         Subscription::create([
             'toko_id' => $toko->id,
             'plan_id' => $plan->id,
-            'status' => 'trial',
+            'status' => 'active', // Set aktif agar bisa langsung digunakan
             'starts_at' => now(),
-            'expires_at' => now()->addDays($plan->duration_days),
+            'expires_at' => now()->addDays((int) $plan->duration_days),
         ]);
-
+    
         return redirect()->route('dashboard')
-            ->with('success', 'Selamat! Trial ' . $plan->duration_days . ' hari Anda sudah aktif.');
+            ->with('success', 'Selamat! Paket ' . $plan->name . ' Anda sudah aktif.');
     }
 
     /**
@@ -162,7 +165,7 @@ class SubscriptionController extends Controller
             $subscription->update([
                 'status' => 'active',
                 'starts_at' => now(),
-                'expires_at' => now()->addDays($plan->duration_days),
+                'expires_at' => now()->addDays((int) $plan->duration_days),
             ]);
         }
     }

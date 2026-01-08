@@ -30,14 +30,32 @@
                     </div>
 
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input type="password" name="password" id="password"
-                            class="w-full px-4 py-3 border {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                            placeholder="••••••••">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Password
+                        </label>
+                    
+                        <div class="relative">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="w-full px-4 py-3 pr-12 border {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                                placeholder="••••••••">
+                    
+                            <!-- Eye Icon -->
+                            <button
+                                type="button"
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 hover:text-amber-600 focus:outline-none">
+                                <i id="eyeIcon" class="fas fa-eye text-sm sm:text-sm"></i>
+                            </button>
+                        </div>
+                    
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+
 
                     <button type="submit"
                         class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
@@ -61,4 +79,22 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+    
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    }
+    </script>
+
 @endsection

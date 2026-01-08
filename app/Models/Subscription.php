@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
-{
+    {
     use HasFactory;
 
     protected $fillable = [
@@ -37,6 +37,13 @@ class Subscription extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function scopeLatestPerToko($query)
+    {
+        return $query->whereIn('id', function ($q) {
+            $q->selectRaw('MAX(id)')->from('subscriptions')->groupBy('toko_id');
+        });
     }
 
     public function isActive()

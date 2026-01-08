@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\Toko;
-use App\Models\Sale;
 use App\Models\Subscription;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         /*
         |--------------------------------------------------------------------------
-        | SUMMARY (TIDAK DIUBAH)
+        | 1. SUMMARY STATISTICS
         |--------------------------------------------------------------------------
         */
         $totalProduk = Barang::count();
@@ -23,27 +23,23 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | OMZET PLATFORM (DIBENAHI – DARI SUBSCRIPTION)
+        | 2. OMZET PLATFORM (SUBSCRIPTION BERBAYAR AKTIF)
         |--------------------------------------------------------------------------
         */
-
-        // TOTAL OMZET = semua subscription aktif & berbayar
         $omzetTotal = Subscription::where('status', 'active')
             ->whereHas('plan', function ($q) {
-                $q->where('price', '>', 0)
-                  ->where('is_active', true);
+                $q->where('price', '>', 0)->where('is_active', true);
             })
             ->with('plan:id,price')
             ->get()
-            ->sum(fn ($s) => $s->plan->price ?? 0);
+            ->sum(fn($s) => $s->plan->price ?? 0);
 
-        // FORMAT RUPIAH (AMAN, TANPA HELPER)
         $omzetFormatted = 'Rp ' . number_format($omzetTotal, 0, ',', '.');
 
-        // STATUS OMZET (TEKS)
-        if ($omzetTotal >= 5_000_000) {
+        // Status Omzet berdasarkan target
+        if ($omzetTotal >= 5000000) {
             $omzetStatus = 'Sangat Baik';
-        } elseif ($omzetTotal >= 1_000_000) {
+        } elseif ($omzetTotal >= 1000000) {
             $omzetStatus = 'Naik Signifikan';
         } elseif ($omzetTotal > 0) {
             $omzetStatus = 'Naik';
@@ -52,69 +48,82 @@ class DashboardController extends Controller
         }
 
         /*
-|--------------------------------------------------------------------------
-| GRAFIK PENDAPATAN BULANAN (SAAS)
-|--------------------------------------------------------------------------
-*/
+        |--------------------------------------------------------------------------
+        | 3. GRAFIK PENDAPATAN BULANAN (12 BULAN TERAKHIR)
+        |--------------------------------------------------------------------------
+        */
+        $monthlyRevenue = Subscription::where('status', 'active')
+            ->whereHas('plan', function ($q) {
+                $q->where('price', '>', 0);
+            })
+            ->get()
+            ->groupBy(fn($sub) => $sub->starts_at->format('Y-m'))
+            ->map(fn($subs) => $subs->sum(fn($s) => $s->plan->price ?? 0));
 
-$monthlyRevenue = Subscription::where('status', 'active')
-    ->whereHas('plan', function ($q) {
-        $q->where('price', '>', 0)
-          ->where('is_active', true);
-    })
-    ->with('plan:id,price')
-    ->get()
-    ->groupBy(function ($sub) {
-        return $sub->starts_at->format('Y-m');
-    })
-    ->map(function ($subs) {
-        return $subs->sum(fn ($s) => $s->plan->price ?? 0);
-    });
+        $growthLabels = [];
+        $growthData   = [];
 
-// ambil 12 bulan terakhir
-$growthLabels = [];
-$growthData   = [];
-
-for ($i = 11; $i >= 0; $i--) {
-    $monthKey = now()->subMonths($i)->format('Y-m');
-    $growthLabels[] = now()->subMonths($i)->format('M Y');
-    $growthData[]   = $monthlyRevenue[$monthKey] ?? 0;
-}
-
+        for ($i = 11; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $monthKey = $date->format('Y-m');
+            $growthLabels[] = $date->format('M Y');
+            $growthData[]   = $monthlyRevenue[$monthKey] ?? 0;
+        }
 
         /*
         |--------------------------------------------------------------------------
-        | DISTRIBUSI PAKET (TIDAK DIUBAH)
+        | DISTRIBUSI PAKET (SINKRONISASI 100% DENGAN DATABASE)
         |--------------------------------------------------------------------------
         */
-        $paket = Subscription::whereIn('status', ['trial', 'active'])
+        // Ambil ID terbaru untuk setiap toko
+        $latestIds = Subscription::selectRaw('MAX(id)')->groupBy('toko_id')->pluck('MAX(id)');
+        
+        // Ambil data berdasarkan status
+        $paket = Subscription::whereIn('id', $latestIds)
             ->selectRaw("
-                CASE
-                    WHEN plan_id = 1 THEN 'Trial'
-                    WHEN plan_id = 2 THEN 'Pro'
-                    ELSE 'Lainnya'
-                END as plan_name,
+                CASE 
+                    WHEN status = 'active' THEN 'Pro' 
+                    WHEN status = 'trial' THEN 'Trial' 
+                    ELSE 'Lainnya' 
+                END as plan_name, 
                 COUNT(*) as total
             ")
             ->groupBy('plan_name')
-            ->orderBy('plan_name')
             ->get();
-
+        
         $paketLabels = $paket->pluck('plan_name');
         $paketData   = $paket->pluck('total');
-        $totalPaket  = $paketData->sum();
+        
+        // Hitung Toko yang Belum Berlangganan (Total Toko - Toko dengan status Pro/Trial)
+        $tokoTerhitungCount = Subscription::whereIn('id', $latestIds)
+            ->whereIn('status', ['active', 'trial'])
+            ->count();
+        
+        $totalTokoReal = Toko::count();
+        $tokoBelumLangganan = $totalTokoReal - $tokoTerhitungCount;
+        
+        if ($tokoBelumLangganan > 0) {
+            $paketLabels->push('Belum Langganan');
+            $paketData->push($tokoBelumLangganan);
+        }
+        
+        $totalPaket = $paketData->sum();
 
         /*
         |--------------------------------------------------------------------------
-        | INSIGHT PLATFORM (TIDAK DIUBAH)
+        | 5. INSIGHT & ALERT PLATFORM
         |--------------------------------------------------------------------------
         */
+        // Toko yang tidak update data selama 2 minggu
         $tokoTidakAktif = Toko::where('updated_at', '<=', now()->subDays(14))->count();
 
+        // Langganan Pro yang akan habis dalam 3 hari
         $langgananHampirHabis = Subscription::where('status', 'active')
             ->whereDate('expires_at', '<=', now()->addDays(3))
+            ->whereDate('expires_at', '>', now())
             ->count();
 
+        // Akun yang masih dalam masa Trial
         $trialAktif = Subscription::where('status', 'trial')
             ->where('expires_at', '>', now())
             ->count();

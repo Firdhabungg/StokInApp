@@ -23,15 +23,22 @@ class AdminTokoController extends Controller
         // Get summary stats
         $totalToko = $tokos->count();
         $totalUsers = User::whereNotNull('toko_id')->count();
-        $totalBarang = Barang::count();
         
         // Subscription stats
-        $tokoAktif = $tokos->filter(fn($t) => $t->activeSubscription)->count();
-        $tokoTrial = $tokos->filter(fn($t) => $t->activeSubscription && $t->activeSubscription->status === 'trial')->count();
-        $tokoExpired = $totalToko - $tokoAktif;
+        $tokoAktif = $tokos->filter(fn ($t) =>
+        $t->activeSubscription && $t->activeSubscription->status === 'active'
+        )->count();
+        
+        $tokoTrial = $tokos->filter(fn ($t) =>
+            $t->activeSubscription && $t->activeSubscription->status === 'trial'
+        )->count();
+        
+        $tokoExpired = $tokos->filter(fn ($t) =>
+            $t->activeSubscription && $t->activeSubscription->status === 'expired'
+        )->count();
 
         return view('admin.toko.index', compact(
-            'tokos', 'totalToko', 'totalUsers', 'totalBarang',
+            'tokos', 'totalToko', 'totalUsers',
             'tokoAktif', 'tokoTrial', 'tokoExpired'
         ));
     }

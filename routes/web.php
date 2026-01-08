@@ -1,26 +1,29 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminPaketController;
-use App\Http\Controllers\Admin\AdminPelangganController;
-use App\Http\Controllers\Admin\AdminTokoController;
-use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\Admin\{
+    AdminPaketController,
+    AdminPelangganController,
+    AdminTokoController,
+    KeuanganController,
+    DashboardController as AdminDashboardController,
+    PengaturanController
+};
+use App\Http\Controllers\{
+    SubscriptionController,
+    KasirController,
+    BarangController,
+    ProfilController,
+    StockInController,
+    StockOutController,
+    StockBatchController,
+    PenjualanController,
+    LaporanController,
+    NotificationController,
+    KategoriController,
+    DashboardController as UserDashboardController
+};
+use App\Http\Controllers\Auth\{AuthController, RegisterController};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KasirController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\DashboardController as UserDashboardController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\KeuanganController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\PengaturanController;
-use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\StockInController;
-use App\Http\Controllers\StockOutController;
-use App\Http\Controllers\StockBatchController;
-use App\Http\Controllers\PenjualanController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\KategoriController;
 
 // Landing page
 Route::get('/', function () {
