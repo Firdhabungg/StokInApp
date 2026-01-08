@@ -33,10 +33,10 @@ $paketDataArr    = collect($paketData)->toArray();
     @php
     $cards = [
         [
-            'icon'  => 'boxes-stacked',
-            'color' => 'blue',
-            'title' => 'Total Produk',
-            'value' => $totalProduk
+            'icon'  => 'file-invoice',
+            'color' => 'rose',
+            'title' => 'Invoice Pending',
+            'value' => $invoicePending
         ],
         [
             'icon'  => 'store',
@@ -106,8 +106,31 @@ $paketDataArr    = collect($paketData)->toArray();
             <h3 class="text-lg font-bold mb-6">Distribusi Paket</h3>
 
             {{-- Skeleton --}}
-            <div id="packageSkeleton" class="h-[220px] animate-pulse bg-gray-100 rounded-lg"></div>
+            <div id="packageSkeleton" class="h-[180px] animate-pulse bg-gray-100 rounded-lg"></div>
             <canvas id="packageChart" class="hidden"></canvas>
+
+            {{-- Legend dengan angka --}}
+            <div class="mt-6 pt-4 border-t border-gray-100 space-y-2">
+                @foreach(array_combine($paketLabelsArr, $paketDataArr) as $label => $count)
+                    @php
+                        $labelLower = strtolower($label);
+                        if (str_contains($labelLower, 'pro') || str_contains($labelLower, 'active')) {
+                            $dotColor = '#f59e0b'; // amber-500
+                        } elseif (str_contains($labelLower, 'trial')) {
+                            $dotColor = '#10b981'; // emerald-500
+                        } else {
+                            $dotColor = '#3b82f6'; // blue-500
+                        }
+                    @endphp
+                    <div class="flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full" style="background-color: {{ $dotColor }};"></span>
+                            <span class="text-gray-600">{{ $label }}</span>
+                        </div>
+                        <span class="font-bold text-gray-900">{{ $count }} toko</span>
+                    </div>
+                @endforeach
+            </div>
         </div>
 
     </div>

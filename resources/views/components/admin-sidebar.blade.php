@@ -46,7 +46,7 @@
                     </p>
 
                     <li>
-                        <x-sidebar.links title="Semua Toko" icon="fas fa-store" route="admin.toko.index" />
+                        <x-sidebar.links title="Daftar Toko" icon="fas fa-store" route="admin.toko.index" />
                     </li>
                     <li>
                         <x-sidebar.links title="Pelanggan (Toko)" icon="fas fa-users" route="admin.pelanggan.index" />

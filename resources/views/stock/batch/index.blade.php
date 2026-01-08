@@ -179,11 +179,25 @@
             }
         });
 
-        // Filter by status
+        // Filter by status - using column specific search with regex
         function filterByStatus(status) {
             if (table) {
-                document.getElementById('customSearchInput').value = status;
-                table.search(status).draw();
+                // Column 6 is Status column (0-indexed)
+                let searchTerm = '';
+                
+                if (status === 'aman') {
+                    searchTerm = '^\\s*Aman\\s*$';  // Match "Aman" with possible whitespace
+                } else if (status === 'hampir') {
+                    searchTerm = 'Hampir';  // Match "Hampir kadaluarsa"
+                } else if (status === 'kadaluarsa') {
+                    // Match "Kadaluarsa" but NOT "Hampir kadaluarsa"
+                    searchTerm = '^\\s*Kadaluarsa\\s*$';
+                }
+                
+                // Clear global search and filter specific column with regex (case insensitive)
+                document.getElementById('customSearchInput').value = '';
+                table.search('');
+                table.column(6).search(searchTerm, true, false).draw();
 
                 // Update active filter button
                 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -197,7 +211,7 @@
         function clearFilter() {
             if (table) {
                 document.getElementById('customSearchInput').value = '';
-                table.search('').draw();
+                table.search('').columns().search('').draw();
 
                 // Remove active state from all filter buttons
                 document.querySelectorAll('.filter-btn').forEach(btn => {

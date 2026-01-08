@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Barang;
+use App\Models\Payment;
 use App\Models\Toko;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +17,10 @@ class DashboardController extends Controller
         | 1. SUMMARY STATISTICS
         |--------------------------------------------------------------------------
         */
-        $totalProduk = Barang::count();
+        // Invoice Pending (pembayaran yang belum selesai)
+        $invoicePending = Payment::where('status', 'pending')->count();
+        
         $totalToko   = Toko::count();
-        $stokMenipis = Barang::where('status', 'menipis')->count();
 
         /*
         |--------------------------------------------------------------------------
@@ -129,9 +130,8 @@ class DashboardController extends Controller
             ->count();
 
         return view('admin.dashboard.index', compact(
-            'totalProduk',
+            'invoicePending',
             'totalToko',
-            'stokMenipis',
             'omzetFormatted',
             'omzetStatus',
             'growthLabels',

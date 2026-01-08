@@ -86,7 +86,7 @@ class StockOutController extends Controller
             'barang_id' => 'required|exists:barangs,id',
             'jumlah' => 'required|integer|min:1',
             'tgl_keluar' => 'required|date',
-            'alasan' => 'required|in:penjualan,rusak,kadaluarsa,retur,lainnya',
+            'alasan' => 'required|in:penjualan,rusak,kadaluarsa,retur,sample,lainnya',
             'keterangan' => 'nullable|string|max:500',
         ]);
 

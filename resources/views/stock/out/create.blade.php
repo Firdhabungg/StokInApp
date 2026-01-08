@@ -7,7 +7,6 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <div class="mb-6">
             <h2 class="text-xl font-semibold text-gray-900">Form Barang Keluar</h2>
-            <p class="text-gray-500 text-sm mt-1">Sistem akan otomatis menggunakan metode FIFO (First In First Out)</p>
         </div>
 
         @if ($errors->any())
