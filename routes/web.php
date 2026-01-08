@@ -41,7 +41,7 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
         Route::get('/billing', [KeuanganController::class, 'billing'])->name('billing');
-        Route::get('/invoice/{id}', [KeuanganController::class, 'invoice'])->name('invoice');
+        Route::get('/invoice/{payment}', [KeuanganController::class, 'show'])->name('show');
     });
 
     Route::prefix('pengaturan')->name('pengaturan.')->group(function () {
