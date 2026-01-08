@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('header_title', 'Manajemen Paket')
+@section('title', 'Manajemen Paket')
 @section('header_description', 'Atur harga dan fitur paket berlangganan StokIn')
 
 @section('content')

@@ -36,7 +36,7 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         // Summary data
         $totalBarang = Barang::where('toko_id', $tokoId)->count();
@@ -70,7 +70,7 @@ class LaporanController extends Controller
      */
     public function stok(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
 
         $barangs = Barang::with('kategori')
@@ -102,7 +102,7 @@ class LaporanController extends Controller
      */
     public function penjualan(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $filter = $request->get('filter', 'harian');
         $tanggal = $request->get('tanggal', now()->toDateString());
@@ -166,7 +166,7 @@ class LaporanController extends Controller
      */
     public function barangMasuk(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());
@@ -200,7 +200,7 @@ class LaporanController extends Controller
      */
     public function barangKeluar(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());
@@ -251,7 +251,7 @@ class LaporanController extends Controller
     {
         $this->checkExportPermission();
         
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
 
         $barangs = Barang::with('kategori')
@@ -292,7 +292,7 @@ class LaporanController extends Controller
     {
         $this->checkExportPermission();
         
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $filter = $request->get('filter', 'harian');
         $tanggal = $request->get('tanggal', now()->toDateString());
@@ -343,7 +343,7 @@ class LaporanController extends Controller
     {
         $this->checkExportPermission();
         
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());
@@ -384,7 +384,7 @@ class LaporanController extends Controller
     {
         $this->checkExportPermission();
         
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());

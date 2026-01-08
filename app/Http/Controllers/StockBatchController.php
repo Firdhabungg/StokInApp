@@ -22,7 +22,7 @@ class StockBatchController extends Controller
      */
     public function index(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         // Update batch expiry status
         $this->stockService->updateBatchExpiryStatus();
@@ -62,7 +62,7 @@ class StockBatchController extends Controller
      */
     public function showByBarang(Barang $barang)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         // Ensure barang belongs to user's toko
         if ($barang->toko_id !== $tokoId) {

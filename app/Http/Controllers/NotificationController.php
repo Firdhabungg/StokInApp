@@ -20,7 +20,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $notifications = $this->notificationService->getNotifications($tokoId);
 
         return view('notifications.index', compact('notifications'));
@@ -31,7 +31,7 @@ class NotificationController extends Controller
      */
     public function getNotifications()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $notifications = $this->notificationService->getNotifications($tokoId);
 
         // Limit to 5 for dropdown

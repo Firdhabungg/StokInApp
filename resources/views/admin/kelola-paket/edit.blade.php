@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('header_title', 'Edit Paket')
+@section('title', 'Edit Paket')
 @section('header_description', 'Ubah konfigurasi paket {{ $plan->name }}')
 
 @section('content')

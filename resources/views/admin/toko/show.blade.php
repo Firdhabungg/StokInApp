@@ -13,16 +13,28 @@
 
     {{-- Toko Info --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex items-start gap-4">
-            <div class="w-16 h-16 bg-amber-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-store text-amber-600 text-2xl"></i>
+        <div class="flex items-start justify-between">
+            <div class="flex items-start gap-4">
+                <div class="w-16 h-16 bg-amber-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-store text-amber-600 text-2xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-xl font-bold text-gray-900">{{ $toko->name }}</h2>
+                    <p class="text-gray-500">{{ $toko->email }}</p>
+                    <p class="text-gray-500">{{ $toko->phone }}</p>
+                    <p class="text-gray-500 mt-2">{{ $toko->address }}</p>
+                </div>
             </div>
-            <div class="flex-1">
-                <h2 class="text-xl font-bold text-gray-900">{{ $toko->name }}</h2>
-                <p class="text-gray-500">{{ $toko->email }}</p>
-                <p class="text-gray-500">{{ $toko->phone }}</p>
-                <p class="text-gray-500 mt-2">{{ $toko->address }}</p>
-            </div>
+            
+            {{-- Akses Toko Button --}}
+            <form action="{{ route('admin.akses-toko.start', $toko) }}" method="POST">
+                @csrf
+                <button type="submit" 
+                    class="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-colors font-medium shadow-lg shadow-amber-200">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Masuk sebagai Toko Ini</span>
+                </button>
+            </form>
         </div>
     </div>
 

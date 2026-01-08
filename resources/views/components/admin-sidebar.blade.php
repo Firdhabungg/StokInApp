@@ -52,7 +52,7 @@
                         <x-sidebar.links title="Pelanggan (Toko)" icon="fas fa-users" route="admin.pelanggan.index" />
                     </li>
                     <li>
-                        <x-sidebar.links title="Paket Berlangganan" icon="fas fa-layer-group"
+                        <x-sidebar.links title="Manajemen Paket" icon="fas fa-layer-group"
                             route="admin.kelola-paket.index" />
                     </li>
 

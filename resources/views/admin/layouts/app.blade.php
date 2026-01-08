@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') - StokIn Admin</title>
+    <title>@yield('title', 'Dashboard') - Admin Stokin</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -82,7 +82,7 @@
             </p>
 
             <x-sidebar.links title="Semua Toko" icon="fas fa-store" route="admin.toko.index" />
-            <x-sidebar.links title="Paket Berlangganan" icon="fas fa-layer-group" route="admin.kelola-paket.index" />
+            <x-sidebar.links title="Manajemen Paket" icon="fas fa-layer-group" route="admin.kelola-paket.index" />
 
             <p class="nav-label px-4 mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                 Keuangan
@@ -109,7 +109,7 @@
             <form id="logout-form" method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="button" onclick="confirmLogout()"
-                    class="logout-btn w-full py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-rose-600 transition-all flex items-center justify-center gap-2">
+                    class="logout-btn w-full py-2 bg-slate-900 text-white rounded-xl font-bold hover:bg-rose-600 transition-all flex items-center justify-center gap-2">
                     <i class="fas fa-sign-out-alt"></i>
                     <span class="nav-text">Keluar</span>
                 </button>
@@ -164,7 +164,7 @@ function confirmLogout() {
         showCancelButton: true,
         confirmButtonColor: '#f59e0b',
         cancelButtonColor: '#6b7280',
-        confirmButtonText: 'Ya, Keluar',
+        confirmButtonText: 'Logout',
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {

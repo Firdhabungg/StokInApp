@@ -17,7 +17,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        // Use effective_toko_id untuk mendukung mode Akses Toko Super Admin
+        $tokoId = Auth::user()->effective_toko_id;
 
         // Total stok dari semua batch yang tersedia
         $totalStok = StockBatch::where('toko_id', $tokoId)

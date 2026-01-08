@@ -11,7 +11,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $barangs = Barang::where('toko_id', $tokoId)
             ->with('kategori')
             ->orderBy('nama_barang')
@@ -21,7 +21,7 @@ class BarangController extends Controller
 
     public function create()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategoris = KategoriBarang::where('toko_id', $tokoId)->get();
         
         // Auto-generate kode barang
@@ -54,7 +54,7 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         
         $request->validate([
             'nama_barang' => 'required|string|max:255',
@@ -98,7 +98,7 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $barang = Barang::where('toko_id', $tokoId)->findOrFail($id);
         $kategoris = KategoriBarang::where('toko_id', $tokoId)->get();
         return view('barang.edit', compact('barang', 'kategoris'));
@@ -109,7 +109,7 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $barang = Barang::where('toko_id', $tokoId)->findOrFail($id);
         
         $request->validate([
@@ -136,7 +136,7 @@ class BarangController extends Controller
      */
     public function destroy(string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $barang = Barang::where('toko_id', $tokoId)->findOrFail($id);
         $barang->delete();
 

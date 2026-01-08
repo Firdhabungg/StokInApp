@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Tagihan & Faktur')
-@section('header_title', 'Tagihan & Faktur')
 @section('header_description', 'Kelola tagihan, pembayaran, dan riwayat invoice pelanggan')
 
 @section('content')

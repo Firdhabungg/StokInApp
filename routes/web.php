@@ -37,6 +37,11 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
     // Management Toko
     Route::get('/toko', [AdminTokoController::class, 'index'])->name('toko.index');
     Route::get('/toko/{toko}', [AdminTokoController::class, 'show'])->name('toko.show');
+    
+    // Akses Toko (Super Admin masuk sebagai toko)
+    // Route stop harus di atas agar tidak tertangkap oleh {toko}
+    Route::post('/akses-toko/stop', [\App\Http\Controllers\Admin\AksesTokoController::class, 'stop'])->name('akses-toko.stop');
+    Route::post('/akses-toko/{toko}', [\App\Http\Controllers\Admin\AksesTokoController::class, 'start'])->name('akses-toko.start');
 
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');

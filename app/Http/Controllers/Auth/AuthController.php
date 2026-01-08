@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -44,8 +45,18 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');
         }
 
+        // Cek apakah email terdaftar
+        $user = User::where('email', $request->email)->first();
+        
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Email tidak terdaftar.',
+            ])->onlyInput('email');
+        }
+        
+        // Email terdaftar tapi password salah
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'password' => 'Password yang Anda masukkan salah.',
         ])->onlyInput('email');
     }
 

@@ -131,7 +131,7 @@
 
     <div class="p-4 border-t border-slate-50">
         <div id="userInfo" class="mb-2 px-2 py-2 bg-slate-100 rounded-lg text-center">
-            <p class="nav-text text-[10px] text-slate-500 uppercase font-bold">Role</p>
+            <p class="nav-text text-[10px] text-slate-500 uppercase font-bold">Login sebagai</p>
             <p class="nav-text text-sm font-semibold text-slate-700">
                 {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
         </div>

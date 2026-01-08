@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Detail Invoice')
-@section('header_title', 'Detail Invoice')
 @section('header_description', 'Informasi lengkap tentang invoice pembayaran')
 
 @section('content')

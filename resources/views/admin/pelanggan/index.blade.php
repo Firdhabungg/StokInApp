@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Manajemen Pelanggan')
-@section('header_title', 'Manajemen Pelanggan')
 @section('header_description', 'Daftar Toko & Status Langganan Tenant') 
 
 @section('content')

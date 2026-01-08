@@ -25,7 +25,7 @@ class PenjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $query = Sale::with(['user', 'items'])
             ->where('toko_id', $tokoId)
@@ -57,7 +57,7 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $barangs = Barang::where('toko_id', $tokoId)
             ->where('stok', '>', 0)
@@ -74,7 +74,7 @@ class PenjualanController extends Controller
      */
     public function getBarang($id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $barang = Barang::where('id', $id)
             ->where('toko_id', $tokoId)
@@ -115,7 +115,7 @@ class PenjualanController extends Controller
             'keterangan' => 'nullable|string|max:500',
         ]);
 
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $buktiPembayaranPath = null;
             if ($request->hasFile('bukti_pembayaran')) {

@@ -23,7 +23,7 @@ class StockOutController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $stockOuts = StockOut::with(['barang', 'batch', 'user'])
             ->where('toko_id', $tokoId)
@@ -38,7 +38,7 @@ class StockOutController extends Controller
      */
     public function create()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         // Get barangs with available stock
         $barangs = Barang::where('toko_id', $tokoId)
@@ -57,7 +57,7 @@ class StockOutController extends Controller
      */
     public function getAvailableStock(Request $request, $barangId)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $totalStock = StockBatch::where('barang_id', $barangId)
             ->where('toko_id', $tokoId)
@@ -93,7 +93,7 @@ class StockOutController extends Controller
         try {
             $this->stockService->processStockOut([
                 'barang_id' => $request->barang_id,
-                'toko_id' => Auth::user()->toko_id,
+                'toko_id' => Auth::user()->effective_toko_id,
                 'user_id' => Auth::id(),
                 'jumlah' => $request->jumlah,
                 'tgl_keluar' => $request->tgl_keluar,

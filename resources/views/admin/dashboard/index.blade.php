@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('header_title', 'Dashboard Admin')
+@section('title', 'Dashboard Admin')
 @section('header_description', 'Analisis Platform StokIn')
 
 @section('content')

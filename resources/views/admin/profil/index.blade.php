@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Profil Saya')
-@section('header_title', 'Profil Saya')
 @section('header_description', 'Kelola informasi akun Anda')
 
 @section('content')

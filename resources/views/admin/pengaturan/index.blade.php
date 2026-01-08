@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('header_title', 'Pengaturan Aplikasi')
+@section('title', 'Pengaturan Aplikasi')
 @section('header_description', 'Pengaturan umum dan informasi dasar aplikasi')
 
 @section('content')

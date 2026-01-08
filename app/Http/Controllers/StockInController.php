@@ -22,7 +22,7 @@ class StockInController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $stockIns = StockIn::with(['barang', 'batch', 'user'])
             ->where('toko_id', $tokoId)
@@ -37,7 +37,7 @@ class StockInController extends Controller
      */
     public function create()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
 
         $barangs = Barang::where('toko_id', $tokoId)
             ->orderBy('nama_barang')
@@ -66,7 +66,7 @@ class StockInController extends Controller
 
             $this->stockService->processStockIn([
                 'barang_id' => $request->barang_id,
-                'toko_id' => Auth::user()->toko_id,
+                'toko_id' => Auth::user()->effective_toko_id,
                 'user_id' => Auth::id(),
                 'jumlah' => $request->jumlah,
                 'tgl_masuk' => $request->tgl_masuk,

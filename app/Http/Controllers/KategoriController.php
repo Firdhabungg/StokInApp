@@ -13,7 +13,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategoris = KategoriBarang::where('toko_id', $tokoId)
             ->withCount('barangs')
             ->orderBy('nama_kategori')
@@ -35,7 +35,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         
         $request->validate([
             'nama_kategori' => 'required|string|max:100|unique:kategoris,nama_kategori,NULL,kategori_id,toko_id,' . $tokoId,
@@ -56,7 +56,7 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)
             ->withCount('barangs')
             ->findOrFail($id);
@@ -73,7 +73,7 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
         
         return view('kategori.edit', compact('kategori'));
@@ -84,7 +84,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
         
         $request->validate([
@@ -105,7 +105,7 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $tokoId = Auth::user()->toko_id;
+        $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
         
         // Check if kategori has barangs

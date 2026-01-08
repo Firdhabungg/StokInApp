@@ -23,6 +23,9 @@
         <span class="hidden md:ml-20 md:ml-64"></span>
         
         <div id="mainWrapper" class="flex-1 flex flex-col min-w-0 md:ml-64 transition-all duration-300">
+            {{-- Banner saat Super Admin mengakses toko --}}
+            <x-akses-toko-banner />
+            
             <x-header />
 
             <main class="p-4 md:p-6">

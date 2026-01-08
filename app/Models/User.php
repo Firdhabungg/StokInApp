@@ -51,10 +51,52 @@ class User extends Authenticatable
 
     /**
      * Get the toko that the user belongs to.
+     * Respects "Akses Toko" mode for Super Admin.
      */
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
+    }
+
+    /**
+     * Get effective toko (respects Akses Toko mode for Super Admin)
+     */
+    public function getEffectiveTokoAttribute(): ?Toko
+    {
+        // Jika Super Admin sedang dalam mode Akses Toko
+        if ($this->isSuperAdmin() && session()->has('akses_toko_id')) {
+            return Toko::find(session('akses_toko_id'));
+        }
+
+        return $this->toko;
+    }
+
+    /**
+     * Get effective toko_id (respects Akses Toko mode)
+     */
+    public function getEffectiveTokoIdAttribute(): ?int
+    {
+        if ($this->isSuperAdmin() && session()->has('akses_toko_id')) {
+            return session('akses_toko_id');
+        }
+
+        return $this->toko_id;
+    }
+
+    /**
+     * Check if Super Admin is currently accessing a toko
+     */
+    public function isAksesToko(): bool
+    {
+        return $this->isSuperAdmin() && session()->has('akses_toko_id');
+    }
+
+    /**
+     * Get the name of toko being accessed
+     */
+    public function getAksesTokoNameAttribute(): ?string
+    {
+        return session('akses_toko_name');
     }
 
     /**
