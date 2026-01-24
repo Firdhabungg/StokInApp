@@ -125,7 +125,7 @@
             @php
                 $sub = $toko->activeSubscription;
                 $plan = $sub?->plan;
-                $daysRemaining = $sub ? now()->diffInDays($sub->expires_at, false) : 0;
+                $daysRemaining = $sub ? (int) floor(now()->diffInDays($sub->expires_at, false)) : 0;
             @endphp
             <tr class="hover:bg-gray-50 transition">
                 <td class="px-4 py-4">

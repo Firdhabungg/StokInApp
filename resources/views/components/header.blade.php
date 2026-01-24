@@ -75,7 +75,15 @@
             </div>
             <div class="text-center hidden md:block">
                 <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">{{ auth()->user()->name }}</p>
-                <span class="text-xs text-gray-500">{{ auth()->user()->isOwner() ? 'Owner' : 'Kasir' }}</span>
+                <span class="text-xs text-gray-500">
+                    @if(auth()->user()->isSuperAdmin())
+                        Super Admin
+                    @elseif(auth()->user()->isOwner())
+                        Owner
+                    @else
+                        Kasir
+                    @endif
+                </span>
             </div>
         </a>
     </div>

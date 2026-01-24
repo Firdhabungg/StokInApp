@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Barang;
 use App\Models\StockBatch;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class NotificationService
 {
@@ -90,6 +88,9 @@ class NotificationService
             ->where('toko_id', $tokoId)
             ->where('status', 'kadaluarsa')
             ->where('jumlah_sisa', '>', 0)
+            ->whereHas('barang', function ($q) {
+                $q->where('status', 'aktif');
+            })
             ->get();
 
         foreach ($kadaluarsa as $batch) {
@@ -104,11 +105,14 @@ class NotificationService
                 'batch_id' => $batch->id,
             ];
         }
- 
+
         $hampirKadaluarsa = StockBatch::with('barang')
             ->where('toko_id', $tokoId)
             ->where('status', 'hampir_kadaluarsa')
             ->where('jumlah_sisa', '>', 0)
+            ->whereHas('barang', function ($q) {
+                $q->where('status', 'aktif');
+            })
             ->get()
             ->map(function ($batch) {
                 $daysLeft = round(now()->diffInDays($batch->tgl_kadaluarsa, false));
@@ -117,7 +121,7 @@ class NotificationService
                     'daysLeft' => $daysLeft,
                 ];
             })
-            ->sortBy('daysLeft') 
+            ->sortBy('daysLeft')
             ->values();
 
         foreach ($hampirKadaluarsa as $item) {

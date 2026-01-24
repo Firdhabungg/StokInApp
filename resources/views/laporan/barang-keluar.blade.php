@@ -11,30 +11,35 @@
             <form method="GET" class="flex flex-wrap items-end gap-4">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input type="date" name="dari" value="{{ $dari }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input type="date" name="dari" value="{{ $dari }}"
+                        class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input type="date" name="sampai" value="{{ $sampai }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input type="date" name="sampai" value="{{ $sampai }}"
+                        class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
                     <i class="fas fa-filter mr-1"></i> Filter
                 </button>
             </form>
-            
+
             {{-- Export Buttons --}}
-            @if($canExportReport ?? false)
+            @if ($canExportReport ?? false)
                 <div class="flex gap-2">
-                    <a href="{{ route('laporan.barang-keluar.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                    <a href="{{ route('laporan.barang-keluar.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-excel mr-2"></i> Excel
                     </a>
-                    <a href="{{ route('laporan.barang-keluar.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                    <a href="{{ route('laporan.barang-keluar.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-pdf mr-2"></i> PDF
                     </a>
                 </div>
             @else
                 <div class="flex items-center gap-2">
-                    <button disabled class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
+                    <button disabled
+                        class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
                         <i class="fas fa-lock mr-2"></i> Export (Pro)
                     </button>
                     <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
@@ -43,6 +48,12 @@
         </div>
     </div>
 
+    <div class="my-2">
+        <a href="{{ route('laporan.index') }}" class="text-black hover:text-amber-600">
+            <i class="fa-solid fa-circle-arrow-left text-lg mr-1"></i><span class="underline">Kembali</span>
+        </a>
+    </div>
+    
     {{-- Summary --}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
@@ -93,8 +104,9 @@
                                 <td class="px-4 py-3 font-medium">{{ $stockOut->barang->nama_barang }}</td>
                                 <td class="px-4 py-3 text-right font-semibold text-red-600">-{{ $stockOut->jumlah }}</td>
                                 <td class="px-4 py-3 text-center">
-                                    <span class="px-2 py-1 rounded-full text-xs font-medium
-                                        @if($stockOut->alasan == 'penjualan') bg-green-100 text-green-700
+                                    <span
+                                        class="px-2 py-1 rounded-full text-xs font-medium
+                                        @if ($stockOut->alasan == 'penjualan') bg-green-100 text-green-700
                                         @elseif($stockOut->alasan == 'rusak') bg-red-100 text-red-700
                                         @elseif($stockOut->alasan == 'kadaluarsa') bg-orange-100 text-orange-700
                                         @else bg-gray-100 text-gray-700 @endif">
@@ -116,9 +128,4 @@
         </div>
     </div>
 
-    <div class="mt-4">
-        <a href="{{ route('laporan.index') }}" class="text-amber-600 hover:text-amber-700">
-            <i class="fas fa-arrow-left mr-1"></i> Kembali ke Laporan
-        </a>
-    </div>
 @endsection

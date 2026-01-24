@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Registrasi')
 
 @section('content')
     <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -28,12 +29,14 @@
                     @csrf
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                            <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-2">1</span>
+                            <span
+                                class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-2">1</span>
                             Data Pengguna
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="md:col-span-2">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama
+                                    Lengkap</label>
                                 <input type="text" name="name" id="name" value="{{ old('name') }}" autofocus
                                     class="w-full px-4 py-3 border {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Nama lengkap Anda">
@@ -63,7 +66,8 @@
                             </div>
 
                             <div>
-                                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password</label>
+                                <label for="password_confirmation"
+                                    class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation"
                                     class="w-full px-4 py-3 border {{ $errors->has('password_confirmation') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Ulangi password">
@@ -78,12 +82,14 @@
 
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                            <span class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-2">2</span>
+                            <span
+                                class="bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-2">2</span>
                             Data Toko
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="toko_name" class="block text-sm font-medium text-gray-700 mb-2">Nama Toko</label>
+                                <label for="toko_name" class="block text-sm font-medium text-gray-700 mb-2">Nama
+                                    Toko</label>
                                 <input type="text" name="toko_name" id="toko_name" value="{{ old('toko_name') }}"
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_name') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Nama toko Anda">
@@ -93,7 +99,8 @@
                             </div>
 
                             <div>
-                                <label for="toko_email" class="block text-sm font-medium text-gray-700 mb-2">Email Toko</label>
+                                <label for="toko_email" class="block text-sm font-medium text-gray-700 mb-2">Email
+                                    Toko</label>
                                 <input type="email" name="toko_email" id="toko_email" value="{{ old('toko_email') }}"
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_email') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="tokoanda@stokinapp.com">
@@ -103,7 +110,8 @@
                             </div>
 
                             <div>
-                                <label for="toko_phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon Toko</label>
+                                <label for="toko_phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon
+                                    Toko</label>
                                 <input type="tel" name="toko_phone" id="toko_phone" value="{{ old('toko_phone') }}"
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_phone') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="08xxxxxxxxxx" autocomplete="off">
@@ -113,7 +121,8 @@
                             </div>
 
                             <div class="md:col-span-2">
-                                <label for="toko_address" class="block text-sm font-medium text-gray-700 mb-2">Alamat Toko</label>
+                                <label for="toko_address" class="block text-sm font-medium text-gray-700 mb-2">Alamat
+                                    Toko</label>
                                 <textarea name="toko_address" id="toko_address" rows="3"
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_address') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
                                     placeholder="Alamat lengkap toko Anda">{{ old('toko_address') }}</textarea>
@@ -134,7 +143,8 @@
                 <div class="mt-6 text-center">
                     <p class="text-gray-600">
                         Sudah punya akun?
-                        <a href="{{ route('login') }}" class="text-amber-600 hover:text-amber-700 font-semibold">Masuk di sini</a>
+                        <a href="{{ route('login') }}" class="text-amber-600 hover:text-amber-700 font-semibold">Masuk di
+                            sini</a>
                     </p>
                 </div>
             </div>
@@ -142,7 +152,7 @@
             <!-- Back to Home -->
             <div class="mt-6 text-center">
                 <a href="/" class="text-gray-500 hover:text-gray-700 text-sm">
-                    <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda
+                    <i class="fa-regular fa-circle-left text-lg"></i> Kembali ke Beranda
                 </a>
             </div>
         </div>

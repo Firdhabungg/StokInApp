@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = auth()->user();
+
+        // Redirect super admin ke halaman profil admin
+        if ($user->isSuperAdmin()) {
+            return redirect()->route('admin.profil.index');
+        }
+
         return view('profil.index', compact('user'));
     }
 

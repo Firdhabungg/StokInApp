@@ -29,7 +29,7 @@
             </div>
             <div>
                 <h4 class="font-semibold text-orange-800">Perhatian!</h4>
-                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluarsa</p>
+                <p class="text-sm text-orange-700">Ada {{ $batchHampirKadaluarsa }} batch barang yang akan kadaluwarsa</p>
             </div>
         </div>
     @endif

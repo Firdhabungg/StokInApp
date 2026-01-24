@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Kelola Kategori')
+@section('title', 'Kategori Barang')
 @section('page-title', 'Kelola Kategori')
 @section('page-description', 'Kelola kategori barang untuk toko Anda')
 

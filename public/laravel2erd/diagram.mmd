@@ -1,0 +1,196 @@
+erDiagram
+    %% Laravel ERD Diagram
+
+    User {
+        bigint id PK
+        string name
+        string email
+        string password
+        string toko_id FK
+        string role
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Toko {
+        bigint id PK
+        string name
+        string email
+        string address
+        string phone
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    SubscriptionPlan {
+        bigint id PK
+        string name
+        string slug
+        string price
+        string duration_days
+        json features
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Subscription {
+        bigint id PK
+        string toko_id FK
+        string plan_id FK
+        string status
+        timestamp starts_at
+        timestamp expires_at
+        boolean auto_renew
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    StockOut {
+        bigint id PK
+        string barang_id FK
+        string batch_id FK
+        string toko_id FK
+        string user_id FK
+        string jumlah
+        date tgl_keluar
+        string alasan
+        string keterangan
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    StockIn {
+        bigint id PK
+        string barang_id FK
+        string batch_id FK
+        string toko_id FK
+        string user_id FK
+        string jumlah
+        date tgl_masuk
+        date tgl_kadaluarsa
+        string supplier
+        string harga_beli
+        string keterangan
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    StockBatch {
+        bigint id PK
+        string barang_id FK
+        string toko_id FK
+        string batch_code
+        string jumlah_awal
+        string jumlah_sisa
+        date tgl_masuk
+        date tgl_kadaluarsa
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    SaleItem {
+        bigint id PK
+        string sale_id FK
+        string barang_id FK
+        string jumlah
+        string harga_satuan
+        string subtotal
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Sale {
+        bigint id PK
+        string toko_id FK
+        string user_id FK
+        string kode_transaksi
+        timestamp tanggal
+        string total
+        string uang_dibayar
+        string kembalian
+        string status
+        string keterangan
+        string metode_pembayaran
+        string bukti_pembayaran
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Payment {
+        bigint id PK
+        string subscription_id FK
+        string order_id
+        string amount
+        string status
+        json midtrans_response
+        timestamp paid_at
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    KategoriBarang {
+        string toko_id FK
+        string nama_kategori
+        string deskripsi_kategori
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Barang {
+        bigint id PK
+        string toko_id FK
+        string kategori_id FK
+        string nama_barang
+        string kode_barang
+        string stok
+        string harga
+        string harga_jual
+        date tgl_kadaluwarsa
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    User ||--o{ StockIn : "has many"
+    User ||--o{ StockOut : "has many"
+    User }o--|| Toko : "belongs to"
+    Toko ||--|| User : "has one"
+    Toko ||--|| Subscription : "has one"
+    Toko ||--o{ User : "has many"
+    Toko ||--o{ Barang : "has many"
+    Toko ||--o{ KategoriBarang : "has many"
+    Toko ||--o{ StockBatch : "has many"
+    Toko ||--o{ StockIn : "has many"
+    Toko ||--o{ StockOut : "has many"
+    Toko ||--o{ Subscription : "has many"
+    SubscriptionPlan ||--o{ Subscription : "has many"
+    Subscription ||--o{ Payment : "has many"
+    Subscription }o--|| Toko : "belongs to"
+    Subscription }o--|| SubscriptionPlan : "belongs to"
+    StockOut }o--|| Barang : "belongs to"
+    StockOut }o--|| StockBatch : "belongs to"
+    StockOut }o--|| Toko : "belongs to"
+    StockOut }o--|| User : "belongs to"
+    StockIn }o--|| Barang : "belongs to"
+    StockIn }o--|| StockBatch : "belongs to"
+    StockIn }o--|| Toko : "belongs to"
+    StockIn }o--|| User : "belongs to"
+    StockBatch ||--o{ StockIn : "has many"
+    StockBatch ||--o{ StockOut : "has many"
+    StockBatch }o--|| Barang : "belongs to"
+    StockBatch }o--|| Toko : "belongs to"
+    SaleItem }o--|| Sale : "belongs to"
+    SaleItem }o--|| Barang : "belongs to"
+    Sale ||--o{ SaleItem : "has many"
+    Sale }o--|| Toko : "belongs to"
+    Sale }o--|| User : "belongs to"
+    Payment }o--|| Subscription : "belongs to"
+    KategoriBarang ||--o{ Barang : "has many"
+    KategoriBarang }o--|| Toko : "belongs to"
+    Barang ||--o{ StockBatch : "has many"
+    Barang ||--o{ StockIn : "has many"
+    Barang ||--o{ StockOut : "has many"
+    Barang }o--|| Toko : "belongs to"
+    Barang }o--|| KategoriBarang : "belongs to"

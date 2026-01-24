@@ -37,7 +37,7 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
     // Management Toko
     Route::get('/toko', [AdminTokoController::class, 'index'])->name('toko.index');
     Route::get('/toko/{toko}', [AdminTokoController::class, 'show'])->name('toko.show');
-    
+
     // Akses Toko (Super Admin masuk sebagai toko)
     // Route stop harus di atas agar tidak tertangkap oleh {toko}
     Route::post('/akses-toko/stop', [\App\Http\Controllers\Admin\AksesTokoController::class, 'stop'])->name('akses-toko.stop');
@@ -156,7 +156,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/penjualan', [LaporanController::class, 'penjualan'])->name('penjualan');
             Route::get('/barang-masuk', [LaporanController::class, 'barangMasuk'])->name('barang-masuk');
             Route::get('/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('barang-keluar');
-            
+
             // Export Routes
             Route::get('/stok/export/excel', [LaporanController::class, 'exportStokExcel'])->name('stok.export.excel');
             Route::get('/stok/export/pdf', [LaporanController::class, 'exportStokPdf'])->name('stok.export.pdf');
@@ -176,7 +176,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/expired', [SubscriptionController::class, 'expired'])->name('expired');
     });
-    
+
     Route::prefix('subscription')->name('subscription.')->middleware('role:owner,super_admin')->group(function () {
         Route::get('/', [SubscriptionController::class, 'index'])->name('index');
         Route::get('/checkout/{plan}', [SubscriptionController::class, 'checkout'])->name('checkout');

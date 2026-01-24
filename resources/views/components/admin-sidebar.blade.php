@@ -42,7 +42,7 @@
                     </li>
                     <p
                         class="nav-text-saas px-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-6 mb-4">
-                        Pengelolaan SaaS
+                        Kelola Layanan
                     </p>
 
                     <li>

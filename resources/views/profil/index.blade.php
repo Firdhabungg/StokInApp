@@ -16,8 +16,20 @@
                     <p class="text-gray-500">{{ auth()->user()->email }}</p>
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
-                        {{ auth()->user()->isOwner() ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800' }}">
-                        {{ auth()->user()->isOwner() ? 'Owner' : 'Kasir' }}
+                        @if(auth()->user()->isSuperAdmin())
+                            bg-purple-100 text-purple-800
+                        @elseif(auth()->user()->isOwner())
+                            bg-amber-100 text-amber-800
+                        @else
+                            bg-blue-100 text-blue-800
+                        @endif">
+                        @if(auth()->user()->isSuperAdmin())
+                            Super Admin
+                        @elseif(auth()->user()->isOwner())
+                            Owner
+                        @else
+                            Kasir
+                        @endif
                     </span>
                 </div>
             </div>

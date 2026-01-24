@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title', 'Data Barang')
-@section('page-title', 'Data Barang')
+@section('page-title', 'Kelola Barang')
 @section('page-description', 'Monitoring data barang, stok, dan ketersediaan (readonly)')
 
 @section('content')

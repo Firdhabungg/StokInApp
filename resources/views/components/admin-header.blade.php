@@ -25,15 +25,16 @@
 
     <div class="flex items-center gap-6">
         {{-- Notification --}}
-        <button class="relative p-2.5 rounded-xl hover:bg-amber-50 text-gray-400 hover:text-amber-500 transition">
-            <i class="fas fa-bell"></i>
+        <button class="relative p-2 rounded-full hover:bg-gray-100 text-gray-400 transition">
+            <i class="fas fa-bell text-gray-500 text-lg"></i>
             <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white"></span>
         </button>
 
-        <a href="{{ route('admin.profil.index') }}" 
-           class="flex items-center gap-3 p-1.5 pr-4 rounded-2xl hover:bg-amber-50 transition-colors group">
-            <div class="w-11 h-11 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-md group-hover:shadow-lg transition-shadow">
-                <i class="fas fa-user"></i>
+        <a href="{{ route('admin.profil.index') }}"
+            class="flex items-center gap-3 p-1.5 pr-4 rounded-full hover:bg-amber-50 transition-colors group">
+            <div
+                class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold shadow-md group-hover:shadow-lg transition-shadow">
+                <i class="fas fa-user text-sm"></i>
             </div>
             <div class="text-right hidden md:block">
                 <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">{{ auth()->user()->name }}</p>
@@ -41,4 +42,3 @@
         </a>
     </div>
 </header>
-

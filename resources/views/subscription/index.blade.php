@@ -83,13 +83,13 @@
                                         <span>{{ $plan->features['description'] }}</span>
                                     </li>
                                 @endif
-                                
+
                                 {{-- Produk & Transaksi Unlimited --}}
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
                                     <span>Produk & Transaksi Unlimited</span>
                                 </li>
-                                
+
                                 {{-- Limit Kasir --}}
                                 @php
                                     $maxKasir = $plan->features['max_kasir'] ?? 1;
@@ -104,7 +104,7 @@
                                         <span>1 Owner + {{ $maxKasir }} Kasir</span>
                                     @endif
                                 </li>
-                                
+
                                 {{-- Fitur Utama --}}
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
@@ -118,7 +118,7 @@
                                     <i class="fas fa-check text-green-500"></i>
                                     <span>Laporan & Dashboard</span>
                                 </li>
-                                
+
                                 {{-- Export Laporan --}}
                                 <li class="flex items-center gap-2">
                                     @if ($plan->features['export_report'] ?? false)
@@ -136,6 +136,11 @@
                             <button disabled
                                 class="w-full py-3 bg-gray-200 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
                                 Paket Aktif
+                            </button>
+                        @elseif($plan->isFree() && $hasUsedFreeTrial)
+                            <button disabled
+                                class="w-full py-3 bg-gray-200 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
+                                <i class="fas fa-ban mr-2"></i>Trial Sudah Digunakan
                             </button>
                         @else
                             <a href="{{ route('subscription.checkout', $plan->slug) }}"

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Beranda')
 
 @section('content')
     <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50">
@@ -89,7 +90,6 @@
         </div>
     </section>
 
-    {{-- Stats Section --}}
     <section class="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -114,7 +114,6 @@
         </div>
     </section>
 
-    {{-- Why Choose StokIn Section --}}
     <section class="bg-white py-16 md:py-24">
         <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -383,7 +382,6 @@
         </div>
     </section>
 
-    {{-- CTA Section --}}
     <section class="bg-white py-12 md:py-16">
         <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-6">
             <h2 class="mb-4 text-xl md:text-4xl tracking-tight font-bold text-black">
@@ -407,7 +405,7 @@
         </div>
     </section>
 
-    <footer class="bg-white border-t border-gray-100">
+    <footer class="bg-gray-50 border-t border-gray-100">
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
@@ -417,28 +415,28 @@
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
                     <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Fitur</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-dark">Fitur</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4"><a href="#features" class="hover:underline">Inventaris</a></li>
                             <li class="mb-4"><a href="#features" class="hover:underline">Laporan</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Harga</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-dark">Harga</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4"><a href="#pricing" class="hover:underline">Free Trial</a></li>
                             <li class="mb-4"><a href="#pricing" class="hover:underline">Paket Pro</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-dark">Legal</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4"><a href="#" class="hover:underline">Privacy Policy</a></li>
                             <li class="mb-4"><a href="#" class="hover:underline">Terms & Conditions</a></li>
                         </ul>
                     </div>
                     <div id="contact">
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Kontak</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-dark">Kontak</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4 flex items-center">
                                 <i class="fab fa-whatsapp text-green-500 mr-2"></i>

@@ -11,43 +11,55 @@
             <form method="GET" class="flex flex-wrap items-end gap-4">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Filter</label>
-                    <select name="filter" onchange="toggleFilter(this.value)" class="border border-gray-300 rounded-lg px-4 py-2">
+                    <select name="filter" onchange="toggleFilter(this.value)"
+                        class="border border-gray-300 rounded-lg px-4 py-2">
                         <option value="harian" {{ $filter == 'harian' ? 'selected' : '' }}>Harian</option>
                         <option value="bulanan" {{ $filter == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
                     </select>
                 </div>
                 <div id="filterHarian" class="{{ $filter == 'bulanan' ? 'hidden' : '' }}">
                     <label class="block text-sm text-gray-600 mb-1">Tanggal</label>
-                    <input type="date" name="tanggal" value="{{ $tanggal }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input type="date" name="tanggal" value="{{ $tanggal }}"
+                        class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div id="filterBulanan" class="{{ $filter == 'harian' ? 'hidden' : '' }}">
                     <label class="block text-sm text-gray-600 mb-1">Bulan</label>
-                    <input type="month" name="bulan" value="{{ $bulan }}" class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input type="month" name="bulan" value="{{ $bulan }}"
+                        class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
                     <i class="fas fa-filter mr-1"></i> Filter
                 </button>
             </form>
-            
+
             {{-- Export Buttons --}}
-            @if($canExportReport ?? false)
+            @if ($canExportReport ?? false)
                 <div class="flex gap-2">
-                    <a href="{{ route('laporan.penjualan.export.excel', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                    <a href="{{ route('laporan.penjualan.export.excel', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-excel mr-2"></i> Excel
                     </a>
-                    <a href="{{ route('laporan.penjualan.export.pdf', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                    <a href="{{ route('laporan.penjualan.export.pdf', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}"
+                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-pdf mr-2"></i> PDF
                     </a>
                 </div>
             @else
                 <div class="flex items-center gap-2">
-                    <button disabled class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
+                    <button disabled
+                        class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
                         <i class="fas fa-lock mr-2"></i> Export (Pro)
                     </button>
                     <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
                 </div>
             @endif
         </div>
+    </div>
+
+    <div class="my-2">
+        <a href="{{ route('laporan.index') }}" class="text-black hover:text-amber-600">
+            <i class="fa-solid fa-circle-arrow-left text-lg mr-1"></i><span class="underline">Kembali</span>
+        </a>
     </div>
 
     {{-- Summary --}}
@@ -78,7 +90,8 @@
                             <p class="font-medium text-gray-900">{{ $item->barang->nama_barang }}</p>
                             <p class="text-xs text-gray-500">{{ $item->total_qty }} terjual</p>
                         </div>
-                        <span class="font-semibold text-green-600">Rp {{ number_format($item->total_nilai / 1000) }}k</span>
+                        <span class="font-semibold text-green-600">Rp
+                            {{ number_format($item->total_nilai / 1000) }}k</span>
                     </div>
                 @empty
                     <p class="text-gray-500 text-center py-4">Tidak ada data</p>
@@ -117,25 +130,19 @@
                                     Tidak ada transaksi pada periode ini
                                 </td>
                             </tr>
-                        @endforelse
+                            @endzforelse
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <div class="mt-4">
-        <a href="{{ route('laporan.index') }}" class="text-amber-600 hover:text-amber-700">
-            <i class="fas fa-arrow-left mr-1"></i> Kembali ke Laporan
-        </a>
-    </div>
 @endsection
 
 @push('scripts')
-<script>
-    function toggleFilter(value) {
-        document.getElementById('filterHarian').classList.toggle('hidden', value !== 'harian');
-        document.getElementById('filterBulanan').classList.toggle('hidden', value !== 'bulanan');
-    }
-</script>
+    <script>
+        function toggleFilter(value) {
+            document.getElementById('filterHarian').classList.toggle('hidden', value !== 'harian');
+            document.getElementById('filterBulanan').classList.toggle('hidden', value !== 'bulanan');
+        }
+    </script>
 @endpush
