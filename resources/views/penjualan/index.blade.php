@@ -33,13 +33,13 @@
 
     {{-- Header Section --}}
     <div class="mb-6">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-gray-900">Riwayat Transaksi</h2>
-                <p class="text-gray-500 mt-1">Kelola semua transaksi penjualan toko Anda</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Riwayat Transaksi</h2>
+                <p class="text-gray-500 mt-1 text-sm sm:text-base">Kelola semua transaksi penjualan toko Anda</p>
             </div>
             <a href="{{ route('penjualan.create') }}"
-                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 flex items-center gap-2">
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
                 <i class="fas fa-plus"></i>
                 <span>Transaksi Baru</span>
             </a>

@@ -73,6 +73,9 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
         Route::put('/update', [ProfilController::class, 'update'])->name('update');
         Route::put('/password', [ProfilController::class, 'updatePassword'])->name('password');
     });
+
+    // Notifikasi Super Admin
+    Route::get('/notifications', [NotificationController::class, 'adminIndex'])->name('notifications.index');
 });
 
 // Guest routes

@@ -7,10 +7,10 @@
 @section('content')
 {{-- Header Section --}}
 <div class="mb-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-900">Daftar Kasir</h2>
-            <p class="text-gray-500 mt-1">Manajemen akun kasir untuk operasional penjualan</p>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Daftar Kasir</h2>
+            <p class="text-gray-500 mt-1 text-sm sm:text-base">Manajemen akun kasir untuk operasional penjualan</p>
             @if($maxKasir != -1)
                 <p class="text-sm text-amber-600 mt-1">
                     <i class="fas fa-users mr-1"></i>
@@ -21,13 +21,13 @@
         </div>
         @if($canAddUser)
             <a href="{{ route('kasir.create') }}" 
-                class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
+                class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Kasir</span>
             </a>
         @else
-            <div class="text-right">
-                <button disabled class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed">
+            <div class="text-center sm:text-right w-full sm:w-auto">
+                <button disabled class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg font-medium cursor-not-allowed w-full sm:w-auto">
                     <i class="fas fa-lock mr-2"></i>Batas Tercapai
                 </button>
                 <a href="{{ route('subscription.index') }}" class="block text-sm text-amber-600 hover:underline mt-1">

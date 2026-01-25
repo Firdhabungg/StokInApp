@@ -6,13 +6,13 @@
 
 @section('content')
     <div class="mb-6">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-gray-900">Data Barang</h2>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Data Barang</h2>
             </div>
             @if (auth()->user()->canManageToko())
                 <a href="{{ route('barang.create') }}"
-                    class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center gap-2">
+                    class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
                     <i class="fas fa-plus"></i>
                     <span>Tambah Barang</span>
                 </a>
@@ -25,7 +25,7 @@
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <i class="fas fa-search text-amber-500 text-lg"></i>
             </div>
-            <input type="text" id="customSearchInput" 
+            <input type="text" id="customSearchInput"
                 class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
                 placeholder="Cari barang berdasarkan kode, nama, atau status...">
         </div>
@@ -34,16 +34,20 @@
                 <i class="fas fa-filter text-amber-500"></i>
                 <span>Filter cepat:</span>
             </span>
-            <button type="button" onclick="filterByStatus('tersedia')" class="filter-btn px-3 py-1 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition-colors font-medium">
+            <button type="button" onclick="filterByStatus('tersedia')"
+                class="filter-btn px-3 py-1 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition-colors font-medium">
                 <i class="fas fa-check-circle mr-1"></i> Tersedia
             </button>
-            <button type="button" onclick="filterByStatus('menipis')" class="filter-btn px-3 py-1 bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition-colors font-medium">
+            <button type="button" onclick="filterByStatus('menipis')"
+                class="filter-btn px-3 py-1 bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition-colors font-medium">
                 <i class="fas fa-exclamation-triangle mr-1"></i> Menipis
             </button>
-            <button type="button" onclick="filterByStatus('habis')" class="filter-btn px-3 py-1 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-colors font-medium">
+            <button type="button" onclick="filterByStatus('habis')"
+                class="filter-btn px-3 py-1 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-colors font-medium">
                 <i class="fas fa-times-circle mr-1"></i> Habis
             </button>
-            <button type="button" onclick="clearFilter()" class="filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors font-medium">
+            <button type="button" onclick="clearFilter()"
+                class="filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors font-medium">
                 <i class="fas fa-redo mr-1"></i> Reset
             </button>
         </div>
@@ -113,7 +117,7 @@
 @push('scripts')
     <script>
         let table;
-        
+
         document.addEventListener('DOMContentLoaded', function() {
             table = new DataTable('#barangTable', {
                 responsive: true,
@@ -153,7 +157,7 @@
         function filterByStatus(status) {
             document.getElementById('customSearchInput').value = status;
             table.search(status).draw();
-            
+
             // Update active filter button
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-offset-1');
@@ -165,7 +169,7 @@
         function clearFilter() {
             document.getElementById('customSearchInput').value = '';
             table.search('').draw();
-            
+
             // Remove active state from all filter buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-offset-1');

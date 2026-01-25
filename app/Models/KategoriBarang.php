@@ -20,19 +20,13 @@ class KategoriBarang extends Model
         'deskripsi_kategori',
     ];
 
-    /**
-     * Get the toko that owns the kategori.
-     */
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
     }
 
-    /**
-     * Get all barangs in this kategori.
-     */
     public function barangs(): HasMany
     {
         return $this->hasMany(Barang::class, 'kategori_id', 'kategori_id');
     }
-}
+} 

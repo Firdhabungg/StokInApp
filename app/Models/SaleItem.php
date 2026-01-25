@@ -23,25 +23,16 @@ class SaleItem extends Model
         'subtotal' => 'decimal:2',
     ];
 
-    /**
-     * Get the sale that owns this item.
-     */
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);
     }
 
-    /**
-     * Get the barang for this item.
-     */
     public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class);
     }
 
-    /**
-     * Calculate subtotal before saving.
-     */
     public static function boot()
     {
         parent::boot();

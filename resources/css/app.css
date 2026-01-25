@@ -104,20 +104,160 @@
         @apply text-gray-500 py-4;
     }
 
+    /* Pagination Container */
     .dataTables_wrapper .dataTables_paginate {
-        @apply py-4;
+        @apply py-4 flex flex-wrap items-center justify-end gap-1.5;
     }
 
+    /* Base Pagination Button */
     .dataTables_wrapper .dataTables_paginate .paginate_button {
-        @apply px-3 py-1.5 mx-0.5 rounded-lg text-gray-600 hover:bg-amber-50 hover:text-amber-600 transition-colors cursor-pointer;
+        @apply inline-flex items-center justify-center min-w-[38px] h-[38px] px-3 rounded-xl text-gray-600 border border-gray-200 bg-white font-semibold text-sm hover:bg-amber-50 hover:text-amber-600 hover:border-amber-300 hover:shadow-sm transition-all duration-200 cursor-pointer select-none;
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        @apply bg-amber-500 text-white hover:bg-amber-600 hover:text-white;
+    /* Active/Current Page */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        @apply bg-gradient-to-br from-amber-500 to-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/30;
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-        @apply text-gray-300 hover:bg-transparent cursor-not-allowed;
+    /* Disabled State */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+        @apply text-gray-300 bg-gray-50 border-gray-100 cursor-not-allowed shadow-none;
+    }
+
+    /* Navigation Buttons (Previous & Next) - Hide original text and show icon */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last {
+        color: transparent !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Previous Button Arrow */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-left: 2.5px solid #6b7280;
+        border-bottom: 2.5px solid #6b7280;
+        transform: rotate(45deg);
+        left: 50%;
+        top: 50%;
+        margin-left: -3px;
+        margin-top: -4px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover::after {
+        border-color: #d97706;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled::after {
+        border-color: #d1d5db;
+    }
+
+    /* Next Button Arrow */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-right: 2.5px solid #6b7280;
+        border-top: 2.5px solid #6b7280;
+        transform: rotate(45deg);
+        left: 50%;
+        top: 50%;
+        margin-left: -5px;
+        margin-top: -4px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover::after {
+        border-color: #d97706;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled::after {
+        border-color: #d1d5db;
+    }
+
+    /* First Button Double Arrow */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first::before {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-left: 2.5px solid #6b7280;
+        border-bottom: 2.5px solid #6b7280;
+        transform: rotate(45deg);
+        top: 50%;
+        margin-top: -3px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first::before {
+        left: 50%;
+        margin-left: -6px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first::after {
+        left: 50%;
+        margin-left: 0px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first:hover::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first:hover::before {
+        border-color: #d97706;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first.disabled::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.first.disabled::before {
+        border-color: #d1d5db;
+    }
+
+    /* Last Button Double Arrow */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last::before {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-right: 2.5px solid #6b7280;
+        border-top: 2.5px solid #6b7280;
+        transform: rotate(45deg);
+        top: 50%;
+        margin-top: -3px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last::before {
+        left: 50%;
+        margin-left: -6px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last::after {
+        left: 50%;
+        margin-left: 0px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last:hover::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last:hover::before {
+        border-color: #d97706;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last.disabled::after,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.last.disabled::before {
+        border-color: #d1d5db;
+    }
+
+    /* Number Pagination Separator Gap */
+    .dataTables_wrapper .dataTables_paginate span {
+        @apply flex items-center gap-1.5;
+    }
+
+    /* Ellipsis Styling */
+    .dataTables_wrapper .dataTables_paginate .ellipsis {
+        @apply px-2 text-gray-400 border-0 bg-transparent min-w-0;
     }
 
     table.dataTable thead th {

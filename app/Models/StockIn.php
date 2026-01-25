@@ -31,33 +31,21 @@ class StockIn extends Model
         'harga_beli' => 'decimal:2',
     ];
 
-    /**
-     * Get the barang for this stock in record.
-     */
     public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class);
     }
 
-    /**
-     * Get the batch for this stock in record.
-     */
     public function batch(): BelongsTo
     {
         return $this->belongsTo(StockBatch::class, 'batch_id');
     }
 
-    /**
-     * Get the toko for this stock in record.
-     */
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
     }
 
-    /**
-     * Get the user who created this stock in record.
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

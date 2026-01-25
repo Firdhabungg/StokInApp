@@ -30,49 +30,32 @@ class Barang extends Model
         'tgl_kadaluwarsa' => 'date',
     ];
 
-    /**
-     * Get the toko that owns the barang.
-     */
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
     }
 
-    /**
-     * Get the kategori of the barang.
-     */
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(KategoriBarang::class, 'kategori_id', 'kategori_id');
     }
 
-    /**
-     * Get all stock batches for this barang.
-     */
     public function stockBatches(): HasMany
     {
         return $this->hasMany(StockBatch::class);
     }
 
-    /**
-     * Get all stock in records for this barang.
-     */
     public function stockIn(): HasMany
     {
         return $this->hasMany(StockIn::class);
     }
 
-    /**
-     * Get all stock out records for this barang.
-     */
     public function stockOut(): HasMany
     {
         return $this->hasMany(StockOut::class);
     }
 
-    /**
-     * Calculate total stock from all batches.
-     */
+    // hitung total stok dari stock batches
     public function getTotalStockAttribute(): int
     {
         return $this->stockBatches()->sum('jumlah_sisa');

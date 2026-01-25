@@ -12,16 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Available roles
-     */
     const ROLE_SUPER_ADMIN = 'super_admin';
     const ROLE_OWNER = 'owner';
     const ROLE_KASIR = 'kasir';
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'name',
         'email',
@@ -30,17 +24,11 @@ class User extends Authenticatable
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     */
     protected function casts(): array
     {
         return [
@@ -49,18 +37,11 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Get the toko that the user belongs to.
-     * Respects "Akses Toko" mode for Super Admin.
-     */
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
     }
 
-    /**
-     * Get effective toko (respects Akses Toko mode for Super Admin)
-     */
     public function getEffectiveTokoAttribute(): ?Toko
     {
         // Jika Super Admin sedang dalam mode Akses Toko
@@ -71,9 +52,6 @@ class User extends Authenticatable
         return $this->toko;
     }
 
-    /**
-     * Get effective toko_id (respects Akses Toko mode)
-     */
     public function getEffectiveTokoIdAttribute(): ?int
     {
         if ($this->isSuperAdmin() && session()->has('akses_toko_id')) {
@@ -83,87 +61,57 @@ class User extends Authenticatable
         return $this->toko_id;
     }
 
-    /**
-     * Check if Super Admin is currently accessing a toko
-     */
     public function isAksesToko(): bool
     {
         return $this->isSuperAdmin() && session()->has('akses_toko_id');
     }
 
-    /**
-     * Get the name of toko being accessed
-     */
     public function getAksesTokoNameAttribute(): ?string
     {
         return session('akses_toko_name');
     }
 
-    /**
-     * Check if user is super admin (developer/app owner).
-     */
     public function isSuperAdmin(): bool
     {
         return $this->role === self::ROLE_SUPER_ADMIN;
     }
 
-    /**
-     * Check if user is owner of toko.
-     */
     public function isOwner(): bool
     {
         return $this->role === self::ROLE_OWNER;
     }
 
-    /**
-     * Check if user is kasir.
-     */
     public function isKasir(): bool
     {
         return $this->role === self::ROLE_KASIR;
     }
 
-    /**
-     * Check if user has any of the given roles.
-     */
     public function hasRole(array $roles): bool
     {
         return in_array($this->role, $roles);
     }
 
-    /**
-     * Check if user can access admin features.
-     */
     public function canAccessAdmin(): bool
     {
         return $this->isSuperAdmin();
     }
 
-    /**
-     * Check if user can manage toko (owner or super admin).
-     */
     public function canManageToko(): bool
     {
         return $this->isSuperAdmin() || $this->isOwner();
     }
 
-    /**
-     * Get all stock in records created by this user.
-     */
     public function stockIn(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(StockIn::class);
     }
 
-    /**
-     * Get all stock out records created by this user.
-     */
     public function stockOut(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(StockOut::class);
     }
 
-    
+
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
@@ -178,5 +126,4 @@ class User extends Authenticatable
     {
         return $this->toko?->name ?? '';
     }
-
 }
