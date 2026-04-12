@@ -13,39 +13,39 @@ class KasirController extends Controller
     {
         $toko = auth()->user()->toko;
         $kasirs = User::where('toko_id', auth()->user()->toko_id)
-                    ->where('role', 'kasir')
-                    ->get();
-        
+            ->where('role', 'kasir')
+            ->paginate(1);
+
         $canAddUser = $toko ? $toko->canAddUser() : false;
         $remainingSlots = $toko ? $toko->remainingUserSlots() : 0;
         $maxKasir = $toko ? $toko->getFeature('max_kasir', 1) : 1;
-        
+
         return view('kasir.index', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
     }
 
     public function create()
     {
         $toko = auth()->user()->toko;
-        
+
         // Cek apakah bisa tambah user
         if (!$toko || !$toko->canAddUser()) {
             return redirect()->route('kasir.index')
                 ->with('error', 'Batas maksimum pengguna sudah tercapai. Upgrade paket untuk menambah kasir.');
         }
-        
+
         return view('kasir.create');
     }
 
     public function store(Request $request)
     {
         $toko = auth()->user()->toko;
-        
+
         // Double check limit
         if (!$toko || !$toko->canAddUser()) {
             return redirect()->route('kasir.index')
                 ->with('error', 'Batas maksimum pengguna sudah tercapai. Upgrade paket untuk menambah kasir.');
         }
-        
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -73,4 +73,3 @@ class KasirController extends Controller
         return redirect()->route('kasir.index')->with('success', 'Kasir berhasil dihapus.');
     }
 }
-

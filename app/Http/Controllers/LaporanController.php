@@ -239,7 +239,7 @@ class LaporanController extends Controller
     public function exportStokExcel()
     {
         $this->checkExportPermission();
-        
+
         $filename = 'laporan-stok-' . now()->format('Y-m-d') . '.xlsx';
         return Excel::download(new StokExport, $filename);
     }
@@ -250,7 +250,7 @@ class LaporanController extends Controller
     public function exportStokPdf()
     {
         $this->checkExportPermission();
-        
+
         $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
 
@@ -266,7 +266,7 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadView('laporan.exports.stok-pdf', compact('barangs', 'toko', 'totalStok', 'stokMenipis', 'stokHabis'));
         $pdf->setPaper('a4', 'portrait');
-        
+
         return $pdf->download('laporan-stok-' . now()->format('Y-m-d') . '.pdf');
     }
 
@@ -276,11 +276,11 @@ class LaporanController extends Controller
     public function exportPenjualanExcel(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $filter = $request->get('filter', 'harian');
         $tanggal = $request->get('tanggal', now()->toDateString());
         $bulan = $request->get('bulan', now()->format('Y-m'));
-        
+
         $filename = 'laporan-penjualan-' . ($filter == 'harian' ? $tanggal : $bulan) . '.xlsx';
         return Excel::download(new PenjualanExport($filter, $tanggal, $bulan), $filename);
     }
@@ -291,7 +291,7 @@ class LaporanController extends Controller
     public function exportPenjualanPdf(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $filter = $request->get('filter', 'harian');
@@ -318,7 +318,7 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadView('laporan.exports.penjualan-pdf', compact('sales', 'toko', 'labelPeriode', 'totalPenjualan', 'totalTransaksi', 'rataRata'));
         $pdf->setPaper('a4', 'portrait');
-        
+
         return $pdf->download('laporan-penjualan-' . ($filter == 'harian' ? $tanggal : $bulan) . '.pdf');
     }
 
@@ -328,10 +328,10 @@ class LaporanController extends Controller
     public function exportBarangMasukExcel(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());
-        
+
         $filename = 'laporan-barang-masuk-' . $dari . '-' . $sampai . '.xlsx';
         return Excel::download(new BarangMasukExport($dari, $sampai), $filename);
     }
@@ -342,7 +342,7 @@ class LaporanController extends Controller
     public function exportBarangMasukPdf(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
@@ -359,7 +359,7 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadView('laporan.exports.barang-masuk-pdf', compact('stockIns', 'toko', 'dari', 'sampai', 'totalItem', 'totalTransaksi'));
         $pdf->setPaper('a4', 'portrait');
-        
+
         return $pdf->download('laporan-barang-masuk-' . $dari . '-' . $sampai . '.pdf');
     }
 
@@ -369,10 +369,10 @@ class LaporanController extends Controller
     public function exportBarangKeluarExcel(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
         $sampai = $request->get('sampai', now()->toDateString());
-        
+
         $filename = 'laporan-barang-keluar-' . $dari . '-' . $sampai . '.xlsx';
         return Excel::download(new BarangKeluarExport($dari, $sampai), $filename);
     }
@@ -383,7 +383,7 @@ class LaporanController extends Controller
     public function exportBarangKeluarPdf(Request $request)
     {
         $this->checkExportPermission();
-        
+
         $tokoId = Auth::user()->effective_toko_id;
         $toko = Auth::user()->toko;
         $dari = $request->get('dari', now()->startOfMonth()->toDateString());
@@ -400,7 +400,7 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadView('laporan.exports.barang-keluar-pdf', compact('stockOuts', 'toko', 'dari', 'sampai', 'totalItem', 'totalTransaksi'));
         $pdf->setPaper('a4', 'portrait');
-        
+
         return $pdf->download('laporan-barang-keluar-' . $dari . '-' . $sampai . '.pdf');
     }
 }

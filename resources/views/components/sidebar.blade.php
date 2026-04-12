@@ -74,11 +74,11 @@
                             Stock Management
                         </p>
                         <li>
-                            <x-sidebar.links title="Barang Masuk" icon="fas fa-arrow-down" route="stock.in.index"
+                            <x-sidebar.links title="Barang Masuk" icon="fas-truck-ramp-box" route="stock.in.index"
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                         <li>
-                            <x-sidebar.links title="Barang Keluar" icon="fas fa-arrow-up" route="stock.out.index"
+                            <x-sidebar.links title="Barang Keluar" icon="fas-box-arrow-up" route="stock.out.index"
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                         <li>
@@ -135,7 +135,7 @@
     </div>
 
     <div class="p-4 border-t border-slate-50">
-        @if(auth()->user()->isAksesToko())
+        @if (auth()->user()->isAksesToko())
             {{-- Super Admin Akses Toko Mode --}}
             <div id="userInfo" class="mb-2 px-2 py-2 bg-amber-100 border border-amber-200 rounded-lg text-center">
                 <p class="nav-text text-[10px] text-amber-600 uppercase font-bold">Mengakses Toko</p>

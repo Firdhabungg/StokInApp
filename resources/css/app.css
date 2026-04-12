@@ -1,10 +1,17 @@
 @import 'https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900';
 @import 'tailwindcss';
+@import "flowbite/src/themes/default";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "flowbite/plugin";
+
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+@source "../node_modules/flowbite";
 
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,

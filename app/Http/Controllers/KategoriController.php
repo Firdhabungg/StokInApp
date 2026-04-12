@@ -13,13 +13,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->effective_toko_id;
-        $kategoris = KategoriBarang::where('toko_id', $tokoId)
-            ->withCount('barangs')
-            ->orderBy('nama_kategori')
-            ->get();
-        
-        return view('kategori.index', compact('kategoris'));
+        return view('kategori.index');
     }
 
     /**
@@ -36,7 +30,7 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $tokoId = Auth::user()->effective_toko_id;
-        
+
         $request->validate([
             'nama_kategori' => 'required|string|max:100|unique:kategoris,nama_kategori,NULL,kategori_id,toko_id,' . $tokoId,
             'deskripsi_kategori' => 'nullable|string|max:255',
@@ -60,11 +54,11 @@ class KategoriController extends Controller
         $kategori = KategoriBarang::where('toko_id', $tokoId)
             ->withCount('barangs')
             ->findOrFail($id);
-        
+
         $barangs = $kategori->barangs()
             ->orderBy('nama_barang')
             ->get();
-        
+
         return view('kategori.show', compact('kategori', 'barangs'));
     }
 
@@ -75,7 +69,7 @@ class KategoriController extends Controller
     {
         $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
-        
+
         return view('kategori.edit', compact('kategori'));
     }
 
@@ -86,7 +80,7 @@ class KategoriController extends Controller
     {
         $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
-        
+
         $request->validate([
             'nama_kategori' => 'required|string|max:100|unique:kategoris,nama_kategori,' . $id . ',kategori_id,toko_id,' . $tokoId,
             'deskripsi_kategori' => 'nullable|string|max:255',
@@ -107,13 +101,13 @@ class KategoriController extends Controller
     {
         $tokoId = Auth::user()->effective_toko_id;
         $kategori = KategoriBarang::where('toko_id', $tokoId)->findOrFail($id);
-        
+
         // Check if kategori has barangs
         if ($kategori->barangs()->count() > 0) {
             return redirect()->route('kategori.index')
                 ->with('error', 'Kategori tidak bisa dihapus karena masih memiliki barang');
         }
-        
+
         $kategori->delete();
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');

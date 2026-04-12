@@ -145,7 +145,7 @@
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="font-semibold text-gray-900">Mendekati Kadaluarsa</h3>
+                    <h3 class="font-semibold text-gray-900">Mendekati Kadaluwarsa</h3>
                     <p class="text-sm text-gray-500">Prioritas penjualan</p>
                 </div>
                 <a href="{{ route('stock.batch.index') }}" class="text-amber-600 hover:text-amber-700 text-sm font-medium">
@@ -214,7 +214,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    {{-- <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="{{ route('stock.in.create') }}"
             class="flex items-center gap-4 p-4 bg-green-50 hover:bg-green-100 rounded-xl border border-green-100 transition-colors">
             <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
@@ -245,5 +245,5 @@
                 <p class="text-sm text-amber-600">Daftarkan produk</p>
             </div>
         </a>
-    </div>
+    </div> --}}
 @endsection

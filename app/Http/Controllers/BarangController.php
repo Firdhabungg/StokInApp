@@ -11,22 +11,17 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $tokoId = Auth::user()->effective_toko_id;
-        $barangs = Barang::where('toko_id', $tokoId)
-            ->with('kategori')
-            ->orderBy('nama_barang')
-            ->get();
-        return view('barang.index', compact('barangs'));
+        return view('barang.index');
     }
 
     public function create()
     {
         $tokoId = Auth::user()->effective_toko_id;
         $kategoris = KategoriBarang::where('toko_id', $tokoId)->get();
-        
+
         // Auto-generate kode barang
         $kodeBarang = $this->generateKodeBarang($tokoId);
-        
+
         return view('barang.create', compact('kategoris', 'kodeBarang'));
     }
 
@@ -55,20 +50,20 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $tokoId = Auth::user()->effective_toko_id;
-        
+
         $request->validate([
             'nama_barang' => 'required|string|max:255',
             'kategori_id' => 'required|integer|exists:kategoris,kategori_id',
             'harga' => 'required|numeric|min:0',
             'harga_jual' => 'required|numeric|min:0',
         ]);
-        
+
         // Generate kode barang jika tidak diinput atau kosong
         $kodeBarang = $request->kode_barang;
         if (empty($kodeBarang)) {
             $kodeBarang = $this->generateKodeBarang($tokoId);
         }
-        
+
         // Stok default 0 - harus ditambah via Barang Masuk
         // tgl_kadaluwarsa diatur per batch via Barang Masuk
         Barang::create([
@@ -111,7 +106,7 @@ class BarangController extends Controller
     {
         $tokoId = Auth::user()->effective_toko_id;
         $barang = Barang::where('toko_id', $tokoId)->findOrFail($id);
-        
+
         $request->validate([
             'nama_barang' => 'required|string|max:255',
             'kategori_id' => 'required|integer|exists:kategoris,kategori_id',

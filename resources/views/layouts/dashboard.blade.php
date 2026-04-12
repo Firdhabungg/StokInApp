@@ -7,11 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Dashboard') - {{ config('app.name', 'StokIn') }}</title>
-    
+
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}">
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased bg-gray-50 text-slate-900 overflow-x-hidden">
@@ -21,18 +22,18 @@
         <x-sidebar />
 
         <span class="hidden md:ml-20 md:ml-64"></span>
-        
+
         <div id="mainWrapper" class="flex-1 flex flex-col min-w-0 md:ml-64 transition-all duration-300">
             {{-- Banner saat Super Admin mengakses toko --}}
             <x-akses-toko-banner />
-            
+
             <x-header />
 
             <main class="p-4 md:p-6">
                 <div class="max-w-7xl mx-auto">
                     {{-- Flash Alert dengan Auto-Close --}}
                     <x-flash-alert />
-                    
+
                     @yield('content')
                 </div>
             </main>
@@ -41,7 +42,7 @@
 
     @stack('scripts')
 
-    <script> 
+    <script>
         function confirmLogout() {
             Swal.fire({
                 title: 'Konfirmasi Logout',
@@ -58,7 +59,7 @@
                 }
             });
         }
-        
+
         // Initialize sidebar state on page load
         document.addEventListener('DOMContentLoaded', function() {
             const mainWrapper = document.getElementById('mainWrapper');
@@ -69,6 +70,7 @@
             }
         });
     </script>
+    @livewireScripts
 </body>
 
 </html>

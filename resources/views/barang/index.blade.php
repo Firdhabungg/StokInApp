@@ -5,22 +5,7 @@
 @section('page-description', 'Monitoring data barang, stok, dan ketersediaan (readonly)')
 
 @section('content')
-    <div class="mb-6">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Data Barang</h2>
-            </div>
-            @if (auth()->user()->canManageToko())
-                <a href="{{ route('barang.create') }}"
-                    class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
-                    <i class="fas fa-plus"></i>
-                    <span>Tambah Barang</span>
-                </a>
-            @endif
-        </div>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
+    {{-- <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <i class="fas fa-search text-amber-500 text-lg"></i>
@@ -51,10 +36,9 @@
                 <i class="fas fa-redo mr-1"></i> Reset
             </button>
         </div>
-    </div>
+    </div> --}}
 
-    {{-- Table Card --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    {{-- <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <div class="overflow-x-auto">
             <table id="barangTable" class="w-full text-sm display">
                 <thead>
@@ -111,70 +95,68 @@
                 </tbody>
             </table>
         </div>
-    </div>
+
+        <div class="mt-3">
+            {{ $barangs->links() }}
+        </div>
+    </div> --}}
+
+    @livewire('barang-table')
+
 @endsection
 
 @push('scripts')
     <script>
-        let table;
+        // let table;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            table = new DataTable('#barangTable', {
-                responsive: true,
-                pageLength: 10,
-                dom: 'lrtip', // Remove default search box
-                language: {
-                    lengthMenu: 'Tampilkan _MENU_ data per halaman',
-                    info: 'Menampilkan <b>_START_</b> sampai <b>_END_</b> dari <b>_TOTAL_</b> data',
-                    paginate: {
-                        first: '<<',
-                        last: '>>',
-                        next: '>',
-                        previous: '<'
-                    },
-                    zeroRecords: 'Tidak ada data yang ditemukan',
-                    infoEmpty: 'Menampilkan 0 data',
-                    infoFiltered: '(disaring dari _MAX_ total data)'
-                }
-            });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     table = new DataTable('#barangTable', {
+        //         responsive: true,
+        //         paging: false,
+        //         info: false,
+        //         dom: 'lrt',
+        //         language: {
+        //             zeroRecords: 'Tidak ada data yang ditemukan'
+        //         }
+        //     });
 
-            // Connect custom search input to DataTable
-            const customSearch = document.getElementById('customSearchInput');
-            customSearch.addEventListener('keyup', function() {
-                table.search(this.value).draw();
-            });
+        //     // Connect custom search input to DataTable
+        //     const customSearch = document.getElementById('customSearchInput');
+        //     customSearch.addEventListener('keyup', function() {
+        //         table.search(this.value).draw();
+        //     });
 
-            // Add focus animation
-            customSearch.addEventListener('focus', function() {
-                this.parentElement.classList.add('ring-2', 'ring-amber-300', 'rounded-xl');
-            });
-            customSearch.addEventListener('blur', function() {
-                this.parentElement.classList.remove('ring-2', 'ring-amber-300', 'rounded-xl');
-            });
-        });
+        //     // Add focus animation
+        //     customSearch.addEventListener('focus', function() {
+        //         this.parentElement.classList.add('ring-2', 'ring-amber-300', 'rounded-xl');
+        //     });
+        //     customSearch.addEventListener('blur', function() {
+        //         this.parentElement.classList.remove('ring-2', 'ring-amber-300', 'rounded-xl');
+        //     });
+        // });
 
-        // Filter by status
-        function filterByStatus(status) {
-            document.getElementById('customSearchInput').value = status;
-            table.search(status).draw();
+        // // Filter by status
+        // function filterByStatus(status) {
+        //     document.getElementById('customSearchInput').value = status;
+        //     table.search(status).draw();
 
-            // Update active filter button
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('ring-2', 'ring-offset-1');
-            });
-            event.target.closest('.filter-btn').classList.add('ring-2', 'ring-offset-1');
-        }
+        //     // Update active filter button
+        //     document.querySelectorAll('.filter-btn').forEach(btn => {
+        //         btn.classList.remove('ring-2', 'ring-offset-1');
+        //     });
+        //     event.target.closest('.filter-btn').classList.add('ring-2', 'ring-offset-1');
+        // }
 
-        // Clear filter
-        function clearFilter() {
-            document.getElementById('customSearchInput').value = '';
-            table.search('').draw();
+        // // Clear filter
+        // function clearFilter() {
+        //     document.getElementById('customSearchInput').value = '';
+        //     table.search('').draw();
 
-            // Remove active state from all filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('ring-2', 'ring-offset-1');
-            });
-        }
+        //     // Remove active state from all filter buttons
+        //     document.querySelectorAll('.filter-btn').forEach(btn => {
+        //         btn.classList.remove('ring-2', 'ring-offset-1');
+        //     });
+        // }
 
         // SweetAlert untuk delete barang
         function deleteBarang(id, nama) {

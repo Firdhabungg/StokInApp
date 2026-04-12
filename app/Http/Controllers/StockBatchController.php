@@ -20,41 +20,9 @@ class StockBatchController extends Controller
     /**
      * Display a listing of all batches.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $tokoId = Auth::user()->effective_toko_id;
-
-        // Update batch expiry status
-        $this->stockService->updateBatchExpiryStatus();
-
-        $query = StockBatch::with(['barang'])
-            ->where('toko_id', $tokoId);
-
-        // Filter by status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // Filter by barang
-        if ($request->filled('barang_id')) {
-            $query->where('barang_id', $request->barang_id);
-        }
-
-        $batches = $query->orderBy('tgl_kadaluarsa', 'asc')
-            ->get();
-
-        $barangs = Barang::where('toko_id', $tokoId)
-            ->orderBy('nama_barang')
-            ->get();
-
-        // Count by status
-        $statusCounts = [
-            'aman' => StockBatch::where('toko_id', $tokoId)->where('status', 'aman')->count(),
-            'hampir_kadaluarsa' => StockBatch::where('toko_id', $tokoId)->where('status', 'hampir_kadaluarsa')->count(),
-            'kadaluarsa' => StockBatch::where('toko_id', $tokoId)->where('status', 'kadaluarsa')->count(),
-        ];
-
-        return view('stock.batch.index', compact('batches', 'barangs', 'statusCounts'));
+        return view('stock.batch.index');
     }
 
     /**

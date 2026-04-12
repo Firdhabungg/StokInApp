@@ -19,7 +19,7 @@ class DashboardController extends Controller
         */
         // Invoice Pending (pembayaran yang belum selesai)
         $invoicePending = Payment::where('status', 'pending')->count();
-        
+
         $totalToko   = Toko::count();
 
         /*
@@ -78,7 +78,7 @@ class DashboardController extends Controller
         */
         // Ambil ID terbaru untuk setiap toko
         $latestIds = Subscription::selectRaw('MAX(id)')->groupBy('toko_id')->pluck('MAX(id)');
-        
+
         // Ambil data berdasarkan status
         $paket = Subscription::whereIn('id', $latestIds)
             ->selectRaw("
@@ -91,23 +91,23 @@ class DashboardController extends Controller
             ")
             ->groupBy('plan_name')
             ->get();
-        
+
         $paketLabels = $paket->pluck('plan_name');
         $paketData   = $paket->pluck('total');
-        
+
         // Hitung Toko yang Belum Berlangganan (Total Toko - Toko dengan status Pro/Trial)
         $tokoTerhitungCount = Subscription::whereIn('id', $latestIds)
             ->whereIn('status', ['active', 'trial'])
             ->count();
-        
+
         $totalTokoReal = Toko::count();
         $tokoBelumLangganan = $totalTokoReal - $tokoTerhitungCount;
-        
+
         if ($tokoBelumLangganan > 0) {
             $paketLabels->push('Belum Langganan');
             $paketData->push($tokoBelumLangganan);
         }
-        
+
         $totalPaket = $paketData->sum();
 
         /*

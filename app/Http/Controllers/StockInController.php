@@ -22,14 +22,7 @@ class StockInController extends Controller
      */
     public function index()
     {
-        $tokoId = Auth::user()->effective_toko_id;
-
-        $stockIns = StockIn::with(['barang', 'batch', 'user'])
-            ->where('toko_id', $tokoId)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        return view('stock.in.index', compact('stockIns'));
+        return view('stock.in.index');
     }
 
     /**
@@ -77,7 +70,7 @@ class StockInController extends Controller
             ]);
 
             return redirect()->route('stock.in.index')
-                ->with('success', 'Barang masuk berhasil dicatat!');
+                ->with('success', 'Barang berhasil ditambahkan!');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()])->withInput();
         }

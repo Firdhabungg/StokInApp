@@ -113,8 +113,62 @@ class StockService
     }
 
     /**
-     * Update total stok di tabel barang berdasarkan jumlah batch
+     * Proses barang keluar dengan pemilihan batch manual.
+     * Digunakan untuk mengeluarkan batch kadaluarsa atau batch tertentu secara langsung.
+     *
+     * $data['batches'] = [
+     *     ['batch_id' => int, 'jumlah' => int],
+     *     ...
+     * ]
      */
+    public function processStockOutManual(array $data): array
+    {
+        return DB::transaction(function () use ($data) {
+            $barangId = $data['barang_id'];
+            $tokoId   = $data['toko_id'];
+            $stockOutRecords = [];
+
+            foreach ($data['batches'] as $item) {
+                $batch = StockBatch::where('id', $item['batch_id'])
+                    ->where('barang_id', $barangId)
+                    ->where('toko_id', $tokoId)
+                    ->where('jumlah_sisa', '>', 0)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($item['jumlah'] > $batch->jumlah_sisa) {
+                    throw new \Exception(
+                        "Jumlah melebihi sisa stok batch {$batch->batch_code}. " .
+                            "Tersedia: {$batch->jumlah_sisa}, Diminta: {$item['jumlah']}."
+                    );
+                }
+
+                // Create stock out record
+                $stockOut = StockOut::create([
+                    'barang_id'  => $barangId,
+                    'batch_id'   => $batch->id,
+                    'toko_id'    => $tokoId,
+                    'user_id'    => $data['user_id'],
+                    'jumlah'     => $item['jumlah'],
+                    'tgl_keluar' => $data['tgl_keluar'],
+                    'alasan'     => $data['alasan'] ?? 'lainnya',
+                    'keterangan' => $data['keterangan'] ?? null,
+                ]);
+
+                $stockOutRecords[] = $stockOut;
+
+                // Update batch remaining stock
+                $batch->jumlah_sisa -= $item['jumlah'];
+                $batch->save();
+            }
+
+            // Update barang total stok
+            $this->updateBarangTotalStock($barangId);
+
+            return $stockOutRecords;
+        });
+    }
+
     public function updateBarangTotalStock(int $barangId): void
     {
         $barang = Barang::find($barangId);

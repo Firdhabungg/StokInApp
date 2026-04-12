@@ -5,7 +5,6 @@
 @section('page-description', 'Ringkasan data penjualan dan performa transaksi')
 
 @section('content')
-    {{-- Filter --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
             <form method="GET" class="flex flex-wrap items-end gap-4">
@@ -32,7 +31,6 @@
                 </button>
             </form>
 
-            {{-- Export Buttons --}}
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
                     <a href="{{ route('laporan.penjualan.export.excel', ['filter' => $filter, 'tanggal' => $tanggal, 'bulan' => $bulan]) }}"
@@ -130,7 +128,7 @@
                                     Tidak ada transaksi pada periode ini
                                 </td>
                             </tr>
-                            @endzforelse
+                        @endforelse
                     </tbody>
                 </table>
             </div>
