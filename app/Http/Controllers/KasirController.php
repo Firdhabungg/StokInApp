@@ -11,16 +11,7 @@ class KasirController extends Controller
 {
     public function index()
     {
-        $toko = auth()->user()->toko;
-        $kasirs = User::where('toko_id', auth()->user()->toko_id)
-            ->where('role', 'kasir')
-            ->paginate(1);
-
-        $canAddUser = $toko ? $toko->canAddUser() : false;
-        $remainingSlots = $toko ? $toko->remainingUserSlots() : 0;
-        $maxKasir = $toko ? $toko->getFeature('max_kasir', 1) : 1;
-
-        return view('kasir.index', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
+        return view('kasir.index');
     }
 
     public function create()

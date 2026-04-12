@@ -12,15 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display dashboard with real-time stock data.
-     */
     public function index()
     {
-        // Use effective_toko_id untuk mendukung mode Akses Toko Super Admin
         $tokoId = Auth::user()->effective_toko_id;
 
-        // Total stok dari semua batch yang tersedia
         $totalStok = StockBatch::where('toko_id', $tokoId)
             ->where('status', '!=', 'kadaluarsa')
             ->sum('jumlah_sisa');

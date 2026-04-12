@@ -60,7 +60,6 @@
         </div>
     </div>
 
-    {{-- Table --}}
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
             <thead class="bg-gray-50 border-b border-gray-200">

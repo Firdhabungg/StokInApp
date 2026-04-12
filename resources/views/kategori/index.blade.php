@@ -5,16 +5,6 @@
 @section('page-description', 'Kelola kategori barang untuk toko Anda')
 
 @section('content')
-    <div class="mb-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Kategori Barang</h2>
-            <a href="{{ route('kategori.create') }}"
-                class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
-                <i class="fas fa-plus"></i>
-                <span>Tambah Kategori</span>
-            </a>
-        </div>
-    </div>
 
     @livewire('kategori')
 @endsection

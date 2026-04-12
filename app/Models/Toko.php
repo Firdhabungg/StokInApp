@@ -115,34 +115,27 @@ class Toko extends Model
         return $subscription->plan->features[$key] ?? $default;
     }
 
+    public function kasirCount(): int
+    {
+        return $this->users()->where('role', 'kasir')->count();
+    }
+
     public function canAddUser(): bool
     {
         $maxKasir = $this->getFeature('max_kasir', 1);
 
-        // -1 means unlimited
-        if ($maxKasir == -1) {
-            return true;
-        }
+        if ($maxKasir == -1) return true;
 
-        // Count only kasir users (not owner)
-        $currentKasirCount = $this->users()->where('role', 'kasir')->count();
-
-        return $currentKasirCount < $maxKasir;
+        return $this->kasirCount() < $maxKasir;
     }
 
     public function remainingUserSlots(): int
     {
         $maxKasir = $this->getFeature('max_kasir', 1);
 
-        // -1 means unlimited
-        if ($maxKasir == -1) {
-            return 999; // large number for unlimited
-        }
+        if ($maxKasir == -1) return PHP_INT_MAX;
 
-        // Count only kasir users (not owner)
-        $currentKasirCount = $this->users()->where('role', 'kasir')->count();
-
-        return max(0, $maxKasir - $currentKasirCount);
+        return max(0, $maxKasir - $this->kasirCount());
     }
 
     public function canExportReport(): bool

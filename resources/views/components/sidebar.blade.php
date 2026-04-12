@@ -59,7 +59,7 @@
                     @endif
 
                     <li>
-                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box" route="barang.index"
+                        <x-sidebar.links title="Data Barang" icon="fa-solid fa-box-open" route="barang.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
 
@@ -74,11 +74,12 @@
                             Stock Management
                         </p>
                         <li>
-                            <x-sidebar.links title="Barang Masuk" icon="fas-truck-ramp-box" route="stock.in.index"
+                            <x-sidebar.links title="Barang Masuk" icon="fa-solid fa-cart-plus" route="stock.in.index"
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                         <li>
-                            <x-sidebar.links title="Barang Keluar" icon="fas-box-arrow-up" route="stock.out.index"
+                            <x-sidebar.links title="Barang Keluar" icon="fa-solid fa-cart-arrow-down"
+                                route="stock.out.index"
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                         <li>
