@@ -50,7 +50,7 @@
 
                     @if (auth()->user()->canManageToko())
                         <li>
-                            <x-sidebar.links title="Kategori" icon="fa-solid fa-folder" route="kategori.index"
+                            <x-sidebar.links title="Kategori" icon="fa-solid fa-tags" route="kategori.index"
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                     @endif

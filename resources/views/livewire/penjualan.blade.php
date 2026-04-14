@@ -24,7 +24,6 @@
         </div>
     </div>
 
-    {{-- Header --}}
     <div class="mb-3">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Riwayat Transaksi</h2>

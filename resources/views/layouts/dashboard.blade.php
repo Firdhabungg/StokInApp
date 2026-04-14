@@ -31,9 +31,11 @@
 
             <main class="p-4 md:p-6">
                 <div class="max-w-7xl mx-auto">
-                    {{-- Flash Alert dengan Auto-Close --}}
                     <x-flash-alert />
                     @yield('content')
+                    @isset($slot)
+                        {{ $slot }}
+                    @endisset
                 </div>
             </main>
         </div>

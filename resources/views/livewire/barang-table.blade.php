@@ -88,9 +88,9 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-12 text-center text-gray-400">
-                            <i class="fas fa-box-open text-3xl mb-2 block"></i>
-                            Tidak ada barang ditemukan
+                        <td colspan="5" class="text-center text-gray-400 my-6">
+                            <i class="fas fa-box-open text-4xl my-3"></i>
+                            <p>Belum ada barang di kategori ini</p>
                         </td>
                     </tr>
                 @endforelse

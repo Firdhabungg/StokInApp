@@ -2,20 +2,16 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use App\Models\KategoriBarang;
 
+#[Title('Kategori Barang')]
+#[Layout('layouts.dashboard')]
 class Kategori extends Component
 {
     public function render()
     {
-        $tokoId = Auth::user()->effective_toko_id;
-        $kategoris = KategoriBarang::where('toko_id', $tokoId)
-            ->withCount('barangs')
-            ->orderBy('nama_kategori')
-            ->get();
-
-        return view('livewire.kategori', compact('kategoris'));
+        return view('livewire.kategori');
     }
 }

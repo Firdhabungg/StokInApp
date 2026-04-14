@@ -1,28 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\{
-    AdminPaketController,
-    AdminPelangganController,
-    AdminTokoController,
-    KeuanganController,
-    DashboardController as AdminDashboardController,
-    PengaturanController
-};
-use App\Http\Controllers\{
-    SubscriptionController,
-    KasirController,
-    BarangController,
-    ProfilController,
-    StockInController,
-    StockOutController,
-    StockBatchController,
-    PenjualanController,
-    LaporanController,
-    NotificationController,
-    KategoriController,
-    DashboardController as UserDashboardController
-};
+use App\Http\Controllers\{SubscriptionController, KasirController, BarangController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, DashboardController as UserDashboardController};
+use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
 use App\Http\Controllers\Auth\{AuthController, RegisterController};
+use App\Livewire\Kategori;
+use App\Livewire\KategoriDetail;
 use Illuminate\Support\Facades\Route;
 
 // Landing page
@@ -122,14 +104,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
         Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
-        // Kategori Barang
-        Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-        Route::post('/kategori', action: [KategoriController::class, 'store'])->name('kategori.store');
-        Route::get('/kategori/{id}', [KategoriController::class, 'show'])->name('kategori.show');
-        Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-        Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-        Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+        // Kategori
+        Route::get('/kategori', Kategori::class)->name('kategori.index');
+        Route::get('/kategori/{kategoriId}', KategoriDetail::class)->name('kategori.show');
 
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
