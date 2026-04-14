@@ -1,9 +1,7 @@
-<div id="sidebarOverlay"
-    class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
+<div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
 
 <div class="md:hidden fixed top-4 left-4 z-50">
-    <button onclick="toggleMobileSidebar()"
-        class="p-2 bg-white rounded-lg shadow-md border border-slate-100 text-slate-600">
+    <button onclick="toggleMobileSidebar()" class="p-2 bg-white rounded-lg shadow-md border border-slate-100 text-slate-600">
         <i class="fa-solid fa-bars text-xl"></i>
     </button>
 </div>
@@ -21,7 +19,11 @@
                 Stok<span class="text-amber-500">In</span>
             </span>
         </div>
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
         {{-- Desktop Toggle Button --}}
         <button id="desktopSidebarToggle"
             class="hidden md:flex p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600">
@@ -41,8 +43,7 @@
         @endphp
 
         <nav class="space-y-1.5">
-            <p id="nav-label" class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Main
-                Menu</p>
+            <p id="nav-label" class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Main Menu</p>
 
             <ul class="space-y-1.5">
                 @if ($hasActiveSubscription || $isSuperAdmin)
@@ -57,7 +58,11 @@
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                     @endif
+<<<<<<< Updated upstream
 
+=======
+                    
+>>>>>>> Stashed changes
                     <li>
                         <x-sidebar.links title="Data Barang" icon="fa-solid fa-box-open" route="barang.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
@@ -69,8 +74,7 @@
                     </li>
 
                     @if (auth()->user()->canManageToko())
-                        <p id="nav-label"
-                            class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
+                        <p id="nav-label" class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
                             Stock Management
                         </p>
                         <li>
@@ -108,8 +112,7 @@
                 @endif
 
                 @if (auth()->user()->isOwner() || auth()->user()->isSuperAdmin())
-                    <p id="nav-label"
-                        class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
+                    <p id="nav-label" class="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-6 mb-4">
                         Administrator
                     </p>
                     @if ($hasActiveSubscription || $isSuperAdmin)
@@ -136,6 +139,7 @@
     </div>
 
     <div class="p-4 border-t border-slate-50">
+<<<<<<< Updated upstream
         @if (auth()->user()->isAksesToko())
             {{-- Super Admin Akses Toko Mode --}}
             <div id="userInfo" class="mb-2 px-2 py-2 bg-amber-100 border border-amber-200 rounded-lg text-center">
@@ -149,6 +153,13 @@
                     {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
             </div>
         @endif
+=======
+        <div id="userInfo" class="mb-2 px-2 py-2 bg-slate-100 rounded-lg text-center">
+            <p class="nav-text text-[10px] text-slate-500 uppercase font-bold">Role</p>
+            <p class="nav-text text-sm font-semibold text-slate-700">
+                {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
+        </div>
+>>>>>>> Stashed changes
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
             <button type="button" onclick="confirmLogout()"
@@ -179,7 +190,11 @@
             desktopToggle.addEventListener('click', function() {
                 sidebar.classList.toggle('sidebar-mini');
                 const isNowMini = sidebar.classList.contains('sidebar-mini');
+<<<<<<< Updated upstream
 
+=======
+                
+>>>>>>> Stashed changes
                 if (mainWrapper) {
                     if (isNowMini) {
                         mainWrapper.classList.replace('md:ml-64', 'md:ml-20');
