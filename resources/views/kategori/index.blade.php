@@ -5,8 +5,7 @@
 @section('page-description', 'Kelola kategori barang untuk toko Anda')
 
 @section('content')
-
-    @livewire('kategori')
+    <livewire:kategori />
 @endsection
 
 @push('scripts')

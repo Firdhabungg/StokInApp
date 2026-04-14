@@ -19,11 +19,7 @@
                 Stok<span class="text-amber-500">In</span>
             </span>
         </div>
-<<<<<<< Updated upstream
-
-=======
         
->>>>>>> Stashed changes
         {{-- Desktop Toggle Button --}}
         <button id="desktopSidebarToggle"
             class="hidden md:flex p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600">
@@ -58,11 +54,7 @@
                                 class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                         </li>
                     @endif
-<<<<<<< Updated upstream
-
-=======
                     
->>>>>>> Stashed changes
                     <li>
                         <x-sidebar.links title="Data Barang" icon="fa-solid fa-box-open" route="barang.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
@@ -139,27 +131,11 @@
     </div>
 
     <div class="p-4 border-t border-slate-50">
-<<<<<<< Updated upstream
-        @if (auth()->user()->isAksesToko())
-            {{-- Super Admin Akses Toko Mode --}}
-            <div id="userInfo" class="mb-2 px-2 py-2 bg-amber-100 border border-amber-200 rounded-lg text-center">
-                <p class="nav-text text-[10px] text-amber-600 uppercase font-bold">Mengakses Toko</p>
-                <p class="nav-text text-sm font-semibold text-amber-800">{{ session('akses_toko_name') }}</p>
-            </div>
-        @else
-            <div id="userInfo" class="mb-2 px-2 py-2 bg-slate-100 rounded-lg text-center">
-                <p class="nav-text text-[10px] text-slate-500 uppercase font-bold">Login sebagai</p>
-                <p class="nav-text text-sm font-semibold text-slate-700">
-                    {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
-            </div>
-        @endif
-=======
         <div id="userInfo" class="mb-2 px-2 py-2 bg-slate-100 rounded-lg text-center">
             <p class="nav-text text-[10px] text-slate-500 uppercase font-bold">Role</p>
             <p class="nav-text text-sm font-semibold text-slate-700">
                 {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}</p>
         </div>
->>>>>>> Stashed changes
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
             <button type="button" onclick="confirmLogout()"
@@ -190,11 +166,7 @@
             desktopToggle.addEventListener('click', function() {
                 sidebar.classList.toggle('sidebar-mini');
                 const isNowMini = sidebar.classList.contains('sidebar-mini');
-<<<<<<< Updated upstream
-
-=======
                 
->>>>>>> Stashed changes
                 if (mainWrapper) {
                     if (isNowMini) {
                         mainWrapper.classList.replace('md:ml-64', 'md:ml-20');

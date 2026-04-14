@@ -33,7 +33,6 @@
                 <div class="max-w-7xl mx-auto">
                     {{-- Flash Alert dengan Auto-Close --}}
                     <x-flash-alert />
-
                     @yield('content')
                 </div>
             </main>
