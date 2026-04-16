@@ -61,15 +61,10 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <form id="delete-form-{{ $kasir->id }}" action="{{ route('kasir.destroy', $kasir) }}"
-                                method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="text-red-600 hover:text-red-800"
-                                    onclick="deleteKasir({{ $kasir->id }}, '{{ $kasir->name }}')">
-                                    delete
-                                </button>
-                            </form>
+                            <button wire:click="triggerDelete({{ $kasir->id }}, {{ Js::from($kasir->name) }})"
+                                type="button" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg text-xs font-medium transition-colors">
+                                Hapus
+                            </button>
                         </td>
                     </tr>
                 @empty
@@ -86,3 +81,28 @@
         </div>
     </div>
 </div>
+
+@script
+    <script>
+        $wire.on('show-delete-confirm', ({
+            id,
+            nama
+        }) => {
+            Swal.fire({
+                title: "Yakin hapus kasir?",
+                text: `"${nama}" akan dihapus dari sistem!`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#bf0603",
+                cancelButtonColor: "#6b7280",
+                confirmButtonText: "Ya, hapus!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.dispatch('confirm-delete', {
+                        id: id
+                    });
+                }
+            });
+        });
+    </script>
+@endscript

@@ -21,13 +21,11 @@
                     class="w-full pl-12 pr-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm">
             </div>
 
-            {{-- Filter Tanggal --}}
             <div>
                 <input type="date" wire:model.live="tanggal"
                     class="px-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm">
             </div>
 
-            {{-- Reset --}}
             @if ($search || $tanggal)
                 <button wire:click="$set('search', ''); $set('tanggal', '')"
                     class="px-4 py-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl text-sm transition-colors whitespace-nowrap">
@@ -60,23 +58,18 @@
                                 +{{ $stockIn->jumlah }}
                             </span>
                         </td>
-
                         <td class="px-6 py-4 font-mono text-xs text-gray-500">
                             {{ $stockIn->batch->batch_code ?? '-' }}
                         </td>
-
                         <td class="px-6 py-4">
                             {{ $stockIn->tgl_kadaluarsa ? $stockIn->tgl_kadaluarsa->format('d M Y') : '-' }}
                         </td>
-
                         <td class="px-6 py-4">
                             {{ $stockIn->supplier ?? '-' }}
                         </td>
-
                         <td class="px-6 py-4 text-gray-700">
                             {{ $stockIn->user->name }}
                         </td>
-
                     </tr>
                 @empty
                     <tr>
@@ -87,10 +80,7 @@
                     </tr>
                 @endforelse
             </tbody>
-
         </table>
-
-        <!-- PAGINATION -->
         <div class="p-4">
             {{ $stockIns->links() }}
         </div>

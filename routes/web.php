@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\{SubscriptionController, KasirController, BarangController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, DashboardController as UserDashboardController};
 use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
+use App\Http\Controllers\Admin\AksesTokoController;
 use App\Http\Controllers\Auth\{AuthController, RegisterController};
+use App\Livewire\BarangForm;
+use App\Livewire\BarangIndex;
+use App\Livewire\Kasir;
+use App\Livewire\KasirForm;
 use App\Livewire\Kategori;
 use App\Livewire\KategoriDetail;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +27,8 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
 
     // Akses Toko (Super Admin masuk sebagai toko)
     // Route stop harus di atas agar tidak tertangkap oleh {toko}
-    Route::post('/akses-toko/stop', [\App\Http\Controllers\Admin\AksesTokoController::class, 'stop'])->name('akses-toko.stop');
-    Route::post('/akses-toko/{toko}', [\App\Http\Controllers\Admin\AksesTokoController::class, 'start'])->name('akses-toko.start');
+    Route::post('/akses-toko/stop', [AksesTokoController::class, 'stop'])->name('akses-toko.stop');
+    Route::post('/akses-toko/{toko}', [AksesTokoController::class, 'start'])->name('akses-toko.start');
 
     Route::prefix('keuangan')->name('keuangan.')->group(function () {
         Route::get('/', [KeuanganController::class, 'index'])->name('index');
@@ -93,16 +98,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/penjualan/get-barang/{id}', [PenjualanController::class, 'getBarang'])->name('penjualan.getBarang');
 
     // Data Barang - Read-only untuk semua (termasuk kasir)
-    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+    Route::get('/barang', BarangIndex::class)->name('barang.index');
 
     // Routes untuk Owner & Super Admin only
     Route::middleware('role:owner,super_admin')->group(function () {
         // Barang Management - Create, Edit, Delete
-        Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
-        Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
-        Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
-        Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
-        Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+        Route::get('/barang/create', BarangForm::class)->name('barang.create');
+        Route::get('/barang/{id}/edit', BarangForm::class)->name('barang.edit');
 
         // Kategori
         Route::get('/kategori', Kategori::class)->name('kategori.index');
@@ -149,7 +151,8 @@ Route::middleware('auth')->group(function () {
         });
 
         // Manajemen Kasir - Owner only
-        Route::resource('kasir', KasirController::class)->except(['show', 'edit', 'update']);
+        Route::get('/kasir', Kasir::class)->name('kasir.index');
+        Route::get('/kasir/create', KasirForm::class)->name('kasir.create');
     });
 
     // Subscription Management - Owner only (except expired page)

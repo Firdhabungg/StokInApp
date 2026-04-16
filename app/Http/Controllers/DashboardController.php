@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Barang;
 use App\Models\StockBatch;
 use App\Models\StockIn;
 use App\Models\StockOut;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -106,6 +106,8 @@ class DashboardController extends Controller
             'hampir_kadaluarsa' => StockBatch::where('toko_id', $tokoId)->where('status', 'hampir_kadaluarsa')->where('jumlah_sisa', '>', 0)->count(),
             'kadaluarsa' => StockBatch::where('toko_id', $tokoId)->where('status', 'kadaluarsa')->where('jumlah_sisa', '>', 0)->count(),
         ];
+
+        $shortText = Str::limit($listBatchKadaluarsa->first()->barang->nama_barang ?? '', 20, '...');
 
         return view('dashboard.index', compact(
             'totalStok',

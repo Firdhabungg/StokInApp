@@ -75,22 +75,19 @@
                                 <div class="flex items-center gap-2">
                                     <a href="{{ route('barang.edit', $barang->id) }}"
                                         class="text-amber-600 hover:text-amber-800 font-medium text-xs">Edit</a>
-                                    <form action="{{ route('barang.destroy', $barang->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            class="text-red-500 hover:text-red-700 font-medium text-xs"
-                                            onclick="deleteBarang({{ $barang->id }}, '{{ $barang->nama_barang }}')">Hapus</button>
-                                    </form>
+                                    <button class="text-red-600 hover:text-red-800 font-medium text-xs"
+                                        wire:click="triggerDelete({{ $barang->id }}, {{ Js::from($barang->nama_barang) }})">
+                                        Hapus
+                                    </button>
                                 </div>
                             </td>
                         @endif
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-gray-400 my-6">
-                            <i class="fas fa-box-open text-4xl my-3"></i>
-                            <p>Belum ada barang di kategori ini</p>
+                        <td colspan="7" class="text-center text-gray-400 my-6">
+                            <i class="fas fa-box-open text-4xl my-6"></i>
+                            <p>Barang tidak ditemukan</p>
                         </td>
                     </tr>
                 @endforelse
@@ -102,3 +99,28 @@
     </div>
 
 </div>
+
+@script
+    <script>
+        $wire.on('show-delete-confirm', ({
+            id,
+            nama
+        }) => {
+            Swal.fire({
+                title: "Yakin hapus barang?",
+                text: `"${nama}" akan dihapus permanen!`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#bf0603",
+                cancelButtonColor: "#38b000",
+                confirmButtonText: "Ya, hapus!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.dispatch('confirm-delete', {
+                        id: id
+                    });
+                }
+            });
+        });
+    </script>
+@endscript

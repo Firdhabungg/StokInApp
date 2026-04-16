@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Barang;
 use App\Models\KategoriBarang;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -46,8 +47,7 @@ class KategoriDetail extends Component
     #[Computed]
     public function barangs()
     {
-        return $this->kategori
-            ->barangs()
+        return Barang::where('kategori_id', $this->kategoriId)
             ->where('nama_barang', 'like', '%' . $this->search . '%')
             ->orderBy('nama_barang')
             ->paginate(9);

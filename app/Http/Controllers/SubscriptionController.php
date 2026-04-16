@@ -16,9 +16,6 @@ class SubscriptionController extends Controller
         $this->midtransService = $midtransService;
     }
 
-    /**
-     * Show subscription plans (pricing page)
-     */
     public function plans()
     {
         $plans = SubscriptionPlan::where('is_active', true)->get();
@@ -26,9 +23,6 @@ class SubscriptionController extends Controller
         return view('subscription.plans', compact('plans'));
     }
 
-    /**
-     * Show current subscription status
-     */
     public function index()
     {
         $user = auth()->user();
@@ -45,9 +39,6 @@ class SubscriptionController extends Controller
         return view('subscription.index', compact('subscription', 'plans', 'toko', 'hasUsedFreeTrial'));
     }
 
-    /**
-     * Show checkout page for a plan
-     */
     public function checkout(string $planSlug)
     {
         $user = auth()->user();
@@ -89,9 +80,6 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    /**
-     * Create trial subscription
-     */
     protected function createTrialSubscription($toko, $plan)
     {
         // Periksa apakah toko sedang memiliki langganan yang benar-benar aktif
@@ -119,9 +107,6 @@ class SubscriptionController extends Controller
             ->with('success', 'Selamat! Paket ' . $plan->name . ' Anda sudah aktif.');
     }
 
-    /**
-     * Handle callback from Midtrans (redirect after payment)
-     */
     public function callback(Request $request)
     {
         $orderId = $request->get('order_id');
@@ -144,9 +129,6 @@ class SubscriptionController extends Controller
             ->with('error', 'Pembayaran gagal atau dibatalkan.');
     }
 
-    /**
-     * Activate subscription by order ID (used in callback for localhost)
-     */
     protected function activateSubscriptionByOrderId($orderId)
     {
         if (!$orderId) return;
@@ -170,9 +152,6 @@ class SubscriptionController extends Controller
         }
     }
 
-    /**
-     * Handle webhook notification from Midtrans
-     */
     public function webhook(Request $request)
     {
         $result = $this->midtransService->handleNotification();
@@ -180,9 +159,6 @@ class SubscriptionController extends Controller
         return response()->json($result);
     }
 
-    /**
-     * Show expired subscription page
-     */
     public function expired()
     {
         $plans = SubscriptionPlan::where('is_active', true)->where('price', '>', 0)->get();

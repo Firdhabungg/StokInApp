@@ -71,7 +71,7 @@
     </div>
 
     <!-- Status Batch Summary -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-green-50 rounded-xl p-4 border border-green-100">
             <div class="flex items-center justify-between">
                 <div>
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Bottom Cards -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -124,7 +124,7 @@
                 @forelse ($barangMenipis as $barang)
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
-                            <p class="font-medium text-gray-900">{{ $barang->nama_barang }}</p>
+                            <p class="font-medium text-sm text-gray-900">{{ $barang->nama_barang }}</p>
                             <p class="text-xs text-gray-500">Stok: {{ $barang->stok }} item</p>
                         </div>
                         <span
@@ -160,12 +160,13 @@
                     @endphp
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
-                            <p class="font-medium text-gray-900">{{ $batch->barang->nama_barang }}</p>
-                            <p class="text-xs text-gray-500">{{ $daysLeft }} hari lagi • Sisa:
-                                {{ $batch->jumlah_sisa }}</p>
+                            <p class="font-medium text-sm text-gray-900">{{ $batch->barang->nama_barang }}</p>
+                            <p class="text-xs text-gray-500">{{ $daysLeft }} hari lagi •
+                                Sisa:{{ $batch->jumlah_sisa }}
+                            </p>
                         </div>
-                        <span class="px-3 py-1 {{ $colorClass }} text-xs font-medium rounded-full">
-                            {{ $batch->tgl_kadaluarsa->format('d M') }}
+                        <span class="px-3 {{ $colorClass }} text-xs rounded-xl">
+                            {{ $batch->tgl_kadaluarsa->format('d M Y') }}
                         </span>
                     </div>
                 @empty

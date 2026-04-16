@@ -1,4 +1,3 @@
-{{-- Banner yang muncul saat Super Admin mengakses toko --}}
 @if(auth()->user()->isAksesToko())
     <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-md">
         <div class="px-4 py-3 flex items-center justify-center gap-4 flex-wrap">

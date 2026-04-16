@@ -30,8 +30,7 @@
                             Nama Kategori <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="nama_kategori" id="nama_kategori" required
-                            value="{{ old('nama_kategori') }}"
-                            placeholder="Contoh: Makanan Ringan, Minuman, Sembako"
+                            value="{{ old('nama_kategori') }}" placeholder="Contoh: Makanan Ringan, Minuman, Sembako"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors">
                     </div>
 

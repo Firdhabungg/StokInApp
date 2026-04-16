@@ -3,9 +3,14 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Manajemen Kasir')]
+#[Layout('layouts.dashboard')]
 class Kasir extends Component
 {
     use WithPagination;
@@ -37,5 +42,21 @@ class Kasir extends Component
         $maxKasir       = $toko?->getFeature('max_kasir', 1) ?? 1;
 
         return view('livewire.kasir', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
+    }
+
+    public function triggerDelete(int $id, string $nama): void
+    {
+        $this->dispatch('show-delete-confirm', id: $id, nama: $nama);
+    }
+
+    #[On('confirm-delete')]
+    public function delete(int $id): void
+    {
+        $kasir = User::where('toko_id', auth()->user()->toko_id)
+            ->where('role', 'kasir')
+            ->findOrFail($id);
+
+        $kasir->delete();
+        session()->flash('success', 'Kasir berhasil dihapus.');
     }
 }

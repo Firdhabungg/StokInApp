@@ -5,10 +5,5 @@
 @section('page-description', 'Kelola kategori barang untuk toko Anda')
 
 @section('content')
-<<<<<<< Updated upstream
-    <livewire:kategori />
-=======
-    @livewire('kategori')
->>>>>>> Stashed changes
+    @livewire('kategori-index')
 @endsection
-

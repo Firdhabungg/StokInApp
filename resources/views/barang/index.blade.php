@@ -2,10 +2,10 @@
 
 @section('title', 'Data Barang')
 @section('page-title', 'Kelola Barang')
-@section('page-description', 'Monitoring data barang, stok, dan ketersediaan (readonly)')
+@section('page-description', 'Monitoring data barang, stok, dan ketersediaan')
 
 @section('content')
-    <livewire:barang-table/>
+    @livewire('barang-index')
 @endsection
 
 @push('scripts')
