@@ -1,10 +1,4 @@
 <div>
-    @if (session()->has('success'))
-        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form wire:submit="save">
         <div class="mb-3">
             <label class="block text-sm font-medium text-gray-700 mb-1">

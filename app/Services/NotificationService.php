@@ -7,9 +7,6 @@ use App\Models\StockBatch;
 
 class NotificationService
 {
-    /**
-     * Get all notifications for the current toko.
-     */
     public function getNotifications(int $tokoId): array
     {
         $notifications = [];
@@ -30,9 +27,6 @@ class NotificationService
         return $notifications;
     }
 
-    /**
-     * Get low stock notifications.
-     */
     public function getLowStockNotifications(int $tokoId): array
     {
         $notifications = [];
@@ -76,9 +70,6 @@ class NotificationService
         return $notifications;
     }
 
-    /**
-     * Get near expiry notifications.
-     */
     public function getNearExpiryNotifications(int $tokoId): array
     {
         $notifications = [];
@@ -143,17 +134,11 @@ class NotificationService
         return $notifications;
     }
 
-    /**
-     * Get notification count (for badge).
-     */
     public function getNotificationCount(int $tokoId): int
     {
         return count($this->getNotifications($tokoId));
     }
 
-    /**
-     * Get critical notification count.
-     */
     public function getCriticalCount(int $tokoId): int
     {
         $notifications = $this->getNotifications($tokoId);

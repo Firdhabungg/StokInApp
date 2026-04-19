@@ -20,7 +20,6 @@ class DashboardController extends Controller
             ->where('status', '!=', 'kadaluarsa')
             ->sum('jumlah_sisa');
 
-        // Total jenis barang
         $totalBarang = Barang::where('toko_id', $tokoId)->count();
 
         // Stok menipis (barang dengan stok <= 10)

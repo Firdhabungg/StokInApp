@@ -25,9 +25,6 @@ class PenjualanController extends Controller
         return view('penjualan.index');
     }
 
-    /**
-     * Show the form for creating a new sale (POS).
-     */
     public function create()
     {
         $tokoId = Auth::user()->effective_toko_id;
@@ -47,9 +44,6 @@ class PenjualanController extends Controller
         return view('penjualan.create', compact('barangs', 'kodeTransaksi'));
     }
 
-    /**
-     * Get barang info for AJAX.
-     */
     public function getBarang($id)
     {
         $tokoId = Auth::user()->effective_toko_id;
@@ -73,9 +67,6 @@ class PenjualanController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created sale.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -179,9 +170,6 @@ class PenjualanController extends Controller
         }
     }
 
-    /**
-     * Display the specified sale (receipt/invoice).
-     */
     public function show(Sale $penjualan)
     {
         $penjualan->load(['user', 'items.barang', 'toko']);

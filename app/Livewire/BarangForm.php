@@ -28,7 +28,7 @@ class BarangForm extends Component
         return [
             'nama_barang' => 'required|string|min:3|max:50',
             'kode_barang' => $this->isEdit ? 'nullable' : 'required|string|max:50',
-            'kategori_id' => 'required|integer|exists:kategoris,kategori_id',
+            'kategori_id' => 'required|exists:kategoris,kategori_id',
             'harga'       => 'required|numeric|min:0',
             'harga_jual'  => 'required|numeric|min:0',
         ];
@@ -56,8 +56,8 @@ class BarangForm extends Component
             $this->nama_barang = $barang->nama_barang;
             $this->kode_barang = $barang->kode_barang;
             $this->kategori_id = $barang->kategori_id;
-            $this->harga       = $barang->harga;
-            $this->harga_jual  = $barang->harga_jual;
+            $this->harga       = (int) $barang->harga;
+            $this->harga_jual  = (int) $barang->harga_jual;
             $this->stok        = $barang->stok;
         } else {
             $this->kode_barang = $this->generateKodeBarang($tokoId);
@@ -80,7 +80,6 @@ class BarangForm extends Component
                 ]);
                 session()->flash('success', 'Barang berhasil diperbarui');
             } else {
-                // Re-generate saat submit untuk hindari stale kode
                 $kode = $this->generateKodeBarang($tokoId);
 
                 Barang::create([

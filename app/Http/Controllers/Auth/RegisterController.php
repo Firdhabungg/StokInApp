@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\KategoriBarang;
 use App\Models\Toko;
 use App\Models\User;
-use App\Models\KategoriBarang;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Log;
 
 class RegisterController extends Controller
 {
-    /**
-     * Default categories for new stores.
-     */
     protected $defaultCategories = [
         ['nama_kategori' => 'Makanan', 'deskripsi_kategori' => 'Produk makanan dan snack'],
         ['nama_kategori' => 'Minuman', 'deskripsi_kategori' => 'Produk minuman'],
@@ -26,17 +25,11 @@ class RegisterController extends Controller
         ['nama_kategori' => 'Lainnya', 'deskripsi_kategori' => 'Kategori lainnya'],
     ];
 
-    /**
-     * Show the registration form.
-     */
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle registration request.
-     */
     public function register(Request $request)
     {
         $request->validate([
@@ -65,7 +58,6 @@ class RegisterController extends Controller
 
         try {
             DB::beginTransaction();
-
             $toko = Toko::create([
                 'name' => $request->toko_name,
                 'email' => $request->toko_email,
@@ -81,7 +73,6 @@ class RegisterController extends Controller
                 'role' => 'owner',
             ]);
 
-            // Membuat kategori default untuk toko baru
             foreach ($this->defaultCategories as $category) {
                 KategoriBarang::create([
                     'toko_id' => $toko->id,
@@ -93,15 +84,12 @@ class RegisterController extends Controller
             DB::commit();
             Auth::login($user);
 
-            // Redirect to plan selection page instead of dashboard
             return redirect()->route('subscription.index')
                 ->with('info', 'Registrasi berhasil! Silakan pilih paket langganan untuk memulai.');
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            \Log::error('Registration error: ' . $e->getMessage() . ' - ' . $e->getFile() . ':' . $e->getLine());
+            Log::error('Registration error: ' . $e->getMessage() . ' - ' . $e->getFile() . ':' . $e->getLine());
             return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }
-

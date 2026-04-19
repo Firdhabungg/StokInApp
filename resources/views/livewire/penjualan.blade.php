@@ -1,5 +1,5 @@
 <div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between">
                 <div>
@@ -37,22 +37,27 @@
 
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
         <div class="flex flex-col sm:flex-row gap-3">
-            <div class="relative flex-1">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <i class="fas fa-search text-green-500"></i>
+            <form wire:submit.prevent="search" class="w-full bg-white rounded-2xl">
+                <label for="search" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-green-500 text-lg"></i>
+                    </div>
+                    <input wire:model.live="query" type="search" id="query"
+                        class="w-full pl-12 pr-12 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-base shadow-sm"
+                        placeholder="Cari kode transaksi / kasir..." />
+                    <button type="submit"
+                        class="absolute end-1.5 bottom-1.5 text-white bg-green-500 hover:bg-green-600 box-border border border-transparent focus:ring-4 focus:ring-green-100 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1 focus:outline-none">Search</button>
                 </div>
-                <input type="text" wire:model.live.debounce.300ms="search"
-                    placeholder="Cari kode transaksi atau kasir..."
-                    class="w-full pl-12 pr-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm">
-            </div>
+            </form>
 
-            <div>
+            <div class="flex items-center">
                 <input type="date" wire:model.live="tanggal"
                     class="px-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm">
             </div>
-            @if ($search || $tanggal)
-                <button wire:click="$set('search', ''); $set('tanggal', '')"
-                    class="px-4 py-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl text-sm transition-colors">
+            @if ($query || $tanggal)
+                <button wire:click="resetFilter"
+                    class="px-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl text-xs transition-colors">
                     <i class="fas fa-redo mr-1"></i> Reset
                 </button>
             @endif

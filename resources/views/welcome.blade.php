@@ -11,8 +11,7 @@
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <a href="{{ route('login') }}"
                     class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
-                           focus:outline-none font-medium
-                           rounded-lg text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
+                           focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
                     Masuk
                 </a>
 

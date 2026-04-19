@@ -13,17 +13,17 @@ class KategoriList extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    public $query = '';
     public ?int $deleteId = null;
     public string $deleteNama = '';
 
-    #[On('kategori-saved')]
-    public function refresh(): void
+    #[On('kategori-created')]
+    public function updatingQuery()
     {
         $this->resetPage();
     }
 
-    public function updatedSearch(): void
+    public function search()
     {
         $this->resetPage();
     }
@@ -31,6 +31,12 @@ class KategoriList extends Component
     public function editKategori(int $id): void
     {
         $this->dispatch('edit-kategori', id: $id);
+        $this->js("window.dispatchEvent(new CustomEvent('open-modal', { detail: { title: 'Edit Kategori' } }))");
+    }
+
+    public function triggerDelete(int $id, string $nama, int $jumlahBarang): void
+    {
+        $this->dispatch('show-delete-confirm', id: $id, nama: $nama, jumlahBarang: $jumlahBarang);
     }
 
     public function confirmDelete(int $id): void
@@ -64,13 +70,8 @@ class KategoriList extends Component
 
         return KategoriBarang::where('toko_id', $tokoId)
             ->withCount('barangs')
-            ->where('nama_kategori', 'like', "%{$this->search}%")
+            ->where('nama_kategori', 'like', "%{$this->query}%")
             ->orderBy('nama_kategori')
-            ->paginate(9);
-    }
-
-    public function render()
-    {
-        return view('livewire.kategori-list');
+            ->paginate(12);
     }
 }

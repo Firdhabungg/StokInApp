@@ -8,10 +8,10 @@ use Livewire\Component;
 
 #[Title('Kategori Barang')]
 #[Layout('layouts.dashboard')]
-class Kategori extends Component
+class Kategoris extends Component
 {
     public function render()
     {
-        return view('livewire.kategori');
+        return view('livewire.kategoris');
     }
 }

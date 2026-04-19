@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\{SubscriptionController, KasirController, BarangController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, DashboardController as UserDashboardController};
+use App\Http\Controllers\{SubscriptionController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, DashboardController as UserDashboardController};
 use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
 use App\Http\Controllers\Admin\AksesTokoController;
 use App\Http\Controllers\Auth\{AuthController, RegisterController};
 use App\Livewire\BarangForm;
-use App\Livewire\BarangIndex;
+use App\Livewire\Barangs;
 use App\Livewire\Kasir;
 use App\Livewire\KasirForm;
-use App\Livewire\Kategori;
 use App\Livewire\KategoriDetail;
+use App\Livewire\Kategoris;
+use App\Livewire\StockInForm;
 use Illuminate\Support\Facades\Route;
 
 // Landing page
@@ -98,24 +99,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/penjualan/get-barang/{id}', [PenjualanController::class, 'getBarang'])->name('penjualan.getBarang');
 
     // Data Barang - Read-only untuk semua (termasuk kasir)
-    Route::get('/barang', BarangIndex::class)->name('barang.index');
+    Route::get('/barang', Barangs::class)->name('barang.index');
 
     // Routes untuk Owner & Super Admin only
     Route::middleware('role:owner,super_admin')->group(function () {
         // Barang Management - Create, Edit, Delete
         Route::get('/barang/create', BarangForm::class)->name('barang.create');
-        Route::get('/barang/{id}/edit', BarangForm::class)->name('barang.edit');
+        Route::get('/barang/{barangId}/edit', BarangForm::class)->name('barang.edit');
 
         // Kategori
-        Route::get('/kategori', Kategori::class)->name('kategori.index');
+        Route::get('/kategori', Kategoris::class)->name('kategori.index');
         Route::get('/kategori/{kategoriId}', KategoriDetail::class)->name('kategori.show');
 
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
             // Barang Masuk
             Route::get('/in', [StockInController::class, 'index'])->name('in.index');
-            Route::get('/in/create', [StockInController::class, 'create'])->name('in.create');
-            Route::post('/in', [StockInController::class, 'store'])->name('in.store');
+            Route::get('/stock/in/create', StockInForm::class)->name('in.create');
             Route::get('/in/{stockIn}', [StockInController::class, 'show'])->name('in.show');
 
             // Barang Keluar

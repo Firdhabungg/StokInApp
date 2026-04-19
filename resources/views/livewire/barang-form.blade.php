@@ -5,11 +5,16 @@
         </div>
     @endif
 
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">{{ $isEdit ? 'Form Edit Barang' : 'Form Tambah Barang' }}</h2>
+        <p class="text-gray-500 text-sm mt-1">
+            {{ $isEdit ? 'Perbarui data barang' : 'Tambahkan barang baru ke dalam sistem' }}</p>
+    </div>
     <form wire:submit="save" class="space-y-5">
         <div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Kode Barang</label>
-                <input type="text" wire:model="kode_barang" readonly
+                <input type="text" wire:model.lazy="kode_barang" readonly
                     class="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-700 bg-gray-50 cursor-not-allowed opacity-60 focus:outline-none text-sm">
                 <p class="mt-1 text-xs text-gray-500">
                     {{ $isEdit ? 'Tidak dapat diubah' : 'Kode otomatis' }}
@@ -20,7 +25,7 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Nama Barang <span
                     class="text-red-500">*</span></label>
-            <input type="text" wire:model="nama_barang" placeholder="Indomie Goreng Seedap"
+            <input type="text" wire:model.lazy="nama_barang" placeholder="Indomie Goreng Sedap"
                 class="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('nama_barang') border-red-400 @enderror">
             @error('nama_barang')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -30,7 +35,7 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Kategori <span
                     class="text-red-500">*</span></label>
-            <select wire:model="kategori_id"
+            <select wire:model.lazy="kategori_id"
                 class="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('kategori_id') border-red-400 @enderror">
                 <option value="">Pilih Kategori</option>
                 @foreach ($kategoris as $kategori)
@@ -48,7 +53,7 @@
                         class="text-red-500">*</span></label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm">Rp</span>
-                    <input type="number" wire:model="harga" placeholder="0"
+                    <input type="number" wire:model.lazy="harga" placeholder="0"
                         class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('harga') border-red-400 @enderror">
                 </div>
                 @error('harga')
@@ -61,7 +66,7 @@
                         class="text-red-500">*</span></label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm">Rp</span>
-                    <input type="number" wire:model="harga_jual" placeholder="0"
+                    <input type="number" wire:model.lazy="harga_jual" placeholder="0"
                         class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('harga_jual') border-red-400 @enderror">
                 </div>
                 @error('harga_jual')

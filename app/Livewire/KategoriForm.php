@@ -22,7 +22,7 @@ class KategoriForm extends Component
             'nama_kategori' => [
                 'required',
                 'string',
-                'max:100',
+                'max:50',
                 "unique:kategoris,nama_kategori,{$ignoreId},kategori_id,toko_id,{$tokoId}",
             ],
             'deskripsi_kategori' => 'nullable|string|max:255',
@@ -72,8 +72,8 @@ class KategoriForm extends Component
         }
 
         $this->resetForm();
-        $this->dispatch('kategori-saved');
-        $this->dispatch('close-modal'); // tambah ini
+        $this->dispatch('kategori-created');
+        $this->dispatch('close-modal');
     }
 
     public function resetForm(): void

@@ -72,4 +72,23 @@ class Sale extends Model
         $this->total = $this->items()->sum('subtotal');
         $this->save();
     }
+
+    public function scopeByPeriod($query, string $period)
+    {
+        return match ($period) {
+            'weekly'  => $query->whereBetween('tanggal', [
+                now()->startOfWeek(),
+                now()->endOfWeek()
+            ]),
+            'monthly' => $query->whereMonth('tanggal', now()->month)
+                ->whereYear('tanggal', now()->year),
+            'yearly'  => $query->whereYear('tanggal', now()->year),
+            default   => $query->whereMonth('tanggal', now()->month),
+        };
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'selesai'); // sesuaikan value status kamu
+    }
 }

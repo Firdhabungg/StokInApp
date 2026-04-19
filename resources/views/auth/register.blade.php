@@ -4,14 +4,12 @@
 @section('content')
     <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl w-full">
-            <!-- Logo -->
             <div class="text-center mb-8">
                 <a href="/" class="text-3xl font-bold text-gray-800">Stok<span class="text-amber-600">In</span></a>
                 <h2 class="mt-4 text-2xl font-bold text-gray-900">Daftar Sebagai Pemilik Toko</h2>
                 <p class="mt-2 text-gray-600">Mulai kelola stok toko Anda dengan StokIn</p>
             </div>
 
-            <!-- Registration Form -->
             <div class="bg-white rounded-xl shadow-lg p-8">
                 @if (session('error'))
                     <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
@@ -149,7 +147,6 @@
                     </button>
                 </form>
 
-                <!-- Login Link -->
                 <div class="mt-6 text-center">
                     <p class="text-gray-600">
                         Sudah punya akun?
@@ -159,7 +156,6 @@
                 </div>
             </div>
 
-            <!-- Back to Home -->
             <div class="mt-6 text-center">
                 <a href="/" class="text-gray-500 hover:text-gray-700 text-sm">
                     <i class="fa-regular fa-circle-left text-lg"></i> Kembali ke Beranda

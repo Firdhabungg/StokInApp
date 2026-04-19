@@ -5,9 +5,9 @@
         </div>
     @endif
 
-    @if (session()->has('error'))
-        <div data-flash class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
-            {{ session('error') }}
+    @if (session()->has('success'))
+        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
+            {{ session('success') }}
         </div>
     @endif
 
@@ -23,27 +23,14 @@
         </button>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fas fa-search text-amber-500 text-lg"></i>
-            </div>
-            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari kategori..."
-                class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm" />
-        </div>
-    </div>
-
     <livewire:kategori-list />
-    {{-- Modal Form --}}
+
     <div id="modal-kategori" class="hidden fixed inset-0 z-50 flex items-center justify-center">
-        {{-- Backdrop --}}
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             onclick="document.getElementById('modal-kategori').classList.add('hidden')">
         </div>
 
-        {{-- Modal Content --}}
         <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 z-10">
-            {{-- Modal Header --}}
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold text-gray-800">Tambah Kategori</h2>
                 <button onclick="document.getElementById('modal-kategori').classList.add('hidden')"
@@ -57,7 +44,7 @@
         </div>
     </div>
 </div>
-@push('scripts')
+@script
     <script>
         window.addEventListener('close-modal', () => {
             document.getElementById('modal-kategori').classList.add('hidden');
@@ -82,5 +69,13 @@
                 }, 3000);
             });
         }
+
+        window.addEventListener('open-modal', () => {
+            document.getElementById('modal-kategori').classList.remove('hidden');
+        });
+
+        window.addEventListener('close-modal', () => {
+            document.getElementById('modal-kategori').classList.add('hidden');
+        });
     </script>
-@endpush
+@endscript

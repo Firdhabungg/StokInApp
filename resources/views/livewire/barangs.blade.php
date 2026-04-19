@@ -12,13 +12,19 @@
         </div>
     </div>
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fas fa-search text-amber-500 text-lg"></i>
+        <form wire:submit="doSearch" class="bg-white rounded-2xl shadow-sm p-3 mb-3">
+            <label for="search" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-amber-500 text-lg"></i>
+                </div>
+                <input wire:model.live.debounce.250ms="search" type="search" id="search"
+                    class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm"
+                    placeholder="Cari barang..." />
+                <button type="submit"
+                    class="absolute end-1.5 bottom-1.5 text-white bg-amber-500 hover:bg-amber-600 box-border border border-transparent focus:ring-4 focus:ring-amber-100 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1 focus:outline-none">Search</button>
             </div>
-            <input type="text" wire:model.live="search" placeholder="Cari barang..."
-                class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm">
-        </div>
+        </form>
 
         <div class="flex gap-2 mt-3 text-sm">
             <button wire:click="setStatus('tersedia')"

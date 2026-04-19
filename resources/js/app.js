@@ -6,8 +6,15 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Swal from 'sweetalert2';
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
+import Chart from 'chart.js/auto';
+import { initFlowbite } from 'flowbite';
 
-// Make libraries globally available
+initFlowbite();
+
+document.addEventListener('livewire:navigated', () => initFlowbite());
+
+window.Chart = Chart;
+
 window.Swal = Swal;
 window.DataTable = DataTable;
 
