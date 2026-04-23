@@ -20,6 +20,11 @@ class KategoriBarang extends Model
         'deskripsi_kategori',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'kategori_id';
+    }
+
     public function toko(): BelongsTo
     {
         return $this->belongsTo(Toko::class);
@@ -29,4 +34,4 @@ class KategoriBarang extends Model
     {
         return $this->hasMany(Barang::class, 'kategori_id', 'kategori_id');
     }
-} 
+}

@@ -1,10 +1,4 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Laporan Stok')
-@section('page-title', 'Laporan Stok')
-@section('page-description', 'Ringkasan kondisi stok dan ketersediaan inventaris')
-
-@section('content')
+<div>
     <div class="flex justify-between items-center gap-2 mb-2">
         <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
             <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
@@ -14,11 +8,13 @@
             @if ($canExportReport)
                 <a href="{{ route('laporan.stok.export.excel') }}"
                     class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                    <i class="fas fa-file-excel mr-2"></i> Export Excel
+                    <i class="fas fa-file-excel mr-2"></i>
+                    <p class="text-sm">Export Excel</p>
                 </a>
                 <a href="{{ route('laporan.stok.export.pdf') }}"
                     class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                    <i class="fas fa-file-pdf mr-2"></i> Export PDF
+                    <i class="fas fa-file-pdf mr-2"></i>
+                    <p class="text-sm">Export PDF</p>
                 </a>
             @else
                 <div class="flex items-center gap-2">
@@ -112,4 +108,4 @@
             </div>
         </div>
     </div>
-@endsection
+</div>

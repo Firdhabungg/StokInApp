@@ -11,7 +11,7 @@
         @livewire('dashboard.barang-terlaris')
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
         <div class="bg-red-500 rounded-xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-4">
                 <div>
@@ -50,7 +50,8 @@
                     <h3 class="font-semibold text-white">Mendekati Kadaluwarsa</h3>
                     <p class="text-sm text-gray-200">Prioritas penjualan</p>
                 </div>
-                <a href="{{ route('stock.batch.index') }}" class="text-black hover:text-black text-sm font-medium bg-amber-200 px-3 py-1 rounded-lg">
+                <a href="{{ route('stock.batch.index') }}"
+                    class="text-black hover:text-black text-sm font-medium bg-amber-200 px-3 py-1 rounded-lg">
                     Lihat Semua
                 </a>
             </div>
@@ -74,9 +75,25 @@
                 @empty
                     <div class="text-center py-4 text-gray-500">
                         <i class="fas fa-check-circle text-green-500 text-2xl mb-2"></i>
-                        <p class="text-sm">Tidak ada batch mendekati kadaluarsa</p>
+                        <p class="text-sm text-black">Tidak ada batch mendekati kadaluarsa</p>
                     </div>
                 @endforelse
+            </div>
+        </div>
+
+        <div class="bg-green-500 rounded-xl p-6 shadow-sm border border-gray-100">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="font-semibold text-white">Rekomendasi Stok</h3>
+                    <p class="text-sm text-gray-200">berdasarkan produk terlaris</p>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="text-center text-gray-500">
+                    <p class="text-red-500  hover:text-red-700 text-sm font-medium bg-red-100 px-3 py-10 rounded-lg">Fitur
+                        sedang tahap pengembangan</p>
+                </div>
+
             </div>
         </div>
     </div>

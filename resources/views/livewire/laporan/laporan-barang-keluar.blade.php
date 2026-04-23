@@ -1,11 +1,4 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Laporan Barang Keluar')
-@section('page-title', 'Laporan Barang Keluar')
-@section('page-description', 'Ringkasan data barang keluar dan pengurangan stok')
-
-@section('content')
-    {{-- Filter --}}
+<div>
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
             <form method="GET" class="flex flex-wrap items-end gap-4">
@@ -41,7 +34,8 @@
                         class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
                         <i class="fas fa-lock mr-2"></i> Export (Pro)
                     </button>
-                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
+                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade
+                        →</a>
                 </div>
             @endif
         </div>
@@ -100,7 +94,8 @@
                             <tr class="border-b">
                                 <td class="px-4 py-3">{{ $stockOut->tgl_keluar->format('d/m/Y') }}</td>
                                 <td class="px-4 py-3 font-medium">{{ $stockOut->barang->nama_barang }}</td>
-                                <td class="px-4 py-3 text-right font-semibold text-red-600">-{{ $stockOut->jumlah }}</td>
+                                <td class="px-4 py-3 text-right font-semibold text-red-600">-{{ $stockOut->jumlah }}
+                                </td>
                                 <td class="px-4 py-3 text-center">
                                     <span
                                         class="px-2 py-1 rounded-full text-xs font-medium
@@ -128,5 +123,4 @@
             </div>
         </div>
     </div>
-
-@endsection
+</div>

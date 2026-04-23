@@ -16,7 +16,6 @@
         </div>
     </div>
 
-    {{-- Flash Message --}}
     @if (session()->has('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
             {{ session('success') }}
@@ -29,7 +28,6 @@
         </div>
     @endif
 
-    {{-- Search --}}
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -40,7 +38,6 @@
         </div>
     </div>
 
-    {{-- Tabel Barang --}}
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
             <thead class="bg-gray-50 border-b border-gray-200">

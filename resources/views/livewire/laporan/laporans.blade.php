@@ -1,65 +1,58 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Laporan')
-@section('page-title', 'Laporan')
-@section('page-description', 'Rekap dan laporan aktivitas sistem')
-
-@section('content')
-    {{-- Summary Cards --}}
+<div>
     <h1 class="text-center font-semibold text-red-500 text-2xl mb-4">Ditambahkan Grafik atau Chart</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="bg-blue-100 p-3 rounded-full">
-                    <i class="fas fa-box text-blue-600"></i>
-                </div>
-                <div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="text-center">
                     <p class="text-sm text-gray-500">Total Barang</p>
                     <p class="text-xl font-bold text-gray-900">{{ number_format($totalBarang) }}</p>
                 </div>
+                <div class="bg-blue-100 p-3 rounded-lg">
+                    <i class="fa-solid fa-box-open text-blue-600"></i>
+                </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="bg-green-100 p-3 rounded-full">
-                    <i class="fas fa-cubes text-green-600"></i>
-                </div>
-                <div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="text-center">
                     <p class="text-sm text-gray-500">Total Stok</p>
                     <p class="text-xl font-bold text-gray-900">{{ number_format($totalStok) }}</p>
                 </div>
+                <div class="bg-green-100 p-3 rounded-lg">
+                    <i class="fas fa-cubes text-green-600"></i>
+                </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="bg-amber-100 p-3 rounded-full">
-                    <i class="fas fa-money-bill text-amber-600"></i>
-                </div>
-                <div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="text-center">
                     <p class="text-sm text-gray-500">Penjualan Bulan Ini</p>
                     <p class="text-xl font-bold text-gray-900">Rp {{ number_format($penjualanBulanIni / 1000) }}k</p>
                 </div>
+                <div class="bg-amber-100 p-3 rounded-lg">
+                    <i class="fas fa-money-bill text-amber-600"></i>
+                </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="bg-teal-100 p-3 rounded-full">
-                    <i class="fas fa-arrow-down text-teal-600"></i>
-                </div>
-                <div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="text-center">
                     <p class="text-sm text-gray-500">Barang Masuk</p>
                     <p class="text-xl font-bold text-gray-900">{{ $transaksiMasukBulanIni }}</p>
                 </div>
+                <div class="bg-teal-100 p-3 rounded-lg">
+                    <i class="fa-solid fa-cart-plus text-teal-600"></i>
+                </div>
             </div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-3">
-                <div class="bg-red-100 p-3 rounded-full">
-                    <i class="fas fa-arrow-up text-red-600"></i>
-                </div>
-                <div>
+            <div class="flex items-center justify-between gap-3">
+                <div class="text-center">
                     <p class="text-sm text-gray-500">Barang Keluar</p>
                     <p class="text-xl font-bold text-gray-900">{{ $transaksiKeluarBulanIni }}</p>
+                </div>
+                <div class="bg-red-100 p-3 rounded-lg">
+                    <i class="fa-solid fa-cart-arrow-down text-red-600"></i>
                 </div>
             </div>
         </div>
@@ -107,4 +100,4 @@
             <p class="text-sm text-gray-500">Rekap barang keluar per alasan</p>
         </a>
     </div>
-@endsection
+</div>

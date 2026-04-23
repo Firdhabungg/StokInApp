@@ -113,6 +113,10 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="mt-4">
+                {{ $stockIns->links() }}
+            </div>
         </div>
     </div>
 

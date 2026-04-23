@@ -21,7 +21,7 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased bg-gray-50 text-slate-900 overflow-x-hidden">
+<body class="bg-slate-200 text-slate-900 overflow-x-hidden">
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden"></div>
 
     <div class="flex min-h-screen">

@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <a href="{{ route('kategori.show', $kategori->kategori_id) }}"
+                        <a href="{{ route('kategori.detail', $kategori) }}"
                             class="text-gray-400 hover:text-blue-500 transition-colors">
                             <i class="fa-solid fa-eye"></i>
                         </a>
