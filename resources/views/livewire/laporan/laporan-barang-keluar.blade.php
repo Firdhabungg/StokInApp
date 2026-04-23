@@ -42,8 +42,8 @@
     </div>
 
     <div class="my-2">
-        <a href="{{ route('laporan.index') }}" class="text-black hover:text-amber-600">
-            <i class="fa-solid fa-circle-arrow-left text-lg mr-1"></i><span class="underline">Kembali</span>
+        <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
+            <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
         </a>
     </div>
 

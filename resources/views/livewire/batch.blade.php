@@ -26,7 +26,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500">Kadaluarsa</p>
+                    <p class="text-sm text-gray-500">Kadaluwarsa</p>
                     <p class="text-2xl font-bold text-red-600">{{ $statusCounts['kadaluarsa'] }}</p>
                 </div>
                 <div class="bg-red-100 p-3 rounded-full">
@@ -66,7 +66,7 @@
 
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
-            <thead class="bg-gray-50 border-b border-gray-200">
+            <thead class="bg-amber-400 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 font-semibold text-gray-700">Kode Batch</th>
                     <th class="px-6 py-3 font-semibold text-gray-700">Barang</th>
@@ -112,7 +112,7 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4">
+        <div class="p-4 bg-white">
             {{ $batches->links() }}
         </div>
     </div>

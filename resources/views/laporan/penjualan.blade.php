@@ -5,12 +5,7 @@
 @section('page-description', 'Ringkasan kondisi stok dan ketersediaan inventaris')
 
 @section('content')
-    {{-- resources/views/livewire/laporan/penjualan.blade.php --}}
-
     <div>
-        {{-- ============================================================
-         FILTER SECTION
-    ============================================================ --}}
         <div class="mb-6 flex flex-wrap gap-4 items-end">
 
             {{-- Toggle Harian / Bulanan --}}
@@ -59,9 +54,6 @@
             @endif
         </div>
 
-        {{-- ============================================================
-         SUMMARY CARDS
-    ============================================================ --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div class="bg-white rounded-xl shadow p-4">
                 <p class="text-sm text-gray-500">Periode</p>
@@ -81,9 +73,6 @@
             </div>
         </div>
 
-        {{-- ============================================================
-         TOP ITEMS
-    ============================================================ --}}
         @if ($topItems->count())
             <div class="bg-white rounded-xl shadow p-4 mb-6">
                 <h3 class="font-semibold text-gray-700 mb-3">Top 5 Barang Terlaris</h3>
@@ -110,9 +99,6 @@
             </div>
         @endif
 
-        {{-- ============================================================
-         TABEL PENJUALAN
-    ============================================================ --}}
         <div class="bg-white rounded-xl shadow overflow-hidden">
             <table class="w-full text-sm">
                 <thead class="bg-gray-50 text-gray-500">
@@ -146,7 +132,6 @@
             <div class="bg-white rounded-lg px-6 py-3 shadow text-sm">Memuat data...</div>
         </div>
 
-        {{-- Export denied notification (listen to dispatch) --}}
         <div x-data="{ show: false, message: '' }"
             x-on:export-denied.window="show = true; message = $event.detail.message; setTimeout(() => show = false, 4000)"
             x-show="show" x-transition

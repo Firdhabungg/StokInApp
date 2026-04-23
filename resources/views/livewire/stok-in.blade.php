@@ -12,7 +12,6 @@
 
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
         <div class="flex flex-col sm:flex-row gap-3">
-            {{-- Search --}}
             <div class="relative flex-1">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <i class="fas fa-search text-green-500 text-lg"></i>
@@ -37,7 +36,7 @@
 
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
-            <thead class="bg-gray-50 border-b border-gray-200">
+            <thead class="bg-amber-400 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 font-semibold text-gray-700">Tanggal</th>
                     <th class="px-6 py-3 font-semibold text-gray-700">Barang</th>
@@ -81,7 +80,7 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4">
+        <div class="p-4 bg-white">
             {{ $stockIns->links() }}
         </div>
     </div>

@@ -11,7 +11,6 @@ class TransaksiChart extends Component
 {
     public string $period = 'monthly';
 
-    // ✅ Fix 1: Tidak pakai computed property, pakai method biasa
     public function getChartData(): array
     {
         $tokoId = Auth::user()->effective_toko_id;

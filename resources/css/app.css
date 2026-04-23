@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800|lexend:200,300,400,500,600|poppins:200,300,400,500,600,700');
 @import "flowbite/src/themes/default";
 @import 'tailwindcss';
 
@@ -14,7 +14,7 @@
 @source "../node_modules/flowbite";
 
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,
+    --font-sans: 'Lexend', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-amber-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);

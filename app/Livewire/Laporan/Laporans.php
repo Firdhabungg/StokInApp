@@ -22,7 +22,7 @@ class Laporans extends Component
     public int $transaksiMasukBulanIni = 0;
     public int $transaksiKeluarBulanIni = 0;
 
-    public function index()
+    public function mount()
     {
         $tokoId = Auth::user()->effective_toko_id;
 

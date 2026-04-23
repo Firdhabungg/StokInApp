@@ -43,7 +43,6 @@ class Batch extends Component
     {
         $tokoId = Auth::user()->effective_toko_id;
 
-        // Update expiry status setiap render
         app(StockService::class)->updateBatchExpiryStatus();
 
         $batches = StockBatch::with('barang')

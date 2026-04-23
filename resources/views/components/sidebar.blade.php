@@ -11,7 +11,7 @@
 <aside id="sidebar"
     class="fixed top-0 left-0 z-50 w-64 h-screen bg-gray-900 border-r border-slate-100 flex flex-col -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
 
-    <div class="h-20 flex items-center justify-between px-4 flex-shrink-0 border-b border-slate-50">
+    <div class="h-20 flex items-center justify-between px-4 flex-shrink-1 border-b border-slate-50">
         <div id="logo-desktop" class="flex items-center gap-3">
             <div class="bg-amber-500 p-2 rounded shadow-xl shadow-amber-200 flex-shrink-0">
                 <i class="fa-solid fa-box text-white w-5 h-5 flex items-center justify-center"></i>

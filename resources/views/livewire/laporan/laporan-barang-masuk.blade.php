@@ -17,7 +17,6 @@
                 </button>
             </form>
 
-            {{-- Export Buttons --}}
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
                     <a href="{{ route('laporan.barang-masuk.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"

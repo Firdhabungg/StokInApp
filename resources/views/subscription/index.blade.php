@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="space-y-6">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <div class="flex items-center justify-between mb-4">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+            <div class="flex items-center justify-between mb-2">
                 <h2 class="text-lg font-bold text-gray-900">Status Langganan</h2>
                 @if ($subscription && $subscription->isActive())
                     <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
@@ -22,26 +22,34 @@
 
             @if ($subscription)
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-500 mb-1">Paket Saat Ini</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $subscription->plan->name }}</p>
+                    <div class="bg-amber-500 rounded-lg p-4">
+                        <p class="text-sm text-black mb-1">Paket Saat Ini</p>
+                        <p class="text-xl font-bold text-amber-100">{{ $subscription->plan->name }}</p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-500 mb-1">Status</p>
-                        <p class="text-xl font-bold text-gray-900">
-                            @if ($subscription->isTrial())
-                                <span class="text-amber-600">Trial</span>
-                            @elseif($subscription->isActive())
-                                <span class="text-green-600">Aktif</span>
-                            @else
-                                <span class="text-red-600">Expired</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-500 mb-1">Berlaku Hingga</p>
-                        <p class="text-xl font-bold text-gray-900">{{ $subscription->expires_at->format('d M Y') }}</p>
-                        <p class="text-sm text-gray-500">{{ $subscription->daysRemaining() }} hari lagi</p>
+                    @if ($subscription->isTrial())
+                        <div class="bg-amber-400 rounded-lg p-4">
+                            <p class="text-sm text-gray-500 mb-1">Status</p>
+                            <span class="text-amber-600 text-xl font-bold">Trial</span>
+                        </div>
+                    @elseif($subscription->isActive())
+                        <div class="bg-green-400 rounded-lg p-4">
+                            <p class="text-sm text-black mb-1">Status</p>
+                            <span class="text-green-100 text-xl font-bold">Aktif</span>
+                        </div>
+                    @else
+                        <div class="bg-red-400 rounded-lg p-4">
+                            <p class="text-sm text-black mb-1">Status</p>
+                            <span class="text-red-100 text-xl font-bold">Expired</span>
+                        </div>
+                    @endif
+
+                    <div class="bg-blue-600 rounded-lg p-4 flex justify-between items-center">
+                        <div class="items-center gap-2">
+                            <p class="text-sm text-black mb-1">Berlaku Hingga</p>
+                            <p class="text-xl font-bold text-blue-200">{{ $subscription->expires_at->format('d M Y') }}</p>
+                        </div>
+                        <p class="bg-blue-400 px-3 py-1 rounded-full text-sm text-white">
+                            {{ $subscription->daysRemaining() }} hari lagi</p>
                     </div>
                 </div>
             @else
@@ -54,18 +62,17 @@
             @endif
         </div>
 
-        {{-- Available Plans --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 class="text-lg font-bold text-gray-900 mb-6">Pilih Paket</h2>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+            <h2 class="text-lg font-bold text-gray-900 mb-2">Pilih Paket</h2>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-2 gap-4">
                 @foreach ($plans as $plan)
                     <div
-                        class="border-2 rounded-xl p-6 transition-all {{ $subscription && $subscription->plan_id == $plan->id ? 'border-amber-500 bg-amber-50' : 'border-gray-200 hover:border-amber-300' }}">
+                        class="border-2 rounded-xl p-6 transition-all {{ $subscription && $subscription->plan_id == $plan->id ? 'border-amber-300 border-2 bg-amber-400' : 'border-gray-200 hover:border-amber-300' }}">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-gray-900">{{ $plan->name }}</h3>
                             @if ($subscription && $subscription->plan_id == $plan->id)
-                                <span class="px-2 py-1 bg-amber-500 text-white text-xs rounded-full">AKTIF</span>
+                                <span class="px-4 py-1 bg-amber-300 text-black font-bold text-xs rounded-full">Aktif</span>
                             @endif
                         </div>
 
@@ -76,7 +83,6 @@
 
                         <ul class="space-y-2 my-4 text-sm">
                             @if ($plan->features)
-                                {{-- Description jika ada --}}
                                 @if (isset($plan->features['description']))
                                     <li class="flex items-center gap-2 text-amber-600 font-semibold">
                                         <i class="fas fa-star text-amber-500"></i>
@@ -84,13 +90,11 @@
                                     </li>
                                 @endif
 
-                                {{-- Produk & Transaksi Unlimited --}}
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
                                     <span>Produk & Transaksi Unlimited</span>
                                 </li>
 
-                                {{-- Limit Kasir --}}
                                 @php
                                     $maxKasir = $plan->features['max_kasir'] ?? 1;
                                 @endphp
@@ -105,7 +109,6 @@
                                     @endif
                                 </li>
 
-                                {{-- Fitur Utama --}}
                                 <li class="flex items-center gap-2">
                                     <i class="fas fa-check text-green-500"></i>
                                     <span>Manajemen Stok Barang</span>
@@ -119,7 +122,6 @@
                                     <span>Laporan & Dashboard</span>
                                 </li>
 
-                                {{-- Export Laporan --}}
                                 <li class="flex items-center gap-2">
                                     @if ($plan->features['export_report'] ?? false)
                                         <i class="fas fa-check text-green-500"></i>
@@ -134,12 +136,12 @@
 
                         @if ($subscription && $subscription->plan_id == $plan->id && $subscription->isActive())
                             <button disabled
-                                class="w-full py-3 bg-gray-200 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
+                                class="w-full py-3 bg-amber-500 text-green-200 rounded-lg font-semibold cursor-not-allowed">
                                 Paket Aktif
                             </button>
                         @elseif($plan->isFree() && $hasUsedFreeTrial)
                             <button disabled
-                                class="w-full py-3 bg-gray-200 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
+                                class="w-full py-3 bg-red-200 text-red-500 rounded-lg font-semibold cursor-not-allowed">
                                 <i class="fas fa-ban mr-2"></i>Trial Sudah Digunakan
                             </button>
                         @else

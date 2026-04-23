@@ -42,7 +42,7 @@
 
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
-            <thead class="bg-gray-50 border-b border-gray-200">
+            <thead class="bg-amber-400 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 font-semibold text-gray-700">Nama</th>
                     <th class="px-6 py-3 font-semibold text-gray-700">Email</th>
@@ -62,7 +62,8 @@
                         </td>
                         <td class="px-6 py-4">
                             <button wire:click="triggerDelete({{ $kasir->id }}, {{ Js::from($kasir->name) }})"
-                                type="button" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg text-xs font-medium transition-colors">
+                                type="button"
+                                class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-lg text-xs font-medium transition-colors">
                                 Hapus
                             </button>
                         </td>
@@ -76,7 +77,7 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4">
+        <div class="p-4 bg-white">
             {{ $kasirs->links() }}
         </div>
     </div>

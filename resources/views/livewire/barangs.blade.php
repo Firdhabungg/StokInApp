@@ -11,8 +11,8 @@
             @endif
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
-        <form wire:submit="doSearch" class="bg-white rounded-2xl shadow-sm p-3 mb-3">
+    <div class="bg-white rounded-2xl shadow-sm p-3 mb-2">
+        <form wire:submit="doSearch" class="bg-white rounded-2xl shadow-sm p-3 mb-2">
             <label for="search" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -26,7 +26,7 @@
             </div>
         </form>
 
-        <div class="flex gap-2 mt-3 text-sm">
+        <div class="flex gap-2 mt-2 text-sm">
             <button wire:click="setStatus('tersedia')"
                 class="px-3 py-1 bg-green-100 text-green-600 hover:bg-green-200 transition-colors rounded-full"><i
                     class="fas fa-check-circle mr-1"></i>Tersedia</button>
@@ -45,7 +45,7 @@
 
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
-            <thead class="bg-gray-50 border-b border-gray-200">
+            <thead class="bg-amber-400 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 font-semibold text-gray-700">Kode Barang</th>
                     <th class="px-6 py-3 font-semibold text-gray-700">Nama Barang</th>
@@ -78,10 +78,11 @@
                         </td>
                         @if (auth()->user()->canManageToko())
                             <td class="px-6 py-4">
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2 text-white">
                                     <a href="{{ route('barang.edit', $barang->id) }}"
-                                        class="text-amber-600 hover:text-amber-800 font-medium text-xs">Edit</a>
-                                    <button class="text-red-600 hover:text-red-800 font-medium text-xs"
+                                        class="bg-amber-400 hover:bg-amber-500 px-4 py-1 rounded-full font-medium text-xs">Edit</a>
+                                    <button
+                                        class="bg-red-500 hover:bg-red-700 px-4 py-1 rounded-full font-medium text-xs"
                                         wire:click="triggerDelete({{ $barang->id }}, {{ Js::from($barang->nama_barang) }})">
                                         Hapus
                                     </button>
@@ -99,7 +100,7 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4">
+        <div class="p-4 bg-white">
             {{ $barangs->links() }}
         </div>
     </div>

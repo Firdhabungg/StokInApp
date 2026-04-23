@@ -10,7 +10,6 @@ class BarangTerlaris extends Component
 {
     public string $period = 'monthly';
 
-    // ✅ Fix: method biasa, bukan computed property
     public function getChartData(): array
     {
         $tokoId = Auth::user()->effective_toko_id;

@@ -7,8 +7,7 @@
     <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
 
-            {{-- Header --}}
-            <div class="text-center border-b pb-4 mb-6">
+            <div class="text-center border-b pb-4 mb-4">
                 <h1 class="text-2xl font-bold text-gray-900">
                     {{ $penjualan->toko->name }}
                 </h1>
@@ -16,8 +15,7 @@
                 <p class="text-gray-500">Telp: {{ $penjualan->toko->phone }}</p>
             </div>
 
-            {{-- Transaction Info --}}
-            <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
+            <div class="grid grid-cols-2 gap-3 mb-3 text-sm">
                 <div>
                     <p class="text-gray-500">Kode Transaksi</p>
                     <p class="font-mono font-semibold">{{ $penjualan->kode_transaksi }}</p>
@@ -50,8 +48,7 @@
                 </div>
             </div>
 
-            {{-- Items --}}
-            <div class="border rounded-lg overflow-hidden mb-6">
+            <div class="border rounded-lg overflow-hidden mb-4">
                 <table class="w-full text-sm">
                     <thead class="bg-gray-50">
                         <tr>
@@ -86,8 +83,8 @@
                     </tbody>
                     <tfoot class="bg-gray-50 font-semibold border-t">
                         <tr>
-                            <td colspan="3" class="px-4 py-3 text-right">Total</td>
-                            <td class="px-4 py-3 text-right text-lg text-green-600">
+                            <td colspan="3" class="px-4 py-2 text-right">Total</td>
+                            <td class="px-4 py-2 text-right text-lg text-green-600">
                                 Rp {{ number_format($penjualan->total, 0, ',', '.') }}
                             </td>
                         </tr>
@@ -112,15 +109,13 @@
                 </div>
             @endif
 
-            {{-- Keterangan --}}
             @if ($penjualan->keterangan)
-                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
                     <p class="text-sm text-gray-500">Keterangan</p>
                     <p class="text-gray-700">{{ $penjualan->keterangan }}</p>
                 </div>
             @endif
 
-            {{-- Bukti Pembayaran --}}
             @if ($penjualan->bukti_pembayaran)
                 <div class="mb-6">
                     <p class="text-sm text-gray-500 mb-2">Bukti Pembayaran</p>
@@ -135,23 +130,22 @@
                 </div>
             @endif
 
-            {{-- Actions --}}
-            <div class="flex gap-3 justify-center">
+            <div class="flex gap-3 justify-between items-center">
                 <a href="{{ route('penjualan.index') }}"
-                    class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    class="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg">
                     <i class="fas fa-arrow-left mr-2"></i>Kembali
                 </a>
 
-                <button onclick="window.print()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
-                    <i class="fas fa-print mr-2"></i>Cetak
-                </button>
-
-                <a href="{{ route('penjualan.create') }}"
-                    class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
-                    <i class="fas fa-plus mr-2"></i>Transaksi Baru
-                </a>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('penjualan.create') }}"
+                        class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
+                        <i class="fas fa-plus mr-2"></i>Transaksi Baru
+                    </a>
+                    <button onclick="window.print()" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+                        <i class="fas fa-print mr-2"></i>Cetak
+                    </button>
+                </div>
             </div>
-
         </div>
     </div>
 @endsection
