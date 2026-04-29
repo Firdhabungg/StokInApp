@@ -36,19 +36,27 @@ class LaporanBarangKeluar extends Component
         $this->canExportReport = $toko ? $toko->canExportReport() : false;
     }
 
-    public function updatedDari(): void
+    public function updatingDari(): void
     {
         $this->resetPage();
     }
 
-    public function updatedSampai(): void
+    public function updatingSampai(): void
     {
         $this->resetPage();
     }
 
-    public function terapkanFilter(): void
+    public function clearFilter(): void
     {
+        $this->dari   = now()->startOfMonth()->toDateString();
+        $this->sampai = now()->toDateString();
         $this->resetPage();
+    }
+
+    public function isFiltered(): bool
+    {
+        return $this->dari !== now()->startOfMonth()->toDateString()
+            || $this->sampai !== now()->toDateString();
     }
 
     public function exportExcel(): void
@@ -85,7 +93,7 @@ class LaporanBarangKeluar extends Component
             ->where('toko_id', $tokoId)
             ->whereBetween('tgl_keluar', [$this->dari, $this->sampai])
             ->orderBy('tgl_keluar', 'desc')
-            ->paginate(8);
+            ->paginate(5);
 
         $totalItem      = $stockOuts->sum('jumlah');
         $totalTransaksi = $stockOuts->count();

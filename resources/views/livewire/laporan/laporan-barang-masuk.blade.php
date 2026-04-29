@@ -1,20 +1,22 @@
 <div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <form method="GET" class="flex flex-wrap items-end gap-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 mb-3">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input type="date" name="dari" value="{{ $dari }}"
+                    <input wire:model.live="dari" type="date" name="dari" value="{{ $dari }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input type="date" name="sampai" value="{{ $sampai }}"
+                    <input wire:model.live="sampai" type="date" name="sampai" value="{{ $sampai }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
-                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
-                    <i class="fas fa-filter mr-1"></i> Filter
-                </button>
+                @if ($this->isFiltered())
+                    <button wire:click.prevent="clearFilter"
+                        class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors rounded-full"><i
+                            class="fas fa-redo mr-1"></i></i>Reset</button>
+                @endif
             </form>
 
             @if ($canExportReport ?? false)
@@ -49,13 +51,12 @@
         </a>
     </div>
 
-    {{-- Summary --}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Item Masuk</p>
             <p class="text-2xl font-bold text-teal-600">{{ number_format($totalItem) }} unit</p>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Transaksi</p>
             <p class="text-2xl font-bold text-blue-600">{{ $totalTransaksi }}</p>
         </div>

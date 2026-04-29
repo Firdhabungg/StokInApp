@@ -18,8 +18,6 @@ class LaporanStok extends Component
 
     public bool $canExportReport = false;
 
-    protected $paginationTheme = 'tailwind';
-
     public function mount(): void
     {
         $toko = Auth::user()->toko;

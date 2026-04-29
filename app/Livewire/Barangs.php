@@ -19,18 +19,18 @@ class Barangs extends Component
     public $search = '';
     public $status = '';
 
-    public function updatingSearch():void
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingStatus():void
+    public function updatingStatus(): void
     {
         $this->resetPage();
     }
 
-    public function doSearch():void
-     {
+    public function doSearch(): void
+    {
         $this->resetPage();
     }
 
@@ -55,7 +55,7 @@ class Barangs extends Component
     public function delete($id)
     {
         $barang = Barang::where('toko_id', Auth::user()->effective_toko_id)
-                        ->findOrFail($id);
+            ->findOrFail($id);
         $barang->delete();
         session()->flash('success', 'Barang berhasil dihapus.');
     }
@@ -69,13 +69,17 @@ class Barangs extends Component
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('kode_barang', 'like', "%{$this->search}%")
-                    ->orWhere('nama_barang', 'like', "%{$this->search}%")
-                    ->orWhereHas('kategori', fn($q) =>
-                        $q->where('nama_kategori', 'like', "%{$this->search}%")
-                    );
+                        ->orWhere('nama_barang', 'like', "%{$this->search}%")
+                        ->orWhereHas(
+                            'kategori',
+                            fn($q) =>
+                            $q->where('nama_kategori', 'like', "%{$this->search}%")
+                        );
                 });
             })
-            ->when($this->status, fn($query) =>
+            ->when(
+                $this->status,
+                fn($query) =>
                 $query->where('status', $this->status)
             )
             ->orderBy('nama_barang')

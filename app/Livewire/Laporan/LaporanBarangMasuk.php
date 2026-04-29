@@ -20,7 +20,6 @@ class LaporanBarangMasuk extends Component
 
     public bool $canExportReport = false;
 
-    protected $paginationTheme = 'tailwind';
 
     protected $queryString = [
         'dari'   => ['except' => ''],
@@ -46,9 +45,17 @@ class LaporanBarangMasuk extends Component
         $this->resetPage();
     }
 
-    public function terapkanFilter(): void
+    public function clearFilter(): void
     {
+        $this->dari   = now()->startOfMonth()->toDateString();
+        $this->sampai = now()->toDateString();
         $this->resetPage();
+    }
+
+    public function isFiltered(): bool
+    {
+        return $this->dari !== now()->startOfMonth()->toDateString()
+            || $this->sampai !== now()->toDateString();
     }
 
     public function exportExcel(): void

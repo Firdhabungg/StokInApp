@@ -1,31 +1,35 @@
 <div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <form method="GET" class="flex flex-wrap items-end gap-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input type="date" name="dari" value="{{ $dari }}"
+                    <input wire:model.live="dari" type="date" name="dari" value="{{ $dari }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input type="date" name="sampai" value="{{ $sampai }}"
+                    <input wire:model.live="sampai" type="date" name="sampai" value="{{ $sampai }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
-                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
-                    <i class="fas fa-filter mr-1"></i> Filter
-                </button>
+                @if ($this->isFiltered())
+                    <button wire:click.prevent="clearFilter"
+                        class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors rounded-full"><i
+                            class="fas fa-redo mr-1"></i></i>Reset</button>
+                @endif
             </form>
 
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
                     <a href="{{ route('laporan.barang-keluar.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"
-                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-excel mr-2"></i> Excel
+                        class="inline-flex items-center px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-excel mr-2"></i>
+                        <p class="text-xs">Export Excel</p>
                     </a>
                     <a href="{{ route('laporan.barang-keluar.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}"
-                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-pdf mr-2"></i> PDF
+                        class="inline-flex items-center px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        <p class="text-xs">Export PDF</p>
                     </a>
                 </div>
             @else
@@ -41,25 +45,24 @@
         </div>
     </div>
 
-    <div class="my-2">
+    <div class="mb-2">
         <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
             <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
         </a>
     </div>
 
-    {{-- Summary --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Item Keluar</p>
             <p class="text-2xl font-bold text-red-600">{{ number_format($totalItem) }} unit</p>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Transaksi</p>
             <p class="text-2xl font-bold text-blue-600">{{ $totalTransaksi }}</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {{-- Per Alasan --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Rekap per Alasan</h3>

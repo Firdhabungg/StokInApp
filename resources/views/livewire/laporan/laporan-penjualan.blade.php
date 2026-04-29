@@ -1,19 +1,46 @@
 <div>
-    <div class="flex justify-between items-center gap-2 mb-4">
-        <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
-            <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
-        </a>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+            <form class="flex flex-wrap items-end gap-2">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-600">Periode</label>
+                    <div class="flex rounded-lg overflow-hidden border border-gray-300">
+                        <button wire:click="$set('filter', 'harian')"
+                            class="px-4 py-2 text-sm {{ $filter === 'harian' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }}">
+                            Harian
+                        </button>
+                        <button wire:click="$set('filter', 'bulanan')"
+                            class="px-4 py-2 text-sm {{ $filter === 'bulanan' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }}">
+                            Bulanan
+                        </button>
+                    </div>
+                </div>
 
-        <div class="flex items-center gap-2">
-            @if ($canExportReport)
-                <button wire:click="exportExcel"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm">
-                    <i class="fas fa-file-excel mr-2"></i> Export Excel
-                </button>
-                <button wire:click="exportPdf"
-                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-sm">
-                    <i class="fas fa-file-pdf mr-2"></i> Export PDF
-                </button>
+                @if ($filter === 'harian')
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-gray-600">Tanggal</label>
+                        <input type="date" wire:model.live="tanggal"
+                            class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                @else
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-gray-600">Bulan</label>
+                        <input type="month" wire:model.live="bulan"
+                            class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                @endif
+            </form>
+            @if ($canExportReport ?? false)
+                <div class="flex gap-2">
+                    <button wire:click="exportExcel"
+                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-sm">
+                        <i class="fas fa-file-excel mr-2"></i> Export Excel
+                    </button>
+                    <button wire:click="exportPdf"
+                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-sm">
+                        <i class="fas fa-file-pdf mr-2"></i> Export PDF
+                    </button>
+                </div>
             @else
                 <button disabled
                     class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed text-sm">
@@ -26,40 +53,12 @@
         </div>
     </div>
 
-    {{-- Filter Periode --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4 flex flex-wrap gap-4 items-end">
-        {{-- Toggle Harian / Bulanan --}}
-        <div>
-            <label class="block text-sm font-medium mb-1 text-gray-600">Periode</label>
-            <div class="flex rounded-lg overflow-hidden border">
-                <button wire:click="$set('filter', 'harian')"
-                    class="px-4 py-2 text-sm {{ $filter === 'harian' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }}">
-                    Harian
-                </button>
-                <button wire:click="$set('filter', 'bulanan')"
-                    class="px-4 py-2 text-sm {{ $filter === 'bulanan' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }}">
-                    Bulanan
-                </button>
-            </div>
-        </div>
-
-        {{-- Input tanggal / bulan --}}
-        @if ($filter === 'harian')
-            <div>
-                <label class="block text-sm font-medium mb-1 text-gray-600">Tanggal</label>
-                <input type="date" wire:model.live="tanggal"
-                    class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-        @else
-            <div>
-                <label class="block text-sm font-medium mb-1 text-gray-600">Bulan</label>
-                <input type="month" wire:model.live="bulan"
-                    class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-        @endif
+    <div class="mb-2">
+        <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
+            <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
+        </a>
     </div>
 
-    {{-- Summary Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Periode</p>
@@ -89,7 +88,8 @@
                         <div class="flex items-center justify-between px-4 py-2 bg-gray-50 rounded-lg">
                             <div class="flex items-center gap-3">
                                 <span class="text-xs font-bold text-gray-400">{{ $i + 1 }}</span>
-                                <p class="text-sm font-medium text-gray-800">{{ $item->barang->nama_barang ?? '-' }}</p>
+                                <p class="text-sm font-medium text-gray-800">{{ $item->barang->nama_barang ?? '-' }}
+                                </p>
                             </div>
                             <div class="text-right">
                                 <p class="text-xs font-semibold text-blue-600">{{ number_format($item->total_qty) }}
@@ -140,18 +140,5 @@
                 </table>
             </div>
         </div>
-    </div>
-
-    {{-- Loading overlay --}}
-    <div wire:loading class="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg px-6 py-3 shadow text-sm">Memuat data...</div>
-    </div>
-
-    {{-- Notifikasi export denied --}}
-    <div x-data="{ show: false, message: '' }"
-        x-on:export-denied.window="show = true; message = $event.detail.message; setTimeout(() => show = false, 4000)"
-        x-show="show" x-transition
-        class="fixed bottom-4 right-4 bg-red-600 text-white px-5 py-3 rounded-lg shadow-lg text-sm z-50">
-        <span x-text="message"></span>
     </div>
 </div>

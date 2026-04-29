@@ -10,18 +10,20 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Laporan Penjualan')]
 #[Layout('layouts.dashboard')]
 class LaporanPenjualan extends Component
 {
+    use WithPagination;
+
     public string $filter  = 'harian';
     public string $tanggal = '';
     public string $bulan   = '';
 
     public bool $canExportReport = false;
 
-    // Computed display properties
     public string  $labelPeriode   = '';
     public float   $totalPenjualan = 0;
     public int     $totalTransaksi = 0;

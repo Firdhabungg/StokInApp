@@ -15,7 +15,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500">Hampir Kadaluarsa</p>
+                    <p class="text-sm text-gray-500">Hampir Kadaluwarsa</p>
                     <p class="text-2xl font-bold text-orange-600">{{ $statusCounts['hampir_kadaluarsa'] }}</p>
                 </div>
                 <div class="bg-orange-100 p-3 rounded-full">
@@ -51,11 +51,11 @@
             </button>
             <button type="button" wire:click="setStatus('hampir_kadaluarsa')"
                 class="filter-btn px-3 py-1 bg-orange-100 text-orange-600 rounded-full hover:bg-orange-200 transition-colors font-medium">
-                <i class="fas fa-exclamation-triangle mr-1"></i> Hampir Kadaluarsa
+                <i class="fas fa-exclamation-triangle mr-1"></i> Hampir Kadaluwarsa
             </button>
             <button type="button" wire:click="setStatus('kadaluarsa')"
                 class="filter-btn px-3 py-1 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-colors font-medium">
-                <i class="fas fa-times-circle mr-1"></i> Kadaluarsa
+                <i class="fas fa-times-circle mr-1"></i> Kadaluwarsa
             </button>
             <button wire:click="clearFilter"
                 class="filter-btn px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors font-medium">
