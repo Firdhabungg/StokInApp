@@ -1,8 +1,14 @@
 <div align="center">
 
+<<<<<<< HEAD
 # 📦 StokIn App
 
 **Aplikasi Manajemen Stok & Penjualan Berbasis Web untuk UMKM Indonesia**
+=======
+# StokIn App
+
+**Aplikasi Manajemen Stok & Penjualan Berbasis Web untuk Toko Ritel dan Kelontong**
+>>>>>>> 722d1970fb69f26565958ae94a395b9aa08b7f50
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
