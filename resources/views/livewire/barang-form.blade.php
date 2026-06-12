@@ -49,7 +49,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Harga Beli <span
+                <label class="block text-sm font-medium text-gray-700 mb-1">Harga Pokok<span
                         class="text-red-500">*</span></label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm">Rp</span>

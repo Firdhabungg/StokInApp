@@ -50,7 +50,6 @@ class BarangTerlaris extends Component
 
     public function updatedPeriod(): void
     {
-        // ✅ Fix: pakai method biasa
         $this->dispatch('barangTerlarisUpdated', data: $this->getChartData());
     }
 

@@ -19,6 +19,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @stack('head')
 </head>
 
 <body class="bg-slate-200 text-slate-900 overflow-x-hidden">

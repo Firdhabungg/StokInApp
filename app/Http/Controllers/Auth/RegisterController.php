@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\KategoriBarang;
 use App\Models\Toko;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
-use Log;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -30,31 +29,9 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::min(8)],
-            'toko_name' => ['required', 'string', 'max:255'],
-            'toko_email' => ['required', 'string', 'email', 'max:255', 'unique:tokos,email'],
-            'toko_address' => ['required', 'string'],
-            'toko_phone' => ['required', 'string', 'max:20'],
-        ], [
-            'name.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Email sudah terdaftar.',
-            'password.required' => 'Password wajib diisi.',
-            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
-            'password.min' => 'Password minimal 8 karakter.',
-            'toko_name.required' => 'Nama toko wajib diisi.',
-            'toko_email.required' => 'Email toko wajib diisi.',
-            'toko_email.email' => 'Format email toko tidak valid.',
-            'toko_email.unique' => 'Email toko sudah terdaftar.',
-            'toko_address.required' => 'Alamat toko wajib diisi.',
-            'toko_phone.required' => 'Nomor telepon toko wajib diisi.',
-        ]);
+        $request->validated();
 
         try {
             DB::beginTransaction();
@@ -82,11 +59,16 @@ class RegisterController extends Controller
             }
 
             DB::commit();
+
+            // Kirim email verifikasi
+            $user->sendEmailVerificationNotification();
+
+            // Login lalu arahkan ke halaman verifikasi
             Auth::login($user);
 
-            return redirect()->route('subscription.index')
-                ->with('info', 'Registrasi berhasil! Silakan pilih paket langganan untuk memulai.');
-        } catch (Exception $e) {
+            return redirect()->route('verification.notice')
+                ->with('info', 'Registrasi berhasil! Silakan cek email Anda untuk verifikasi akun sebelum melanjutkan.');
+        } catch (\Throwable $e) {
             DB::rollBack();
             Log::error('Registration error: ' . $e->getMessage() . ' - ' . $e->getFile() . ':' . $e->getLine());
             return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);

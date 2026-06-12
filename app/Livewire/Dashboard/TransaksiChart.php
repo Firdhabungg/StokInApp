@@ -11,12 +11,17 @@ class TransaksiChart extends Component
 {
     public string $period = 'monthly';
 
+    public function updatedPeriod(): void
+    {
+        $this->dispatch('transaksiChartUpdated', data: $this->getChartData());
+    }
+
     public function getChartData(): array
     {
         $tokoId = Auth::user()->effective_toko_id;
 
-        // ✅ Fix 2: Query berbeda untuk yearly (group by bulan)
         if ($this->period === 'yearly') {
+            // Per bulan dalam 1 tahun → format Y-m
             $sales = Sale::where('toko_id', $tokoId)
                 ->completed()
                 ->byPeriod($this->period)
@@ -25,6 +30,7 @@ class TransaksiChart extends Component
                 ->orderBy('date')
                 ->get();
         } else {
+            // Weekly & Monthly → per hari → format Y-m-d
             $sales = Sale::where('toko_id', $tokoId)
                 ->completed()
                 ->byPeriod($this->period)
@@ -34,6 +40,7 @@ class TransaksiChart extends Component
                 ->get();
         }
 
+        // ④ Selaraskan data DB dengan label sumbu-X yang lengkap
         $labels = $this->generateLabels();
         $transaksiData = [];
         $penjualanData = [];
@@ -45,17 +52,19 @@ class TransaksiChart extends Component
         }
 
         return [
-            'labels'    => array_keys($labels),
+            'labels'    => array_keys($labels), // label tampilan sumbu-X
             'transaksi' => $transaksiData,
             'penjualan' => $penjualanData,
         ];
     }
 
+    // ⑤ Generate label sumbu-X sesuai periode
     private function generateLabels(): array
     {
         $labels = [];
 
         match ($this->period) {
+            // 7 hari (Senin–Minggu minggu ini)
             'weekly' => (function () use (&$labels) {
                 $start = now()->startOfWeek();
                 for ($i = 0; $i < 7; $i++) {
@@ -64,6 +73,7 @@ class TransaksiChart extends Component
                 }
             })(),
 
+            // Semua hari dalam bulan ini (1–28/29/30/31)
             'monthly' => (function () use (&$labels) {
                 $daysInMonth = now()->daysInMonth;
                 for ($i = 1; $i <= $daysInMonth; $i++) {
@@ -72,6 +82,7 @@ class TransaksiChart extends Component
                 }
             })(),
 
+            // 12 bulan dalam tahun ini (Jan–Des)
             'yearly' => (function () use (&$labels) {
                 for ($m = 1; $m <= 12; $m++) {
                     $date = Carbon::create(now()->year, $m, 1);
@@ -83,15 +94,8 @@ class TransaksiChart extends Component
         return $labels;
     }
 
-    public function updatedPeriod(): void
-    {
-        // ✅ Fix 3: Dispatch pakai method biasa bukan computed property
-        $this->dispatch('transaksiChartUpdated', data: $this->getChartData());
-    }
-
     public function render()
     {
-        // ✅ Fix 3: Pass via method
         return view('livewire.dashboard.transaksi-chart', [
             'chartData' => $this->getChartData(),
         ]);

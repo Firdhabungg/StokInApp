@@ -12,7 +12,7 @@
 
             <div class="bg-white rounded-xl shadow-lg p-8">
                 @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                    <div class="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-xs">
                         <p>{{ session('error') }}</p>
                     </div>
                 @endif
@@ -25,14 +25,21 @@
                             class="w-full px-4 py-3 border {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                             placeholder="nama@email.com">
                         @error('email')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                            Password
-                        </label>
+                        <div class="flex items-center justify-between">
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                                Password
+                            </label>
+
+                            <a href="{{ route('password.request') }}"
+                                class="text-xs text-amber-600 hover:text-red-500 underline">Lupa
+                                Password?
+                            </a>
+                        </div>
 
                         <div class="relative">
                             <input type="password" name="password" id="password"
@@ -47,7 +54,7 @@
                         </div>
 
                         @error('password')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -75,6 +82,7 @@
                             Sekarang</a>
                     </p>
                 </div>
+
             </div>
 
             <div class="mt-6 text-center">

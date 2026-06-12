@@ -16,14 +16,12 @@
                     <p class="text-gray-500">{{ auth()->user()->email }}</p>
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
-                        @if(auth()->user()->isSuperAdmin())
-                            bg-purple-100 text-purple-800
+                        @if (auth()->user()->isSuperAdmin()) bg-purple-100 text-purple-800
                         @elseif(auth()->user()->isOwner())
                             bg-amber-100 text-amber-800
                         @else
-                            bg-blue-100 text-blue-800
-                        @endif">
-                        @if(auth()->user()->isSuperAdmin())
+                            bg-blue-100 text-blue-800 @endif">
+                        @if (auth()->user()->isSuperAdmin())
                             Super Admin
                         @elseif(auth()->user()->isOwner())
                             Owner
@@ -165,26 +163,27 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch("{{ route('profil.update') }}", {
-                        method: 'PUT',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(result.value)
-                    })
-                    .then(res => {
-                        if (!res.ok) throw res;
-                        return res.json();
-                    })
-                    .then(() => {
-                        Swal.fire('Berhasil', 'Profil berhasil diperbarui', 'success')
-                            .then(() => location.reload());
-                    })
-                    .catch((err) => {
-                        err.json().then(data => {
-                            Swal.fire('Gagal', data.message || 'Tidak dapat menyimpan data', 'error');
+                            method: 'PUT',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(result.value)
+                        })
+                        .then(res => {
+                            if (!res.ok) throw res;
+                            return res.json();
+                        })
+                        .then(() => {
+                            Swal.fire('Berhasil', 'Profil berhasil diperbarui', 'success')
+                                .then(() => location.reload());
+                        })
+                        .catch((err) => {
+                            err.json().then(data => {
+                                Swal.fire('Gagal', data.message || 'Tidak dapat menyimpan data',
+                                    'error');
+                            });
                         });
-                    });
                 }
             });
         }
@@ -278,12 +277,12 @@
                 preConfirm: () => {
                     const password = document.getElementById('password').value;
                     const confirmation = document.getElementById('password_confirmation').value;
-                    
+
                     if (password !== confirmation) {
                         Swal.showValidationMessage('Konfirmasi password tidak cocok');
                         return false;
                     }
-                    
+
                     return {
                         current_password: document.getElementById('current_password').value,
                         password: password,
@@ -293,25 +292,26 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch("{{ route('profil.password.update') }}", {
-                        method: 'PUT',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(result.value)
-                    })
-                    .then(res => {
-                        if (!res.ok) throw res;
-                        return res.json();
-                    })
-                    .then(() => {
-                        Swal.fire('Berhasil', 'Password berhasil diubah', 'success');
-                    })
-                    .catch((err) => {
-                        err.json().then(data => {
-                            Swal.fire('Gagal', data.message || 'Tidak dapat mengubah password', 'error');
+                            method: 'PUT',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(result.value)
+                        })
+                        .then(res => {
+                            if (!res.ok) throw res;
+                            return res.json();
+                        })
+                        .then(() => {
+                            Swal.fire('Berhasil', 'Password berhasil diubah', 'success');
+                        })
+                        .catch((err) => {
+                            err.json().then(data => {
+                                Swal.fire('Gagal', data.message || 'Tidak dapat mengubah password',
+                                    'error');
+                            });
                         });
-                    });
                 }
             });
         }

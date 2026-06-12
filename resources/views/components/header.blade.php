@@ -69,14 +69,16 @@
         </div>
 
         {{-- Profile --}}
-        <a href="{{ route('profil.index') }}" class="flex items-center gap-2 py-2 px-4 rounded-full transition-colors hover:bg-amber-50">
+        <a href="{{ route('profil.index') }}"
+            class="flex items-center gap-2 py-2 px-4 rounded-full transition-colors hover:bg-amber-50">
             <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
                 <i class="fas fa-user text-white text-sm"></i>
             </div>
             <div class="text-center hidden md:block">
-                <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">{{ auth()->user()->name }}</p>
+                <p class="text-sm font-bold group-hover:text-amber-600 transition-colors">
+                    {{ Str::limit(auth()->user()->name, 7) }}</p>
                 <span class="text-xs text-gray-500">
-                    @if(auth()->user()->isSuperAdmin())
+                    @if (auth()->user()->isSuperAdmin())
                         Super Admin
                     @elseif(auth()->user()->isOwner())
                         Owner

@@ -61,7 +61,7 @@
                     </li>
 
                     <li>
-                        <x-sidebar.links title="Penjualan" icon="fas fa-cash-register" route="penjualan.index"
+                        <x-sidebar.links title="Point of Sale (POS)" icon="fas fa-cash-register" route="penjualan.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
 

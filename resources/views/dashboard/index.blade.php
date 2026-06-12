@@ -38,7 +38,7 @@
                 @empty
                     <div class="text-center py-4 text-gray-500">
                         <i class="fas fa-check-circle text-green-500 text-2xl mb-2"></i>
-                        <p class="text-sm">Semua stok aman</p>
+                        <p class="text-sm text-white">Semua stok aman</p>
                     </div>
                 @endforelse
             </div>

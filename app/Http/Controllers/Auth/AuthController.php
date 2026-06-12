@@ -31,8 +31,15 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
+
+            // Jika Super Admin, arahkan ke dashboard admin
             if ($user->isSuperAdmin()) {
                 return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
+            }
+
+            if (!$user->hasVerifiedEmail() && !$request->session()->has('url.intended')) {
+                return redirect()->route('verification.notice')
+                    ->with('info', 'Silakan verifikasi email terlebih dahulu');
             }
 
             return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');

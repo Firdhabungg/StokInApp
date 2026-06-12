@@ -1,60 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📦 StokIn App
 
-## About Laravel
+**Aplikasi Manajemen Stok & Penjualan Berbasis Web untuk UMKM Indonesia**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Livewire](https://img.shields.io/badge/Livewire-4.x-FB70A9?style=flat-square)](https://livewire.laravel.com)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Tentang Proyek
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**StokIn App** adalah sistem manajemen stok dan kasir berbasis web untuk UMKM. Setiap toko memiliki data yang terisolasi (*multi-tenant*), dengan sistem role bertingkat dan langganan berbayar untuk akses fitur premium.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Mengapa StokIn App?** Banyak UMKM masih mencatat stok & penjualan secara manual. StokIn hadir sebagai solusi digital yang terjangkau dengan fitur lengkap:
 
-## Laravel Sponsors
+| Masalah | Solusi |
+|---|---|
+| Stok tidak terpantau | Dashboard + notifikasi stok menipis |
+| Pencatatan penjualan manual | Modul kasir digital terintegrasi |
+| Laporan keuangan sulit | Ekspor otomatis ke PDF & Excel |
+| Tidak ada pemisahan akses | Role: Super Admin, Owner, Kasir |
+| Pembayaran hanya tunai | Integrasi Midtrans (tunai & transfer) |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Fitur Utama
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- 🏪 **Multi-Tenant** — Setiap toko terisolasi, Super Admin dapat memantau semua toko
+- 👥 **Manajemen Pengguna** — Role *Super Admin*, *Owner*, dan *Kasir*
+- 📦 **Manajemen Barang & Stok** — Stok masuk/keluar per batch, notifikasi stok minimum
+- 🛒 **Point of Sale** — Kasir responsif, cetak struk PDF, pembayaran tunai & Midtrans
+- 📊 **Laporan** — Grafik interaktif, ekspor PDF & Excel
+- 💳 **Berlangganan** — Free Trial 14 hari → Pro Rp 149.000/bulan (kasir tak terbatas)
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Tech Stack
 
-## Code of Conduct
+| Layer | Teknologi |
+|---|---|
+| Backend | Laravel 12, PHP 8.2+ |
+| Frontend | Blade, Livewire 4, Alpine.js, Tailwind CSS 4 |
+| UI Library | Flowbite, Font Awesome, SweetAlert2, DataTables.net |
+| Database | MySQL 8.0+ |
+| Build Tool | Vite 7 |
+| PDF / Excel | DomPDF, Maatwebsite Excel |
+| Payment | Midtrans PHP SDK |
+| Charts | Chart.js, AOS |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Prasyarat
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **PHP** 8.2+ (ekstensi: `pdo_mysql`, `mbstring`, `openssl`, `gd`, dll.)
+- **Composer** 2.x
+- **Node.js** 18.x+ & **NPM** 9.x+
+- **MySQL** 8.0+
+- **Laragon** (direkomendasikan) atau XAMPP
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# StokInApp
+## Instalasi
+
+```bash
+# 1. Clone repositori
+git clone https://github.com/Firdhabungg/StokInApp.git
+cd StokInApp
+
+# 2. Instal dependensi
+composer install
+npm install
+
+# 3. Salin & konfigurasi environment
+cp .env.example .env        # Windows: copy .env.example .env
+php artisan key:generate
+```
+
+**Edit `.env`** — sesuaikan konfigurasi database:
+```env
+DB_DATABASE=stokin
+DB_USERNAME=root
+DB_PASSWORD=          # kosong untuk default Laragon
+```
+
+Buat database di MySQL jika belum ada:
+```sql
+CREATE DATABASE stokin CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+```bash
+# 4. Migrasi & isi data awal
+php artisan migrate --seed
+
+# 5. Kompilasi aset
+npm run build         # production
+# atau: npm run dev   # development (hot reload)
+```
+
+---
+
+## Menjalankan Aplikasi
+
+**Development** — jalankan semua layanan sekaligus:
+```bash
+composer run dev
+```
+> Menjalankan: `php artisan serve` + queue worker + log viewer + `npm run dev`
+
+**Atau manual** di dua terminal terpisah:
+```bash
+# Terminal 1
+php artisan serve
+
+# Terminal 2
+npm run dev
+```
+
+Buka browser: **http://127.0.0.1:8000** atau **http://stokinapp.test** (Laragon)
+
+---
+
+## Akun Default
+
+> Tersedia setelah `php artisan db:seed` — **ganti password sebelum production!**
+
+| Role | Email | Password |
+|---|---|---|
+| Super Admin | `superadmin@stokinapp.com` | `super123` |
+| Owner | `owner@stokinapp.com` | `owner123` |
+| Kasir | `kasir@stokinapp.com` | `kasir123` |
+
+---
+
+## Konfigurasi Midtrans
+
+Daftar di [midtrans.com](https://midtrans.com), lalu isi di `.env`:
+```env
+MIDTRANS_SERVER_KEY=SB-Mid-server-xxxx
+MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxx
+MIDTRANS_IS_PRODUCTION=false   # ubah ke true untuk production
+```
+
+---
+
+## Perintah Artisan Berguna
+
+```bash
+php artisan route:list                  # Lihat semua route
+php artisan make:controller NamaCtrl    # Buat Controller
+php artisan make:model NamaModel -msf   # Model + Migration + Seeder
+php artisan make:livewire NamaKomponen  # Livewire Component
+php artisan migrate:fresh --seed        # Reset DB + seed ulang
+php artisan config:clear && php artisan cache:clear  # Bersihkan cache
+./vendor/bin/pint                       # Format kode PHP
+```
+
+---
+
+## Lisensi
+
+MIT — lihat file [LICENSE](LICENSE).
+
+<div align="center">
+
+Dibuat dengan ❤️ menggunakan **Laravel 12** & **Livewire**
+
+</div>

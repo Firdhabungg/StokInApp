@@ -59,7 +59,7 @@
                 </div>
 
                 @if ($kategori->deskripsi_kategori)
-                    <p class="text-xs text-gray-500 mt-2">{{ $kategori->deskripsi_kategori }}</p>
+                    <p class="text-xs text-gray-500 mt-2">{{ Str::limit($kategori->deskripsi_kategori, 50) }}</p>
                 @endif
             </div>
         @empty

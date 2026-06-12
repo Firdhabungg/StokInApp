@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,5 +34,10 @@ class KategoriBarang extends Model
     public function barangs(): HasMany
     {
         return $this->hasMany(Barang::class, 'kategori_id', 'kategori_id');
+    }
+
+    public function scopeForToko(Builder $query, int $tokoId): Builder
+    {
+        return $query->where('toko_id', $tokoId);
     }
 }

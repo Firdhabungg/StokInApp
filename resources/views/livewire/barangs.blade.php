@@ -93,7 +93,7 @@
                 @empty
                     <tr>
                         <td colspan="7" class="text-center text-gray-400 my-6">
-                            <i class="fas fa-box-open text-4xl my-6"></i>
+                            <i class="fas fa-box-open text-4xl"></i>
                             <p>Barang tidak ditemukan</p>
                         </td>
                     </tr>

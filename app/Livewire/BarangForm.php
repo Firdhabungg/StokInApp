@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
 
 #[Title('Form Barang')]
 #[Layout('layouts.dashboard')]
@@ -25,10 +26,14 @@ class BarangForm extends Component
 
     protected function rules(): array
     {
+        $tokoId = Auth::user()->effective_toko_id;
         return [
             'nama_barang' => 'required|string|min:3|max:50',
             'kode_barang' => $this->isEdit ? 'nullable' : 'required|string|max:50',
-            'kategori_id' => 'required|exists:kategoris,kategori_id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'kategori_id')->where('toko_id', $tokoId),
+            ],
             'harga'       => 'required|numeric|min:0',
             'harga_jual'  => 'required|numeric|min:0',
         ];
@@ -126,7 +131,7 @@ class BarangForm extends Component
     public function render()
     {
         $tokoId   = Auth::user()->effective_toko_id;
-        $kategoris = KategoriBarang::where('toko_id', $tokoId)->get();
+        $kategoris = KategoriBarang::forToko($tokoId)->get();
 
         return view('livewire.barang-form', compact('kategoris'));
     }

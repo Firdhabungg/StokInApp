@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CanResetPassword;
 
     const ROLE_SUPER_ADMIN = 'super_admin';
     const ROLE_OWNER = 'owner';

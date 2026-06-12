@@ -12,13 +12,13 @@
 
             <div class="bg-white rounded-xl shadow-lg p-8">
                 @if (session('error'))
-                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-xs">
                         <p>{{ session('error') }}</p>
                     </div>
                 @endif
 
                 @if ($errors->has('error'))
-                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-xs">
                         <p>{{ $errors->first('error') }}</p>
                     </div>
                 @endif
@@ -39,7 +39,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Nama lengkap Anda">
                                 @error('name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -49,7 +49,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="nama@email.com">
                                 @error('email')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -59,7 +59,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Minimal 8 karakter">
                                 @error('password')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -70,7 +70,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('password_confirmation') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Ulangi password">
                                 @error('password_confirmation')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_name') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="Nama toko Anda">
                                 @error('toko_name')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -103,7 +103,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_email') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="tokoanda@stokinapp.com">
                                 @error('toko_email')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -114,7 +114,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_phone') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
                                     placeholder="08xxxxxxxxxx" autocomplete="off">
                                 @error('toko_phone')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -125,7 +125,7 @@
                                     class="w-full px-4 py-3 border {{ $errors->has('toko_address') ? 'border-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
                                     placeholder="Alamat lengkap toko Anda">{{ old('toko_address') }}</textarea>
                                 @error('toko_address')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>

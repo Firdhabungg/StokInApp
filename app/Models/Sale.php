@@ -89,6 +89,6 @@ class Sale extends Model
 
     public function scopeCompleted($query)
     {
-        return $query->where('status', 'selesai'); // sesuaikan value status kamu
+        return $query->where('status', 'selesai');
     }
 }
