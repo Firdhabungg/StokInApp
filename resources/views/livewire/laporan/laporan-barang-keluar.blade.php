@@ -1,4 +1,7 @@
 <div>
+    @section('title', 'Laporan Barang')
+    @section('page-title', 'Laporan Barang Keluar')
+    @section('page-description', 'Buat Laporan Barang Keluar secara praktis dan efisien')
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 mb-4">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <form wire:submit.prevent class="flex flex-wrap items-end gap-3">

@@ -1,7 +1,9 @@
 <div>
+    @section('title', 'Barang')
+    @section('page-title', 'Data Barang')
+    @section('page-description', 'Kelola data barang toko Anda')
     <div class="mb-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Data Barang</h2>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4">
             @if (auth()->user()->canManageToko())
                 <a href="{{ route('barang.create') }}"
                     class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white p-2 sm:px-5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
@@ -92,7 +94,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-gray-400 my-6">
+                        <td colspan="7" class="text-center text-gray-400 py-6">
                             <i class="fas fa-box-open text-4xl"></i>
                             <p>Barang tidak ditemukan</p>
                         </td>

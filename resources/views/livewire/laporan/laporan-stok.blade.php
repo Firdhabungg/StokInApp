@@ -1,4 +1,7 @@
 <div>
+    @section('title', 'Laporan Stok')
+    @section('page-title', 'Laporan Stok Barang')
+    @section('page-description', 'Buat Laporan Stok secara praktis dan efisien')
     <div class="flex justify-between items-center gap-2 mb-2">
         <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
             <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>

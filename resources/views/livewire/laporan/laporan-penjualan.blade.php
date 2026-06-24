@@ -1,4 +1,7 @@
 <div>
+    @section('title', 'Laporan Penjualan')
+    @section('page-title', 'Laporan Penjualan Barang')
+    @section('page-description', 'Buat Laporan Penjualan secara praktis dan efisien')
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex flex-wrap items-end justify-between gap-3">
             <form class="flex flex-wrap items-end gap-2">
