@@ -47,7 +47,6 @@
                     @endforeach
                 </div>
 
-                {{-- Product Grid --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto pr-1"
                     id="product-grid">
                     @forelse($barangs as $barang)

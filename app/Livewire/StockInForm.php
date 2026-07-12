@@ -8,12 +8,14 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Title('Tambah Barang Masuk')]
 #[Layout('layouts.dashboard')]
 class StockInForm extends Component
 {
+    #[Url]
     public string $barang_id      = '';
     public int    $jumlah         = 1;
     public string $tgl_masuk      = '';
@@ -27,6 +29,10 @@ class StockInForm extends Component
     public function mount(): void
     {
         $this->tgl_masuk = now()->format('Y-m-d');
+
+        if ($this->barang_id) {
+            $this->updatedBarangId();
+        }
     }
 
     public function updatedBarangId(): void

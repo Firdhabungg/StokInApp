@@ -68,7 +68,17 @@ class BarangForm extends Component
             $this->kode_barang = $this->generateKodeBarang($tokoId);
         }
     }
-    public function save(): void
+    public function saveOnly(): void
+    {
+        $this->save(false);
+    }
+
+    public function saveAndAddStock(): void
+    {
+        $this->save(true);
+    }
+
+    public function save($redirectToAddStock = false): void
     {
         $this->validate();
 
@@ -87,7 +97,7 @@ class BarangForm extends Component
             } else {
                 $kode = $this->generateKodeBarang($tokoId);
 
-                Barang::create([
+                $newBarang = Barang::create([
                     'toko_id'     => $tokoId,
                     'nama_barang' => $this->nama_barang,
                     'kode_barang' => $kode,
@@ -100,7 +110,12 @@ class BarangForm extends Component
                 session()->flash('success', 'Barang berhasil ditambahkan');
             }
 
-            $this->redirectRoute('barang.index', navigate: true);
+            // cek tambah stok atau tambah barang
+            if ($redirectToAddStock && isset($newBarang)) {
+                $this->redirectRoute('stock.in.create', ['barang_id' => $newBarang->id], navigate: true);
+            } else {
+                $this->redirectRoute('barang.index', navigate: true);
+            }
         } catch (UniqueConstraintViolationException $e) {
             $this->addError('kode_barang', 'Kode barang duplikat, silakan coba lagi.');
         }
