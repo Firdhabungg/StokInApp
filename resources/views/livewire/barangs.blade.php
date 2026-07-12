@@ -94,9 +94,9 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center text-gray-400 py-6">
-                            <i class="fas fa-box-open text-4xl"></i>
-                            <p>Barang tidak ditemukan</p>
+                        <td colspan="7" class="px-6 py-12 text-center text-gray-400">
+                            <i class="fas fa-box-open text-3xl mb-2 block"></i>
+                            Tidak ada barang ditemukan
                         </td>
                     </tr>
                 @endforelse
