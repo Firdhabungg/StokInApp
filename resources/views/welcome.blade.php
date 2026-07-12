@@ -9,11 +9,19 @@
             </a>
 
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <a href="{{ route('login') }}"
-                    class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
-                           focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
-                    Masuk
-                </a>
+                @auth
+                    <a href="{{ route('dashboard') }}"
+                        class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
+                               focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
+                        Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
+                               focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
+                        Masuk
+                    </a>
+                @endauth
 
                 <button data-collapse-toggle="navbar-default" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm
@@ -36,10 +44,17 @@
                     <li><a href="#pricing" class="nav-link">Paket</a></li>
                     <li><a href="#contact" class="nav-link">Kontak</a></li>
                     <li class="md:hidden">
-                        <a href="{{ route('login') }}"
-                            class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
-                            Masuk
-                        </a>
+                        @auth
+                            <a href="{{ route('dashboard') }}"
+                                class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
+                                Masuk
+                            </a>
+                        @endauth
                     </li>
                 </ul>
             </div>

@@ -119,9 +119,11 @@ Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')
 });
 
 // Authenticated routes
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
+Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard - Semua role
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
