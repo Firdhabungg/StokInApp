@@ -7,12 +7,12 @@
             <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input wire:model.live="dari" type="date" name="dari" value="{{ $dari }}"
+                    <input wire:model.live="dariTanggal" type="date" name="dariTanggal" value="{{ $dariTanggal }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input wire:model.live="sampai" type="date" name="sampai" value="{{ $sampai }}"
+                    <input wire:model.live="sampaiTanggal" type="date" name="sampaiTanggal" value="{{ $sampaiTanggal }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 @if ($this->isFiltered())
@@ -24,12 +24,12 @@
 
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
-                    <a href="{{ route('laporan.barang-masuk.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                    <a href="{{ route('laporan.barang-masuk.export.excel', ['dariTanggal' => $dariTanggal, 'sampaiTanggal' => $sampaiTanggal]) }}"
                         class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-excel mr-2"></i>
                         <p class="text-sm">Export Excel</p>
                     </a>
-                    <a href="{{ route('laporan.barang-masuk.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                    <a href="{{ route('laporan.barang-masuk.export.pdf', ['dariTanggal' => $dariTanggal, 'sampaiTanggal' => $sampaiTanggal]) }}"
                         class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
                         <i class="fas fa-file-pdf mr-2"></i>
                         <p class="text-sm">Export PDF</p>

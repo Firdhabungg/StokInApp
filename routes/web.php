@@ -15,7 +15,10 @@ use App\Livewire\Laporan\LaporanBarangMasuk;
 use App\Livewire\Laporan\LaporanPenjualan;
 use App\Livewire\Laporan\Laporans;
 use App\Livewire\Laporan\LaporanStok;
+use App\Livewire\PenjualanDetail;
+use App\Livewire\PenjualanForm;
 use App\Livewire\StockInForm;
+use App\Livewire\StockOutForm;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -135,8 +138,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('profil.toko.update');
 
     // Penjualan (POS) - Kasir & Owner
-    Route::resource('penjualan', PenjualanController::class)->only(['index', 'create', 'store', 'show']);
-    Route::get('/penjualan/get-barang/{id}', [PenjualanController::class, 'getBarang'])->name('penjualan.getBarang');
+    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualan/create', PenjualanForm::class)->name('penjualan.create');
+    Route::get('/penjualan/{sale}', PenjualanDetail::class)->name('penjualan.show');
+
 
     // Data Barang - Read-only untuk semua (termasuk kasir)
     Route::get('/barang', Barangs::class)->name('barang.index');
@@ -152,13 +157,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
             Route::get('/in', [StockInController::class, 'index'])->name('in.index');
-            Route::get('/stock/in/create', StockInForm::class)->name('in.create');
+            Route::get('/in/create', StockInForm::class)->name('in.create');
             Route::get('/in/{stockIn}', [StockInController::class, 'show'])->name('in.show');
 
             Route::get('/out', [StockOutController::class, 'index'])->name('out.index');
-            Route::get('/out/create', [StockOutController::class, 'create'])->name('out.create');
-            Route::post('/out', [StockOutController::class, 'store'])->name('out.store');
-            Route::get('/out/available-stock/{barangId}', [StockOutController::class, 'getAvailableStock'])->name('out.available');
+            Route::get('/out/create', StockOutForm::class)->name('out.create');
             Route::get('/out/{stockOut}', [StockOutController::class, 'show'])->name('out.show');
 
             Route::get('/batch', [StockBatchController::class, 'index'])->name('batch.index');

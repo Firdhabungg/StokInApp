@@ -66,7 +66,7 @@
 
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
-            <thead class="bg-amber-400 border-b border-gray-200">
+            <thead class="bg-green-50 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 font-semibold text-gray-700">Kode Transaksi</th>
                     <th class="px-6 py-3 font-semibold text-gray-700">Tanggal</th>
@@ -88,7 +88,7 @@
                         <td class="px-6 py-4">{{ $sale->user->name }}</td>
                         <td class="px-6 py-4">
                             <a href="{{ route('penjualan.show', $sale->id) }}"
-                                class="text-amber-600 hover:text-amber-800 text-sm font-medium">
+                                class="text-blue-600 hover:text-blue-800 text-sm font-medium">
                                 <i class="fas fa-eye mr-1"></i>Detail
                             </a>
                         </td>

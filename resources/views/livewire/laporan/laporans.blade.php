@@ -1,7 +1,7 @@
 <div>
     @section('title', 'Laporan')
     @section('page-title', 'Kelola Laporan')
-    <h1 class="text-center font-semibold text-red-500 text-2xl mb-4">Ditambahkan Grafik atau Chart</h1>
+    {{-- <h1 class="text-center font-semibold text-red-500 text-2xl mb-4">Ditambahkan Grafik atau Chart</h1> --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between gap-3">

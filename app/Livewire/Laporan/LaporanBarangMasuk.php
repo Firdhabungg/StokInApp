@@ -15,47 +15,47 @@ class LaporanBarangMasuk extends Component
 {
     use WithPagination;
 
-    public string $dari   = '';
-    public string $sampai = '';
+    public string $dariTanggal   = '';
+    public string $sampaiTanggal = '';
 
     public bool $canExportReport = false;
 
 
     protected $queryString = [
-        'dari'   => ['except' => ''],
-        'sampai' => ['except' => ''],
+        'dariTanggal'   => ['except' => ''],
+        'sampaiTanggal' => ['except' => ''],
     ];
 
     public function mount(): void
     {
-        $this->dari   = $this->dari   ?: now()->startOfMonth()->toDateString();
-        $this->sampai = $this->sampai ?: now()->toDateString();
+        $this->dariTanggal   = $this->dariTanggal   ?: now()->startOfMonth()->toDateString();
+        $this->sampaiTanggal = $this->sampaiTanggal ?: now()->toDateString();
 
         $toko = Auth::user()->toko;
         $this->canExportReport = $toko ? $toko->canExportReport() : false;
     }
 
-    public function updatedDari(): void
+    public function updatedDariTanggal(): void
     {
         $this->resetPage();
     }
 
-    public function updatedSampai(): void
+    public function updatedSampaiTanggal(): void
     {
         $this->resetPage();
     }
 
     public function clearFilter(): void
     {
-        $this->dari   = now()->startOfMonth()->toDateString();
-        $this->sampai = now()->toDateString();
+        $this->dariTanggal   = now()->startOfMonth()->toDateString();
+        $this->sampaiTanggal = now()->toDateString();
         $this->resetPage();
     }
 
     public function isFiltered(): bool
     {
-        return $this->dari !== now()->startOfMonth()->toDateString()
-            || $this->sampai !== now()->toDateString();
+        return $this->dariTanggal !== now()->startOfMonth()->toDateString()
+            || $this->sampaiTanggal !== now()->toDateString();
     }
 
     public function exportExcel(): void
@@ -66,8 +66,8 @@ class LaporanBarangMasuk extends Component
         }
 
         $this->dispatch('open-url', url: route('laporan.barang-masuk.export.excel', [
-            'dari'   => $this->dari,
-            'sampai' => $this->sampai,
+            'dariTanggal'   => $this->dariTanggal,
+            'sampaiTanggal' => $this->sampaiTanggal,
         ]));
     }
 
@@ -79,8 +79,8 @@ class LaporanBarangMasuk extends Component
         }
 
         $this->dispatch('open-url', url: route('laporan.barang-masuk.export.pdf', [
-            'dari'   => $this->dari,
-            'sampai' => $this->sampai,
+            'dariTanggal'   => $this->dariTanggal,
+            'sampaiTanggal' => $this->sampaiTanggal,
         ]));
     }
 
@@ -90,7 +90,7 @@ class LaporanBarangMasuk extends Component
 
         $stockIns = StockIn::with(['barang', 'user'])
             ->where('toko_id', $tokoId)
-            ->whereBetween('tgl_masuk', [$this->dari, $this->sampai])
+            ->whereBetween('tgl_masuk', [$this->dariTanggal, $this->sampaiTanggal])
             ->orderBy('tgl_masuk', 'desc')
             ->paginate(5);
 
