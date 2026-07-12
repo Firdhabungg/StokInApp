@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< Updated upstream
 use App\Http\Controllers\{SubscriptionController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, LaporanExportController, DashboardController as UserDashboardController, ForgotPasswordController};
 use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
 use App\Http\Controllers\Admin\AksesTokoController;
@@ -23,13 +22,6 @@ use App\Livewire\StockOutForm;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-=======
-use App\Http\Controllers\{SubscriptionController, KasirController, BarangController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, DashboardController as UserDashboardController};
-use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
-use App\Http\Controllers\Auth\{AuthController, RegisterController};
-use App\Livewire\Kategori;
-use App\Livewire\KategoriDetail;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 
 // Landing page
@@ -161,14 +153,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/barang/create', BarangForm::class)->name('barang.create');
         Route::get('/barang/{barangId}/edit', BarangForm::class)->name('barang.edit');
 
-<<<<<<< Updated upstream
         Route::get('/kategori', Kategoris::class)->name('kategori.index');
         Route::get('/kategori/{kategori}', KategoriDetail::class)->name('kategori.detail');
-=======
-        // Kategori
-        Route::get('/kategori', Kategori::class)->name('kategori.index');
-        Route::get('/kategori/{kategoriId}', KategoriDetail::class)->name('kategori.show');
->>>>>>> Stashed changes
 
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
