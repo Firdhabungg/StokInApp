@@ -5,7 +5,7 @@
             <p class="text-sm text-gray-500">Kelola kategori barang untuk toko Anda</p>
         </div>
 
-        <button onclick="document.getElementById('modal-kategori').classList.remove('hidden')"
+        <button onclick="Livewire.dispatch('create-kategori'); window.dispatchEvent(new CustomEvent('open-modal', { detail: { title: 'Tambah Kategori' } }))"
             class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-3 py-2 rounded-xl transition-colors">
             <i class="fa-solid fa-plus"></i> Tambah Kategori
         </button>
@@ -24,7 +24,7 @@
         <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 z-10">
             {{-- Modal Header --}}
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">Tambah Kategori</h2>
+                <h2 id="modal-kategori-title" class="text-lg font-semibold text-gray-800">Tambah Kategori</h2>
                 <button onclick="document.getElementById('modal-kategori').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-600 transition-colors">
                     <i class="fa-solid fa-xmark text-xl"></i>
@@ -61,5 +61,12 @@
                 }, 3000);
             });
         }
+
+        window.addEventListener('open-modal', (event) => {
+            if (event.detail && event.detail.title) {
+                document.getElementById('modal-kategori-title').innerText = event.detail.title;
+            }
+            document.getElementById('modal-kategori').classList.remove('hidden');
+        });
     </script>
 @endpush

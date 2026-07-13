@@ -15,7 +15,7 @@
     @endif
 
     <div class="flex items-center justify-end mb-3">
-        <button onclick="document.getElementById('modal-kategori').classList.remove('hidden')"
+        <button onclick="Livewire.dispatch('create-kategori'); window.dispatchEvent(new CustomEvent('open-modal', { detail: { title: 'Tambah Kategori' } }))"
             class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white p-2 sm:px-5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
             <i class="fa-solid fa-plus"></i> Tambah Kategori
         </button>
@@ -30,7 +30,7 @@
 
         <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 z-10">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">Tambah Kategori</h2>
+                <h2 id="modal-kategori-title" class="text-lg font-semibold text-gray-800">Tambah Kategori</h2>
                 <button onclick="document.getElementById('modal-kategori').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-600 transition-colors">
                     <i class="fa-solid fa-xmark text-xl"></i>
@@ -68,7 +68,10 @@
             });
         }
 
-        window.addEventListener('open-modal', () => {
+        window.addEventListener('open-modal', (event) => {
+            if (event.detail && event.detail.title) {
+                document.getElementById('modal-kategori-title').innerText = event.detail.title;
+            }
             document.getElementById('modal-kategori').classList.remove('hidden');
         });
 

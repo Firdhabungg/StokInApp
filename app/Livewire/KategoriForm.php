@@ -38,6 +38,12 @@ class KategoriForm extends Component
         ];
     }
 
+    #[On('create-kategori')]
+    public function createKategori(): void
+    {
+        $this->resetForm();
+    }
+
     #[On('edit-kategori')]
     public function loadKategori(int $id): void
     {
