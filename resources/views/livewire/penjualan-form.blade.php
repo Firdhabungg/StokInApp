@@ -15,7 +15,15 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {{-- Left: Product Catalog --}}
+
         <div class="lg:col-span-2 space-y-4">
+            <div class="mb-3">
+                <a href="{{ route('penjualan.index') }}"
+                    class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 flex items-center justify-center gap-2 text-sm w-full sm:w-auto">
+                    <i class="fas fa-clock"></i>
+                    <span>History Penjualan</span>
+                </a>
+            </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-lg font-semibold text-gray-900">

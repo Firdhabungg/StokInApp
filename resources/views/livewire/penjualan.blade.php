@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="mb-3">
+    {{-- <div class="mb-3">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Riwayat Transaksi</h2>
             <a href="{{ route('penjualan.create') }}"
@@ -33,7 +33,7 @@
                 <span>Transaksi Baru</span>
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
         <div class="flex flex-col sm:flex-row gap-3">
