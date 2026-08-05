@@ -1,4 +1,9 @@
 import './bootstrap';
+
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
+Alpine.start();
+
 import 'flowbite'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -14,7 +19,6 @@ initFlowbite();
 document.addEventListener('livewire:navigated', () => initFlowbite());
 
 window.Chart = Chart;
-
 window.Swal = Swal;
 window.DataTable = DataTable;
 
