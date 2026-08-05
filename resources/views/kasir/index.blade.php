@@ -14,7 +14,7 @@
             @endif
         </div>
         @if ($canAddUser)
-            <a href="{{ route('kasir.create') }}"
+            <a href="{{ route('kasir.create') }}" wire:navigate
                 class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-3 sm:px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Kasir</span>

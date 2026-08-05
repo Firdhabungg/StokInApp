@@ -4,7 +4,7 @@
     <div class="mb-2">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Riwayat Barang Masuk</h2>
-            <a href="{{ route('stock.in.create') }}"
+            <a href="{{ route('stock.in.create') }}" wire:navigate
                 class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-2 sm:px-5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto">
                 <i class="fas fa-plus"></i>
                 <span>Tambah Stok</span>

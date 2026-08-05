@@ -17,7 +17,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 space-y-4">
             <div class="mb-3">
-                <a href="{{ route('penjualan.index') }}"
+                <a href="{{ route('penjualan.index') }}" wire:navigate
                     class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-green-500/25 flex items-center justify-center gap-2 text-sm w-full sm:w-auto">
                     <i class="fas fa-clock"></i>
                     <span>History Penjualan</span>
@@ -35,7 +35,7 @@
                         <i class="fas fa-search text-green-500"></i>
                     </div>
                     <input wire:model.live.debounce.300ms="search" type="search"
-                        class="w-full pl-11 pr-4 py-2.5 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm"
+                        class="w-full pl-10 pr-4 py-2.5 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm"
                         placeholder="Cari nama atau kode barang..." />
                 </div>
 
