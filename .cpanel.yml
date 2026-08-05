@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    - export PATH=/opt/cpanel/ea-php82/root/usr/bin:$PATH
+    - composer install --no-dev --optimize-autoloader
+    - php artisan optimize:clear
+    - php artisan view:cache
+    - php artisan config:cache
+    - php artisan storage:link
+    - php artisan migrate --force
