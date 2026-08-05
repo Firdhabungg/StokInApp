@@ -74,4 +74,9 @@ class KategoriList extends Component
             ->orderBy('nama_kategori')
             ->paginate(12);
     }
+
+    public function render()
+    {
+        return view('kategori.list');
+    }
 }
