@@ -62,6 +62,11 @@
                     }
                 });
             },
+            destroy() {
+                if (this.chart) {
+                    this.chart.destroy();
+                }
+            },
             buildDataset(data) {
                 return {
                     labels: data.labels,

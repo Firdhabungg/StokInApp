@@ -50,7 +50,6 @@
         Alpine.data('transaksiChart', (initialData) => ({
             chart: null,
 
-            // ④ Inisialisasi Chart.js saat komponen dimuat pertama kali
             init() {
                 const canvas = document.getElementById('transaksiChart');
                 if (!canvas) {
@@ -104,6 +103,13 @@
                         }
                     }
                 });
+            },
+
+            // Cleanup saat navigasi/unmount
+            destroy() {
+                if (this.chart) {
+                    this.chart.destroy();
+                }
             },
 
             // ⑤ Susun struktur dataset Chart.js
