@@ -79,6 +79,16 @@
         });
     </script>
     @livewireScripts
+<script>
+window.onerror = function(message, source, lineno, colno, error) {
+    let err = document.createElement('div');
+    err.style.position = 'fixed'; err.style.top = '0'; err.style.left = '0'; err.style.right = '0';
+    err.style.background = 'red'; err.style.color = 'white'; err.style.padding = '10px'; err.style.zIndex = '999999';
+    err.innerText = 'JS Error: ' + message;
+    document.body.appendChild(err);
+};
+</script>
 </body>
 
 </html>
+

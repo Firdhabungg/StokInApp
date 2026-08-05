@@ -1,4 +1,3 @@
-@section('title', 'Detail Kategori')
 <div>
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
@@ -16,19 +15,16 @@
             </div>
         </div>
     </div>
-
     @if (session()->has('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
             {{ session('success') }}
         </div>
     @endif
-
     @if (session()->has('error'))
         <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
             {{ session('error') }}
         </div>
     @endif
-
     <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -38,7 +34,6 @@
                 class="w-full pl-12 pr-12 py-2 bg-white border-2 border-amber-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 text-base shadow-sm" />
         </div>
     </div>
-
     <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
         <table class="w-full text-sm text-left text-gray-600">
             <thead class="bg-gray-50 border-b border-gray-200">
@@ -91,5 +86,4 @@
             {{ $this->barangs->links() }}
         </div>
     </div>
-
 </div>

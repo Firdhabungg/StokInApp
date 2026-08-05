@@ -1,7 +1,5 @@
-@section('title', 'POS')
-@section('page-title', 'Point Of Sale')
-@section('page-description', 'Klik produk untuk menambahkan ke keranjang')
 <div>
+
     @if ($errors->has('error'))
         <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg border border-red-200 flex items-start gap-2">
             <i class="fas fa-exclamation-circle mt-1"></i>

@@ -37,6 +37,7 @@ class PenjualanForm extends Component
 
     public function addItem(int $barangId): void
     {
+        \Illuminate\Support\Facades\Log::info('addItem hit', ['barangId' => $barangId]);
         $tokoId = Auth::user()->effective_toko_id;
 
         $barang = Barang::where('id', $barangId)

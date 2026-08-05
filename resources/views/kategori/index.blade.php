@@ -1,6 +1,3 @@
-@section('page-title', 'Kelola Kategori')
-@section('page-description', 'Kelola kategori barang untuk toko Anda')
-
 <div>
     <div class="flex items-center justify-between mb-6">
         <div>
@@ -38,7 +35,7 @@
 
         </div>
     </div>
-</div>
+
 @push('scripts')
     <script>
         window.addEventListener('close-modal', () => {
@@ -73,3 +70,4 @@
         });
     </script>
 @endpush
+</div>
