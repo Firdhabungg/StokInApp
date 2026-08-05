@@ -81,7 +81,7 @@
             <div class="flex justify-end gap-3 pt-2">
                 @if (!$isEdit)
                     <button type="button" wire:click.prevent="saveAndAddStock"
-                        class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-blue-500/25 text-sm flex items-center gap-2">
+                        class="bg-gradient-to-r bg-blue-600 text-white px-6 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-blue-500/25 text-sm flex items-center gap-2">
                         <svg wire:loading wire:target="saveAndAddStock" aria-hidden="true"
                             class="w-4 h-4 text-neutral-quaternary animate-spin fill-brand" viewBox="0 0 100 101"
                             fill="none" xmlns="http://www.w3.org/2000/svg">

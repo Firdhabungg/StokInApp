@@ -1,12 +1,7 @@
 @section('page-title', 'Kategori Barang')
 @section('page-description', 'Data dan riwayat kategori barang')
 <div>
-    <div class="flex items-center justify-between mb-6">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-800">Kategori Barang</h1>
-            <p class="text-sm text-gray-500">Kelola kategori barang untuk toko Anda</p>
-        </div>
-
+    <div class="flex items-end justify-between mb-6">
         <button
             onclick="Livewire.dispatch('create-kategori'); window.dispatchEvent(new CustomEvent('open-modal', { detail: { title: 'Tambah Kategori' } }))"
             class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-3 py-2 rounded-xl transition-colors">
