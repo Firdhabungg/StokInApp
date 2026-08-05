@@ -1,6 +1,6 @@
+@section('page-title', 'Data Barang')
+@section('page-description', 'Kelola data barang toko Anda')
 <div>
-    @section('page-title', 'Data Barang')
-    @section('page-description', 'Kelola data barang toko Anda')
     <div class="mb-3">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4">
             @if (auth()->user()->canManageToko())

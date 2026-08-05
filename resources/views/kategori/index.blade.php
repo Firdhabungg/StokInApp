@@ -1,3 +1,5 @@
+@section('page-title', 'Kategori Barang')
+@section('page-description', 'Data dan riwayat kategori barang')
 <div>
     <div class="flex items-center justify-between mb-6">
         <div>
@@ -36,38 +38,38 @@
         </div>
     </div>
 
-@push('scripts')
-    <script>
-        window.addEventListener('close-modal', () => {
-            document.getElementById('modal-kategori').classList.add('hidden');
-        });
-
-        window.addEventListener('close-modal', () => {
-            document.getElementById('modal-kategori').classList.add('hidden');
-        });
-
-        // Auto hide flash message setelah 3 detik
-        document.addEventListener('livewire:navigated', autoHideFlash);
-        document.addEventListener('DOMContentLoaded', autoHideFlash);
-        document.addEventListener('livewire:updated', autoHideFlash);
-
-        function autoHideFlash() {
-            const flash = document.querySelectorAll('[data-flash]');
-            flash.forEach(el => {
-                setTimeout(() => {
-                    el.style.transition = 'opacity 0.5s ease';
-                    el.style.opacity = '0';
-                    setTimeout(() => el.remove(), 500);
-                }, 3000);
+    @push('scripts')
+        <script>
+            window.addEventListener('close-modal', () => {
+                document.getElementById('modal-kategori').classList.add('hidden');
             });
-        }
 
-        window.addEventListener('open-modal', (event) => {
-            if (event.detail && event.detail.title) {
-                document.getElementById('modal-kategori-title').innerText = event.detail.title;
+            window.addEventListener('close-modal', () => {
+                document.getElementById('modal-kategori').classList.add('hidden');
+            });
+
+            // Auto hide flash message setelah 3 detik
+            document.addEventListener('livewire:navigated', autoHideFlash);
+            document.addEventListener('DOMContentLoaded', autoHideFlash);
+            document.addEventListener('livewire:updated', autoHideFlash);
+
+            function autoHideFlash() {
+                const flash = document.querySelectorAll('[data-flash]');
+                flash.forEach(el => {
+                    setTimeout(() => {
+                        el.style.transition = 'opacity 0.5s ease';
+                        el.style.opacity = '0';
+                        setTimeout(() => el.remove(), 500);
+                    }, 3000);
+                });
             }
-            document.getElementById('modal-kategori').classList.remove('hidden');
-        });
-    </script>
-@endpush
+
+            window.addEventListener('open-modal', (event) => {
+                if (event.detail && event.detail.title) {
+                    document.getElementById('modal-kategori-title').innerText = event.detail.title;
+                }
+                document.getElementById('modal-kategori').classList.remove('hidden');
+            });
+        </script>
+    @endpush
 </div>
