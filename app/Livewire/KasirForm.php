@@ -72,6 +72,6 @@ class KasirForm extends Component
 
     public function render()
     {
-        return view('livewire.kasir-form');
+        return view('kasir.create');
     }
 }

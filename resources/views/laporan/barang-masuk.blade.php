@@ -1,39 +1,38 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Laporan Barang Masuk')
+@section('title', 'Laporan Barang')
 @section('page-title', 'Laporan Barang Masuk')
 @section('page-description', 'Ringkasan data barang masuk dan penambahan stok')
-
-@section('content')
-    {{-- Filter --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <form method="GET" class="flex flex-wrap items-end gap-4">
+<div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 mb-3">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input type="date" name="dari" value="{{ $dari }}"
+                    <input wire:model.live="dariTanggal" type="date" name="dariTanggal" value="{{ $dariTanggal }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input type="date" name="sampai" value="{{ $sampai }}"
-                        class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input wire:model.live="sampaiTanggal" type="date" name="sampaiTanggal"
+                        value="{{ $sampaiTanggal }}" class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
-                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
-                    <i class="fas fa-filter mr-1"></i> Filter
-                </button>
+                @if ($this->isFiltered())
+                    <button wire:click.prevent="clearFilter"
+                        class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors rounded-full"><i
+                            class="fas fa-redo mr-1"></i></i>Reset</button>
+                @endif
             </form>
 
-            {{-- Export Buttons --}}
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
-                    <a href="{{ route('laporan.barang-masuk.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                    <a href="{{ route('laporan.barang-masuk.export.excel', ['dari' => $dariTanggal, 'sampai' => $sampaiTanggal]) }}"
                         class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-excel mr-2"></i> Excel
+                        <i class="fas fa-file-excel mr-2"></i>
+                        <p class="text-sm">Export Excel</p>
                     </a>
-                    <a href="{{ route('laporan.barang-masuk.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}"
+                    <a href="{{ route('laporan.barang-masuk.export.pdf', ['dari' => $dariTanggal, 'sampai' => $sampaiTanggal]) }}"
                         class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-pdf mr-2"></i> PDF
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        <p class="text-sm">Export PDF</p>
                     </a>
                 </div>
             @else
@@ -42,31 +41,31 @@
                         class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
                         <i class="fas fa-lock mr-2"></i> Export (Pro)
                     </button>
-                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
+                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade
+                        →</a>
                 </div>
             @endif
         </div>
     </div>
 
-    <div class="my-2">
-        <a href="{{ route('laporan.index') }}" class="text-black hover:text-amber-600">
-            <i class="fa-solid fa-circle-arrow-left text-lg mr-1"></i><span class="underline">Kembali</span>
+    <div class="mb-2">
+        <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
+            <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
         </a>
     </div>
 
-    {{-- Summary --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Item Masuk</p>
             <p class="text-2xl font-bold text-teal-600">{{ number_format($totalItem) }} unit</p>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Transaksi</p>
             <p class="text-2xl font-bold text-blue-600">{{ $totalTransaksi }}</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {{-- Top Barang --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Top 10 Barang Masuk</h3>
@@ -74,13 +73,13 @@
                 @foreach ($perBarang as $item)
                     <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
                         <span class="text-sm text-gray-700 truncate">{{ $item['barang'] }}</span>
-                        <span class="font-semibold text-teal-600">{{ $item['total'] }}</span>
+                        <span
+                            class="font-semibold text-xs bg-teal-300 rounded-full p-2 text-teal-600">{{ $item['total'] }}</span>
                     </div>
                 @endforeach
             </div>
         </div>
 
-        {{-- List --}}
         <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Daftar Barang Masuk</h3>
             <div class="overflow-x-auto">
@@ -99,7 +98,8 @@
                             <tr class="border-b">
                                 <td class="px-4 py-3">{{ $stockIn->tgl_masuk->format('d/m/Y') }}</td>
                                 <td class="px-4 py-3 font-medium">{{ $stockIn->barang->nama_barang }}</td>
-                                <td class="px-4 py-3 text-right font-semibold text-teal-600">+{{ $stockIn->jumlah }}</td>
+                                <td class="px-4 py-3 text-right font-semibold text-teal-600">+{{ $stockIn->jumlah }}
+                                </td>
                                 <td class="px-4 py-3 text-gray-600">{{ $stockIn->supplier ?? '-' }}</td>
                                 <td class="px-4 py-3 text-center">{{ $stockIn->user->name }}</td>
                             </tr>
@@ -119,5 +119,4 @@
             </div>
         </div>
     </div>
-
-@endsection
+</div>

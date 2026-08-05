@@ -55,7 +55,7 @@ class BarangTerlaris extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.barang-terlaris', [
+        return view('dashboard.barang-terlaris', [
             'chartData' => $this->getChartData(),
         ]);
     }

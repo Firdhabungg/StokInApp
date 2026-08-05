@@ -28,6 +28,6 @@ class PenjualanDetail extends Component
 
     public function render()
     {
-        return view('livewire.penjualan-detail');
+        return view('penjualan.show');
     }
 }

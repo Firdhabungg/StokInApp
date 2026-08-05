@@ -2,11 +2,15 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
+#[Title('Penjualan')]
+#[Layout('layouts.dashboard')]
 class Penjualan extends Component
 {
     use WithPagination;
@@ -65,7 +69,7 @@ class Penjualan extends Component
         ')
             ->first();
 
-        return view('livewire.penjualan', [
+        return view('penjualan.index', [
             'sales' => $sales,
             'totalHariIni' => $summaryHariIni->total_hari_ini ?? 0,
             'transaksiHariIni' => $summaryHariIni->transaksi_hari_ini ?? 0,

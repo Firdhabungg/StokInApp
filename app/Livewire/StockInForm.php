@@ -119,6 +119,6 @@ class StockInForm extends Component
             ->orderBy('nama_barang')
             ->get();
 
-        return view('livewire.stock-in-form', compact('barangs'));
+        return view('stock.in.create', compact('barangs'));
     }
 }

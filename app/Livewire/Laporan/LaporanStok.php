@@ -67,7 +67,7 @@ class LaporanStok extends Component
         $stokMenipis = $barangs->where('status', 'menipis')->count();
         $stokHabis   = $barangs->where('status', 'habis')->count();
 
-        return view('livewire.laporan.laporan-stok', compact(
+        return view('laporan.stok', compact(
             'barangs',
             'stokPerKategori',
             'totalStok',

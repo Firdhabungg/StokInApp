@@ -12,6 +12,6 @@ class Kategori extends Component
 {
     public function render()
     {
-        return view('livewire.kategori');
+        return view('kategori.index');
     }
 }

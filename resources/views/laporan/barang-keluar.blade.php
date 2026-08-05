@@ -1,38 +1,38 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Laporan Barang Keluar')
+@section('title', 'Laporan Barang')
 @section('page-title', 'Laporan Barang Keluar')
 @section('page-description', 'Ringkasan data barang keluar dan pengurangan stok')
-
-@section('content')
-    {{-- Filter --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <form method="GET" class="flex flex-wrap items-end gap-4">
+<div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Dari Tanggal</label>
-                    <input type="date" name="dari" value="{{ $dari }}"
+                    <input wire:model.live="dariTanggal" type="date" name="dariTanggal" value="{{ $dariTanggal }}"
                         class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
                 <div>
                     <label class="block text-sm text-gray-600 mb-1">Sampai Tanggal</label>
-                    <input type="date" name="sampai" value="{{ $sampai }}"
-                        class="border border-gray-300 rounded-lg px-4 py-2">
+                    <input wire:model.live="sampaiTanggal" type="date" name="sampaiTanggal"
+                        value="{{ $sampaiTanggal }}" class="border border-gray-300 rounded-lg px-4 py-2">
                 </div>
-                <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg">
-                    <i class="fas fa-filter mr-1"></i> Filter
-                </button>
+                @if ($this->isFiltered())
+                    <button wire:click.prevent="clearFilter"
+                        class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors rounded-full"><i
+                            class="fas fa-redo mr-1"></i></i>Reset</button>
+                @endif
             </form>
 
             @if ($canExportReport ?? false)
                 <div class="flex gap-2">
-                    <a href="{{ route('laporan.barang-keluar.export.excel', ['dari' => $dari, 'sampai' => $sampai]) }}"
-                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-excel mr-2"></i> Excel
+                    <a href="{{ route('laporan.barang-keluar.export.excel', ['dari' => $dariTanggal, 'sampai' => $sampaiTanggal]) }}"
+                        class="inline-flex items-center px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-excel mr-2"></i>
+                        <p class="text-xs">Export Excel</p>
                     </a>
-                    <a href="{{ route('laporan.barang-keluar.export.pdf', ['dari' => $dari, 'sampai' => $sampai]) }}"
-                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
-                        <i class="fas fa-file-pdf mr-2"></i> PDF
+                    <a href="{{ route('laporan.barang-keluar.export.pdf', ['dari' => $dariTanggal, 'sampai' => $sampaiTanggal]) }}"
+                        class="inline-flex items-center px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        <p class="text-xs">Export PDF</p>
                     </a>
                 </div>
             @else
@@ -41,31 +41,31 @@
                         class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed">
                         <i class="fas fa-lock mr-2"></i> Export (Pro)
                     </button>
-                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade →</a>
+                    <a href="{{ route('subscription.index') }}" class="text-sm text-amber-600 hover:underline">Upgrade
+                        →</a>
                 </div>
             @endif
         </div>
     </div>
 
-    <div class="my-2">
-        <a href="{{ route('laporan.index') }}" class="text-black hover:text-amber-600">
-            <i class="fa-solid fa-circle-arrow-left text-lg mr-1"></i><span class="underline">Kembali</span>
+    <div class="mb-2">
+        <a href="{{ route('laporan.index') }}" class="text-black bg-amber-400 hover:text-light rounded-xl px-3 py-1">
+            <i class="fa-solid fa-circle-arrow-left text-sm mr-1"></i><span class="text-sm">Kembali</span>
         </a>
     </div>
 
-    {{-- Summary --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Item Keluar</p>
             <p class="text-2xl font-bold text-red-600">{{ number_format($totalItem) }} unit</p>
         </div>
-        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
             <p class="text-sm text-gray-500">Total Transaksi</p>
             <p class="text-2xl font-bold text-blue-600">{{ $totalTransaksi }}</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {{-- Per Alasan --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Rekap per Alasan</h3>
@@ -100,7 +100,8 @@
                             <tr class="border-b">
                                 <td class="px-4 py-3">{{ $stockOut->tgl_keluar->format('d/m/Y') }}</td>
                                 <td class="px-4 py-3 font-medium">{{ $stockOut->barang->nama_barang }}</td>
-                                <td class="px-4 py-3 text-right font-semibold text-red-600">-{{ $stockOut->jumlah }}</td>
+                                <td class="px-4 py-3 text-right font-semibold text-red-600">-{{ $stockOut->jumlah }}
+                                </td>
                                 <td class="px-4 py-3 text-center">
                                     <span
                                         class="px-2 py-1 rounded-full text-xs font-medium
@@ -128,5 +129,4 @@
             </div>
         </div>
     </div>
-
-@endsection
+</div>

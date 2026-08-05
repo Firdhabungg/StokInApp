@@ -4,9 +4,13 @@ namespace App\Livewire;
 
 use App\Models\StockIn;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Barang Masuk')]
+#[Layout('layouts.dashboard')]
 class StokIn extends Component
 {
     use WithPagination;
@@ -45,6 +49,6 @@ class StokIn extends Component
             ->orderBy('created_at', 'desc')
             ->paginate(7);
 
-        return view('livewire.stok-in', compact('stockIns'));
+        return view('stock.in.index', compact('stockIns'));
     }
 }

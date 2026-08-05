@@ -1,61 +1,53 @@
-@extends('layouts.dashboard')
-
 @section('title', 'Tambah Kategori')
-
-@section('content')
-    <div class="max-w-2xl mx-auto">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <div class="flex items-center gap-3 mb-6">
-                <a href="{{ route('kategori.index') }}" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h1 class="font-semibold text-2xl text-gray-900">Tambah Kategori</h1>
-            </div>
-
-            @if ($errors->any())
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-                    <ul class="list-disc list-inside">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('kategori.store') }}" method="POST">
-                @csrf
-                <div class="space-y-5">
-                    <div>
-                        <label for="nama_kategori" class="block text-sm font-medium text-gray-700 mb-1">
-                            Nama Kategori <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" required
-                            value="{{ old('nama_kategori') }}" placeholder="Contoh: Makanan Ringan, Minuman, Sembako"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors">
-                    </div>
-
-                    <div>
-                        <label for="deskripsi_kategori" class="block text-sm font-medium text-gray-700 mb-1">
-                            Deskripsi (Opsional)
-                        </label>
-                        <textarea name="deskripsi_kategori" id="deskripsi_kategori" rows="3"
-                            placeholder="Deskripsi singkat tentang kategori ini..."
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors">{{ old('deskripsi_kategori') }}</textarea>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
-                    <a href="{{ route('kategori.index') }}"
-                        class="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium transition-colors">
-                        Batal
-                    </a>
-                    <button type="submit"
-                        class="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors">
-                        <i class="fas fa-save mr-2"></i>
-                        Simpan Kategori
-                    </button>
-                </div>
-            </form>
+<div>
+    <form wire:submit="save">
+        <div class="mb-3">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                Nama Kategori <span class="text-red-500">*</span>
+            </label>
+            <input type="text" wire:model="nama_kategori"
+                class="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('nama_kategori') border-red-500 @enderror"
+                placeholder="Contoh: Minuman" />
+            @error('nama_kategori')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
-@endsection
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                Deskripsi
+            </label>
+            <textarea wire:model="deskripsi_kategori"
+                class="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm @error('deskripsi_kategori') border-red-500 @enderror"
+                rows="3" placeholder="Opsional"></textarea>
+            @error('deskripsi_kategori')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button type="submit"
+                class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                <svg wire:loading wire:target="save" aria-hidden="true"
+                    class="w-4 h-4 text-neutral-quaternary animate-spin fill-brand" viewBox="0 0 100 101" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor" />
+                    <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill" />
+                </svg>
+                <span class="sr-only">Loading...</span>
+                {{ $editId ? 'Perbarui Kategori' : 'Simpan Kategori' }}
+            </button>
+
+            @if ($editId)
+                <button type="button" wire:click="resetForm"
+                    class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-4 py-2 rounded-lg transition-colors">
+                    Batal
+                </button>
+            @endif
+        </div>
+    </form>
+</div>

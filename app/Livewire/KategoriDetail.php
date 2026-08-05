@@ -53,6 +53,6 @@ class KategoriDetail extends Component
 
     public function render()
     {
-        return view('livewire.kategori-detail');
+        return view('kategori.show');
     }
 }

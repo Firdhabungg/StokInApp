@@ -1,3 +1,6 @@
+@section('title', 'POS')
+@section('page-title', 'Point Of Sale')
+@section('page-description', 'Klik produk untuk menambahkan ke keranjang')
 <div>
     @if ($errors->has('error'))
         <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg border border-red-200 flex items-start gap-2">
@@ -14,8 +17,6 @@
     @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {{-- Left: Product Catalog --}}
-
         <div class="lg:col-span-2 space-y-4">
             <div class="mb-3">
                 <a href="{{ route('penjualan.index') }}"
@@ -29,7 +30,6 @@
                     <h2 class="text-lg font-semibold text-gray-900">
                         <i class="fas fa-boxes text-green-600 mr-2"></i>Pilih Produk
                     </h2>
-                    <span class="text-xs text-gray-400">Klik produk untuk menambahkan ke keranjang</span>
                 </div>
 
                 <div class="relative mb-3">

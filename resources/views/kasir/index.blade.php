@@ -1,3 +1,5 @@
+@section('page-title', 'Manajemen Kasir')
+@section('page-description', 'Manajemen akun kasir untuk operasional penjualan')
 <div>
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
         <div>

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\{SubscriptionController, ProfilController, StockInController, StockOutController, StockBatchController, PenjualanController, LaporanController, NotificationController, LaporanExportController, DashboardController as UserDashboardController, ForgotPasswordController};
+use App\Http\Controllers\{SubscriptionController, ProfilController, StockInController, StockOutController, StockBatchController, NotificationController, LaporanExportController, DashboardController as UserDashboardController, ForgotPasswordController};
 use App\Http\Controllers\Admin\{AdminPaketController, AdminPelangganController, AdminTokoController, KeuanganController, DashboardController as AdminDashboardController, PengaturanController};
 use App\Http\Controllers\Admin\AksesTokoController;
 use App\Http\Controllers\Auth\{AuthController, RegisterController};
 use App\Livewire\BarangForm;
 use App\Livewire\Barangs;
+use App\Livewire\Batch;
 use App\Livewire\Kasir;
 use App\Livewire\KasirForm;
 use App\Livewire\KategoriDetail;
@@ -15,10 +16,13 @@ use App\Livewire\Laporan\LaporanBarangMasuk;
 use App\Livewire\Laporan\LaporanPenjualan;
 use App\Livewire\Laporan\Laporans;
 use App\Livewire\Laporan\LaporanStok;
+use App\Livewire\Penjualan;
 use App\Livewire\PenjualanDetail;
 use App\Livewire\PenjualanForm;
 use App\Livewire\StockInForm;
 use App\Livewire\StockOutForm;
+use App\Livewire\StokIn;
+use App\Livewire\StokOut;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,7 +144,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('profil.toko.update');
 
     // Penjualan (POS) - Kasir & Owner
-    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualan', Penjualan::class)->name('penjualan.index');
     Route::get('/penjualan/create', PenjualanForm::class)->name('penjualan.create');
     Route::get('/penjualan/{sale}', PenjualanDetail::class)->name('penjualan.show');
 
@@ -158,15 +162,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Stock Management
         Route::prefix('stock')->name('stock.')->group(function () {
-            Route::get('/in', [StockInController::class, 'index'])->name('in.index');
+            Route::get('/in', StokIn::class)->name('in.index');
             Route::get('/in/create', StockInForm::class)->name('in.create');
             Route::get('/in/{stockIn}', [StockInController::class, 'show'])->name('in.show');
 
-            Route::get('/out', [StockOutController::class, 'index'])->name('out.index');
+            Route::get('/out', StokOut::class)->name('out.index');
             Route::get('/out/create', StockOutForm::class)->name('out.create');
             Route::get('/out/{stockOut}', [StockOutController::class, 'show'])->name('out.show');
 
-            Route::get('/batch', [StockBatchController::class, 'index'])->name('batch.index');
+            Route::get('/batch', Batch::class)->name('batch.index');
             Route::get('/batch/barang/{barang}', [StockBatchController::class, 'showByBarang'])->name('batch.byBarang');
             Route::get('/batch/{batch}', [StockBatchController::class, 'show'])->name('batch.show');
         });

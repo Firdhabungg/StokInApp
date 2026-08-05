@@ -59,6 +59,14 @@ class LaporanPenjualan extends Component
         $this->resetPage();
     }
 
+    public function clearFilter(): void
+    {
+        $this->filter  = 'harian';
+        $this->tanggal = now()->toDateString();
+        $this->bulan   = now()->format('Y-m');
+        $this->resetPage();
+    }
+
     private function buildQuery()
     {
         $tokoId = Auth::user()->effective_toko_id;
@@ -86,11 +94,11 @@ class LaporanPenjualan extends Component
             return;
         }
 
-        $this->dispatch('open-url', url: route('laporan.penjualan.export.excel', [
+        $this->redirect(route('laporan.penjualan.export.excel', [
             'filter'  => $this->filter,
             'tanggal' => $this->tanggal,
             'bulan'   => $this->bulan,
-        ]));
+        ]), navigate: false);
     }
 
     public function exportPdf(): void
@@ -100,11 +108,11 @@ class LaporanPenjualan extends Component
             return;
         }
 
-        $this->dispatch('open-url', url: route('laporan.penjualan.export.pdf', [
+        $this->redirect(route('laporan.penjualan.export.pdf', [
             'filter'  => $this->filter,
             'tanggal' => $this->tanggal,
             'bulan'   => $this->bulan,
-        ]));
+        ]), navigate: false);
     }
 
     public function render()
@@ -133,7 +141,7 @@ class LaporanPenjualan extends Component
             ->limit(5)
             ->get();
 
-        return view('livewire.laporan.laporan-penjualan', compact(
+        return view('laporan.penjualan', compact(
             'sales',
             'topItems'
         ));

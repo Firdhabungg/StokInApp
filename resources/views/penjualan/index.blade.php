@@ -1,9 +1,99 @@
-@extends('layouts.dashboard')
+<div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Penjualan Hari Ini</p>
+                    <p class="text-2xl font-bold text-green-600">Rp {{ number_format($totalHariIni, 0, ',', '.') }}</p>
+                </div>
+                <div class="bg-green-100 p-3 rounded-full">
+                    <i class="fas fa-money-bill-wave text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Transaksi Hari Ini</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ $transaksiHariIni }}</p>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <i class="fas fa-receipt text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@section('title', 'Penjualan')
-@section('page-title', 'Penjualan')
-@section('page-description', 'Pencatatan dan pengelolaan transaksi penjualan')
+    <div class="bg-white rounded-2xl shadow-sm p-3 mb-3">
+        <div class="flex flex-col sm:flex-row gap-3">
+            <form wire:submit.prevent="search" class="w-full bg-white rounded-2xl">
+                <label for="search" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-green-500 text-lg"></i>
+                    </div>
+                    <input wire:model.live="query" type="search" id="query"
+                        class="w-full pl-12 pr-12 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-base shadow-sm"
+                        placeholder="Cari kode transaksi / kasir..." />
+                    <button type="submit"
+                        class="absolute end-1.5 bottom-1.5 text-white bg-green-500 hover:bg-green-600 box-border border border-transparent focus:ring-4 focus:ring-green-100 shadow-xs font-medium leading-5 rounded text-xs px-3 py-1 focus:outline-none">Search</button>
+                </div>
+            </form>
 
-@section('content')
-    @livewire('penjualan')
-@endsection
+            <div class="flex items-center">
+                <input type="date" wire:model.live="tanggal"
+                    class="px-4 py-2 bg-white border-2 border-green-200/50 rounded-xl text-gray-700 focus:outline-none focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 text-sm shadow-sm">
+            </div>
+            @if ($query || $tanggal)
+                <button wire:click="resetFilter"
+                    class="px-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl text-xs transition-colors">
+                    <i class="fas fa-redo mr-1"></i> Reset
+                </button>
+            @endif
+        </div>
+    </div>
+
+    <div class="relative overflow-x-auto shadow-sm rounded-xl border border-gray-200">
+        <table class="w-full text-sm text-left text-gray-600">
+            <thead class="bg-green-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-6 py-3 font-semibold text-gray-700">Kode Transaksi</th>
+                    <th class="px-6 py-3 font-semibold text-gray-700">Tanggal</th>
+                    <th class="px-6 py-3 font-semibold text-gray-700 text-center">Jumlah Item</th>
+                    <th class="px-6 py-3 font-semibold text-gray-700">Total</th>
+                    <th class="px-6 py-3 font-semibold text-gray-700">Kasir</th>
+                    <th class="px-6 py-3 font-semibold text-gray-700">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($sales as $sale)
+                    <tr class="bg-white border-b border-gray-100 hover:bg-green-50 transition-colors duration-150">
+                        <td class="px-6 py-4 font-mono font-medium text-gray-900">{{ $sale->kode_transaksi }}
+                        </td>
+                        <td class="px-6 py-4">{{ $sale->tanggal->format('d M Y (H:i)') }}</td>
+                        <td class="px-6 py-4 text-center">{{ $sale->items_count }} item</td>
+                        <td class="px-6 py-4 font-semibold text-green-600">Rp
+                            {{ number_format($sale->total, 0, ',', '.') }}</td>
+                        <td class="px-6 py-4">{{ $sale->user->name }}</td>
+                        <td class="px-6 py-4">
+                            <a href="{{ route('penjualan.show', $sale->id) }}"
+                                class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                <i class="fas fa-eye mr-1"></i>Detail
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-400">
+                            <i class="fas fa-receipt text-3xl mb-2 block"></i>
+                            Tidak ada transaksi ditemukan
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="p-4 bg-white">
+            {{ $sales->links() }}
+        </div>
+    </div>
+</div>

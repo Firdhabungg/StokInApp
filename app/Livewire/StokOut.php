@@ -4,9 +4,13 @@ namespace App\Livewire;
 
 use App\Models\StockOut;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Barang Keluar')]
+#[Layout('layouts.dashboard')]
 class StokOut extends Component
 {
     use WithPagination;
@@ -46,6 +50,6 @@ class StokOut extends Component
             ->orderBy('created_at', 'desc')
             ->paginate(7);
 
-        return view('livewire.stok-out', compact('stockOuts'));
+        return view('stock.out.index', compact('stockOuts'));
     }
 }

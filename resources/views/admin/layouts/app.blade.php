@@ -69,13 +69,13 @@
             <!-- Navigation -->
             <nav class="flex-1 px-3 py-4 overflow-y-auto no-scrollbar space-y-4">
                 <ul>
-                    <p class="nav-label px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <p class="nav-label px-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
                         Main Menu
                     </p>
 
                     <x-sidebar.links title="Dashboard" icon="fas fa-gauge-high" route="admin.dashboard" />
 
-                    <p class="nav-label px-4 mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <p class="nav-label px-4 mt-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
                         Kelola Layanan
                     </p>
 
@@ -83,13 +83,13 @@
                     <x-sidebar.links title="Manajemen Paket" icon="fas fa-layer-group"
                         route="admin.kelola-paket.index" />
 
-                    <p class="nav-label px-4 mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <p class="nav-label px-4 mt-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
                         Keuangan
                     </p>
 
                     <x-sidebar.links title="Tagihan & Faktur" icon="fas fa-file-invoice" route="admin.keuangan.index" />
 
-                    <p class="nav-label px-4 mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <p class="nav-label px-4 mt-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
                         Sistem
                     </p>
 

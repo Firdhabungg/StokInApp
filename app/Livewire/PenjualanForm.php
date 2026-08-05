@@ -269,7 +269,7 @@ class PenjualanForm extends Component
 
         $kategoris = KategoriBarang::where('toko_id', $tokoId)->orderBy('nama_kategori')->get();
 
-        return view('livewire.penjualan-form', [
+        return view('penjualan.create', [
             'barangs' => $barangs,
             'kodeTransaksi' => $kodeTransaksi,
             'kategoris' => $kategoris,

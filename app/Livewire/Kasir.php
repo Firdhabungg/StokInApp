@@ -41,7 +41,7 @@ class Kasir extends Component
         $remainingSlots = $toko?->remainingUserSlots() ?? 0;
         $maxKasir       = $toko?->getFeature('max_kasir', 1) ?? 1;
 
-        return view('livewire.kasir', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
+        return view('kasir.index', compact('kasirs', 'canAddUser', 'remainingSlots', 'maxKasir'));
     }
 
     public function triggerDelete(int $id, string $nama): void

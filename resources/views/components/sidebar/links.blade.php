@@ -1,5 +1,5 @@
 <li>
-    <a href="{{ $route === '#' ? '#' : route($route) }}" title="{{ $title }}"
+    <a href="{{ $route === '#' ? '#' : route($route) }}" wire:navigate title="{{ $title }}"
         class="nav-link flex items-center text-light gap-3 px-4 py-3 rounded-lg {{ $active }} transition-colors {{ $route === '#' ? 'cursor-not-allowed opacity-60' : '' }}">
         <i class="{{ $icon }} w-5 flex-shrink-0"></i>
         <span class="nav-text">{{ $title }}</span>

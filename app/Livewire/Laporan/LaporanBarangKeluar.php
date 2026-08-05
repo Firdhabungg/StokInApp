@@ -66,10 +66,10 @@ class LaporanBarangKeluar extends Component
             return;
         }
 
-        $this->dispatch('open-url', url: route('laporan.barang-keluar.export.excel', [
-            'dariTanggal'   => $this->dariTanggal,
-            'sampaiTanggal' => $this->sampaiTanggal,
-        ]));
+        $this->redirect(route('laporan.barang-keluar.export.excel', [
+            'dari'   => $this->dariTanggal,
+            'sampai' => $this->sampaiTanggal,
+        ]), navigate: false);
     }
 
     public function exportPdf(): void
@@ -79,10 +79,10 @@ class LaporanBarangKeluar extends Component
             return;
         }
 
-        $this->dispatch('open-url', url: route('laporan.barang-keluar.export.pdf', [
-            'dariTanggal'   => $this->dariTanggal,
-            'sampaiTanggal' => $this->sampaiTanggal,
-        ]));
+        $this->redirect(route('laporan.barang-keluar.export.pdf', [
+            'dari'   => $this->dariTanggal,
+            'sampai' => $this->sampaiTanggal,
+        ]), navigate: false);
     }
 
     public function render()
@@ -106,7 +106,7 @@ class LaporanBarangKeluar extends Component
                 'transaksi' => $items->count(),
             ]);
 
-        return view('livewire.laporan.laporan-barang-keluar', compact(
+        return view('laporan.barang-keluar', compact(
             'stockOuts',
             'totalItem',
             'totalTransaksi',

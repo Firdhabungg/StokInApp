@@ -6,9 +6,13 @@ use App\Models\Barang;
 use App\Models\StockBatch;
 use App\Services\StockService;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Batch')]
+#[Layout('layouts.dashboard')]
 class Batch extends Component
 {
     use WithPagination;
@@ -74,6 +78,9 @@ class Batch extends Component
             ")
             ->first();
 
-        return view('livewire.batch', compact('batches', 'barangs', 'statusCounts'));
+        return view(
+            'stock.batch.index',
+            compact('batches', 'barangs', 'statusCounts')
+        );
     }
 }

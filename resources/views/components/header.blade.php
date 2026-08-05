@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="p-3 border-t bg-gray-50">
-                    <a href="{{ route('notifications.index') }}"
+                    <a href="{{ route('notifications.index') }}" wire:navigate
                         class="block text-center text-sm text-amber-600 hover:text-amber-700 font-medium">
                         Lihat Semua Notifikasi
                     </a>
@@ -69,7 +69,7 @@
         </div>
 
         {{-- Profile --}}
-        <a href="{{ route('profil.index') }}"
+        <a href="{{ route('profil.index') }}" wire:navigate
             class="flex items-center gap-2 py-2 px-4 rounded-full transition-colors hover:bg-amber-50">
             <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
                 <i class="fas fa-user text-white text-sm"></i>

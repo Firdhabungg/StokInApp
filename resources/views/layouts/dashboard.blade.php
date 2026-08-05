@@ -69,7 +69,7 @@
         }
 
         // Initialize sidebar state on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('livewire:navigated', function() {
             const mainWrapper = document.getElementById('mainWrapper');
             const isMini = localStorage.getItem('sidebarMini') === 'true';
             if (isMini && mainWrapper) {

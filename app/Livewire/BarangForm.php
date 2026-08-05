@@ -148,6 +148,6 @@ class BarangForm extends Component
         $tokoId   = Auth::user()->effective_toko_id;
         $kategoris = KategoriBarang::forToko($tokoId)->get();
 
-        return view('livewire.barang-form', compact('kategoris'));
+        return view('barang.create', compact('kategoris'));
     }
 }

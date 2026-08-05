@@ -85,6 +85,6 @@ class Barangs extends Component
             ->orderBy('nama_barang')
             ->paginate(6);
 
-        return view('livewire.barangs', compact('barangs'));
+        return view('barang.index', compact('barangs'));
     }
 }

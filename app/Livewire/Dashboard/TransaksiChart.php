@@ -96,7 +96,7 @@ class TransaksiChart extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.transaksi-chart', [
+        return view('dashboard.transaksi-chart', [
             'chartData' => $this->getChartData(),
         ]);
     }

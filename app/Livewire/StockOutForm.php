@@ -184,6 +184,6 @@ class StockOutForm extends Component
             ->orderBy('nama_barang')
             ->get();
 
-        return view('livewire.stock-out-form', compact('barangs'));
+        return view('stock.out.create', compact('barangs'));
     }
 }

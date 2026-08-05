@@ -61,7 +61,8 @@
                     </li>
 
                     <li>
-                        <x-sidebar.links title="Point of Sale (POS)" icon="fas fa-cash-register" route="penjualan.create"
+                        <x-sidebar.links title="Point of Sale (POS)" icon="fas fa-cash-register"
+                            route="penjualan.create"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
 
@@ -150,7 +151,7 @@
 </aside>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:navigated', function() {
         const sidebar = document.getElementById('sidebar');
         const mainWrapper = document.getElementById('mainWrapper');
         const desktopToggle = document.getElementById('desktopSidebarToggle');

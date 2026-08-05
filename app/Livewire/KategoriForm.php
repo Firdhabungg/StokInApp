@@ -90,6 +90,6 @@ class KategoriForm extends Component
 
     public function render()
     {
-        return view('livewire.kategori-form');
+        return view('kategori.create');
     }
 }

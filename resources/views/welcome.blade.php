@@ -10,13 +10,13 @@
 
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 @auth
-                    <a href="{{ route('dashboard') }}"
+                    <a href="{{ route('dashboard') }}" wire:navigate
                         class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
                                focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
                         Dashboard
                     </a>
                 @else
-                    <a href="{{ route('login') }}"
+                    <a href="{{ route('login') }}" wire:navigate
                         class="hidden md:block text-amber-600 bg-white hover:bg-gray-900 hover:text-white
                                focus:outline-none font-medium rounded-xl text-md px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-lg active:scale-95">
                         Masuk
@@ -45,12 +45,12 @@
                     <li><a href="#contact" class="nav-link">Kontak</a></li>
                     <li class="md:hidden">
                         @auth
-                            <a href="{{ route('dashboard') }}"
+                            <a href="{{ route('dashboard') }}" wire:navigate
                                 class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
                                 Dashboard
                             </a>
                         @else
-                            <a href="{{ route('login') }}"
+                            <a href="{{ route('login') }}" wire:navigate
                                 class="block py-2 px-3 text-white bg-amber-600 rounded-lg text-center font-medium mt-2">
                                 Masuk
                             </a>
@@ -77,7 +77,7 @@
                 </p>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('register') }}" wire:navigate
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
                           text-white rounded-lg bg-amber-600 hover:bg-amber-700
                           focus:ring-4 focus:ring-amber-300
@@ -87,7 +87,7 @@
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
 
-                    <a href="#features"
+                    <a href="#features" wire:navigate
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
                           text-gray-900 border border-gray-300 rounded-lg
                           hover:bg-gray-100 transition-colors">

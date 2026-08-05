@@ -1,5 +1,5 @@
  @section('page-title', 'Form Stok Masuk')
- @section('page-description', 'Kelola data stok toko Anda')
+ @section('page-description', 'Kelola data stok toko anda')
  <div>
      @if (session()->has('success'))
          <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg">
