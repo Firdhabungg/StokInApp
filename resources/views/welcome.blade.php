@@ -3,7 +3,7 @@
 
 @section('content')
     <nav class="bg-amber-500 shadow-lg fixed top-0 w-full z-50">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <p class="text-xl font-bold text-gray-800">Stok<span class="text-white">In</span></p>
             </a>
@@ -61,10 +61,10 @@
         </div>
     </nav>
 
-    <section class="bg-white pt-28 md:pt-32 overflow-hidden">
-        <div class="grid max-w-screen-xl px-4 py-12 mx-auto lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
-            <div data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-out-cubic"
-                class="mr-auto place-self-center lg:col-span-6">
+    <section class="bg-white pt-24 md:pt-32 overflow-x-hidden">
+        <div class="grid max-w-7xl px-4 pt-6 pb-2 mx-auto lg:gap-8 xl:gap-0 lg:py-20 lg:grid-cols-12">
+            <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out-cubic"
+                class="mr-auto place-self-start lg:place-self-center lg:col-span-6">
 
                 <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-tight md:text-5xl xl:text-6xl">
                     Kelola Stok Toko dengan
@@ -76,7 +76,7 @@
                     Otomatis, akurat, dan meningkatkan efisensi bisnis anda.
                 </p>
 
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 mb-0">
                     <a href="{{ route('register') }}" wire:navigate
                         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium
                           text-white rounded-lg bg-amber-600 hover:bg-amber-700
@@ -104,8 +104,8 @@
         </div>
     </section>
 
-    <section class="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+    <section class="bg-gray-50 pt-4 pb-8 md:pt-24 md:pb-16">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div data-aos="fade-up" data-aos-delay="0"
                     class="bg-white rounded-xl border border-gray-200 p-8 text-center shadow-md card-hover card-hover-amber">
@@ -129,7 +129,7 @@
     </section>
 
     <section class="bg-white py-16 md:py-24">
-        <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" class="relative">
                     <img src="{{ asset('images/tablet.png') }}" alt="StokIn Dashboard di Tablet"
@@ -147,7 +147,7 @@
 
                     <div class="space-y-6">
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fa-solid fa-hand-pointer text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -157,7 +157,7 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-clock text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -167,8 +167,7 @@
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div
-                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-check-double text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -177,8 +176,7 @@
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div
-                                class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                            <div class="shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                                 <i class="fas fa-chart-line text-amber-500 text-xl"></i>
                             </div>
                             <div>
@@ -193,8 +191,8 @@
     </section>
 
     <section id="features" class="bg-gray-50 py-12 md:py-20">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-            <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+        <div class="py-8 px-4 mx-auto max-w-7xl lg:px-6">
+            <div data-aos="fade-up" class="mx-auto max-w-3xl text-center mb-8 lg:mb-12">
                 <h2 class="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900">
                     Fitur Unggulan
                 </h2>
@@ -270,8 +268,8 @@
     </section>
 
     <section id="pricing" class="bg-white py-8 md:py-16">
-        <div class="py-4 md:py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-            <div data-aos="fade-up" class="mx-auto max-w-screen-md text-center mb-6 md:mb-8 lg:mb-12">
+        <div class="py-4 md:py-8 px-4 mx-auto max-w-7xl lg:px-6">
+            <div data-aos="fade-up" class="mx-auto max-w-3xl text-center mb-6 md:mb-8 lg:mb-12">
                 <h2 class="mb-4 text-2xl md:text-4xl tracking-tight font-extrabold text-gray-900">Paket Harga</h2>
                 <p class="mb-5 font-light text-gray-500 text-base md:text-xl">Pilih paket yang sesuai dengan kebutuhan
                     bisnis Anda</p>
@@ -290,37 +288,37 @@
 
                     <ul class="mb-8 space-y-4 text-left">
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             <span>Produk & Transaksi <strong>Unlimited</strong></span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             <span>1 Owner + 1 Kasir</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             <span>Manajemen Stok Barang</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             <span>Transaksi Penjualan</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
                                 <i class="fas fa-check text-green-600 text-xs"></i>
                             </div>
                             <span>Laporan & Dashboard</span>
                         </li>
                         <li class="flex items-center gap-3 text-gray-400">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
                                 <i class="fas fa-times text-gray-400 text-xs"></i>
                             </div>
                             <span>Export Laporan</span>
@@ -350,37 +348,37 @@
 
                     <ul class="mb-8 space-y-4 text-left">
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Produk & Transaksi <strong>Unlimited</strong></span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Pengguna <strong>Unlimited</strong></span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Manajemen Stok Barang</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Transaksi Penjualan</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Laporan & Dashboard</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                            <div class="shrink-0 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
                             <span>Export Laporan</span>
@@ -397,7 +395,7 @@
     </section>
 
     <section class="bg-white py-12 md:py-16">
-        <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-6">
+        <div data-aos="fade-up" class="py-8 px-4 mx-auto max-w-7xl text-center lg:px-6">
             <h2 class="mb-4 text-xl md:text-4xl tracking-tight font-bold text-black">
                 Siap Mengoptimalkan Bisnis Anda?
             </h2>
@@ -420,7 +418,7 @@
     </section>
 
     <footer class="bg-gray-50 border-t border-gray-100">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">

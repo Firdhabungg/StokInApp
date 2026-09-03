@@ -21,7 +21,7 @@
     </div>
 
     <div wire:ignore class="relative" style="height: 220px;">
-        <canvas id="barangTerlarisChart"></canvas>
+        <canvas x-ref="canvas"></canvas>
     </div>
 
     <span x-on:barang-terlaris-updated.window="updateChart($event.detail.data)"></span>
@@ -32,7 +32,7 @@
         Alpine.data('barangTerlaris', (initialData) => ({
             chart: null,
             init() {
-                const canvas = document.getElementById('barangTerlarisChart');
+                const canvas = this.$refs.canvas;
                 if (!canvas) return;
                 if (this.chart) this.chart.destroy();
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-x-hidden">
 
 <head>
     <meta charset="utf-8" />
@@ -15,7 +15,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans overflow-x-hidden">
     <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
         <x-flash-alert />
     </div>
@@ -23,7 +23,6 @@
     @yield('content')
 
     <script>
-        // Mobile menu toggle
         const menuButton = document.querySelector('[data-collapse-toggle="navbar-default"]');
         const mobileMenu = document.getElementById('navbar-default');
 

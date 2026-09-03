@@ -38,7 +38,7 @@
 
     {{-- ② Canvas Chart.js — wire:ignore mencegah Livewire merusak canvas --}}
     <div wire:ignore>
-        <canvas id="transaksiChart" height="130"></canvas>
+        <canvas x-ref="canvas" height="130"></canvas>
     </div>
 
     {{-- ③ Listener event dari Livewire → Alpine.js --}}
@@ -51,7 +51,7 @@
             chart: null,
 
             init() {
-                const canvas = document.getElementById('transaksiChart');
+                const canvas = this.$refs.canvas;
                 if (!canvas) {
                     console.error('Canvas transaksiChart tidak ditemukan');
                     return;

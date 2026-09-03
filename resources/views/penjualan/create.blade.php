@@ -47,13 +47,16 @@
                     </button>
                     @foreach ($kategoris as $kategori)
                         <button type="button" wire:click="$set('selectedKategori', '{{ $kategori->kategori_id }}')"
-                            class="whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition-colors border {{ $selectedKategori == $kategori->kategori_id ? 'bg-green-500 text-white border-green-500 shadow-sm' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50' }}">
+                            class="whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition-colors border flex items-center gap-1.5 {{ $selectedKategori == $kategori->kategori_id ? 'bg-green-500 text-white border-green-500 shadow-sm' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50' }}">
                             {{ $kategori->nama_kategori }}
+                            <span class="text-xs {{ $selectedKategori == $kategori->kategori_id ? 'bg-white/30 text-white' : 'bg-gray-100 text-gray-500' }} px-1.5 py-0.5 rounded-full font-semibold">
+                                {{ $kategori->barangs_count }}
+                            </span>
                         </button>
                     @endforeach
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto pr-1"
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3"
                     id="product-grid">
                     @forelse($barangs as $barang)
                         @php
@@ -120,6 +123,13 @@
                         </div>
                     @endforelse
                 </div>
+
+                {{-- Pagination --}}
+                @if ($barangs->hasPages())
+                    <div class="mt-4 pt-3 border-t border-gray-100">
+                        {{ $barangs->links() }}
+                    </div>
+                @endif
             </div>
         </div>
 

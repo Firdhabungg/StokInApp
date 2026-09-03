@@ -15,16 +15,19 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 #[Title('Transaksi Baru')]
 #[Layout('layouts.dashboard')]
 class PenjualanForm extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     // Search & product selection
     public string $search = '';
     public string $selectedKategori = '';
+    public int $perPage = 8;
 
     // Cart items: array of ['barang_id', 'nama', 'kode', 'harga', 'jumlah', 'stok']
     public array $items = [];
@@ -34,6 +37,16 @@ class PenjualanForm extends Component
     public $uang_dibayar = null;
     public string $keterangan = '';
     public $bukti_pembayaran = null;
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSelectedKategori(): void
+    {
+        $this->resetPage();
+    }
 
     public function addItem(int $barangId): void
     {
@@ -257,7 +270,10 @@ class PenjualanForm extends Component
             $barangsQuery->where('kategori_id', $this->selectedKategori);
         }
 
-        $barangs = $barangsQuery->orderBy('nama_barang')->get()->map(function ($barang) use ($tokoId) {
+        $barangs = $barangsQuery->orderBy('nama_barang')->paginate($this->perPage);
+
+        // Tambahkan stok_tersedia ke setiap barang
+        $barangs->getCollection()->transform(function ($barang) use ($tokoId) {
             $barang->stok_tersedia = StockBatch::where('barang_id', $barang->id)
                 ->where('toko_id', $tokoId)
                 ->where('jumlah_sisa', '>', 0)
@@ -268,7 +284,18 @@ class PenjualanForm extends Component
 
         $kodeTransaksi = Sale::generateKodeTransaksi($tokoId);
 
-        $kategoris = KategoriBarang::where('toko_id', $tokoId)->orderBy('nama_kategori')->get();
+        $kategoris = KategoriBarang::where('toko_id', $tokoId)
+            ->withCount(['barangs as barangs_count' => function ($q) use ($tokoId) {
+                $q->where('toko_id', $tokoId)
+                  ->whereHas('stockBatches', function ($sq) use ($tokoId) {
+                      $sq->where('toko_id', $tokoId)
+                         ->where('jumlah_sisa', '>', 0)
+                         ->where('status', '!=', 'kadaluarsa');
+                  });
+            }])
+            ->having('barangs_count', '>', 0)
+            ->orderByDesc('barangs_count')
+            ->get();
 
         return view('penjualan.create', [
             'barangs' => $barangs,
