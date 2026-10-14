@@ -2,13 +2,14 @@
 deployment:
   tasks:
     - export PATH=/opt/cpanel/ea-php82/root/usr/bin:$PATH
-    - export PUBLICPATH=/home/username_anda/public_html
+    - export PUBLICPATH=/home/stod2594/public_html
     
-    # 1. Cukup salin isi folder public ke public_html
+    # 1. Salin isi folder public ke public_html
     - /bin/cp -R public/* $PUBLICPATH/
     
-    # 2. Jalankan perintah optimasi langsung di lokasi repositori aktif (stokinapp)
+    # 2. Jalankan dependensi, migrasi dan optimasi di folder repositori (stokinapp)
     - composer install --no-dev --optimize-autoloader
+    - php artisan migrate --force
     - php artisan optimize:clear
     - php artisan config:cache
     - php artisan route:cache
