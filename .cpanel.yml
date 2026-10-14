@@ -2,15 +2,9 @@
 deployment:
   tasks:
     - export PATH=/opt/cpanel/ea-php82/root/usr/bin:$PATH
-    - export COREPATH=/home/stod2594/stokinapp
-    - export PUBLICPATH=/home/stod2594/public_html
-    
-    - /bin/cp -R app bootstrap config database routes vendor *.php *.json $COREPATH/
-    
-    - /bin/cp -R public/* $PUBLICPATH/
-    
-    - cd $COREPATH && composer install --no-dev --optimize-autoloader
-    - cd $COREPATH && php artisan optimize:clear
-    - cd $COREPATH && php artisan config:cache
-    - cd $COREPATH && php artisan route:cache
-    - cd $COREPATH && php artisan view:cache
+    - composer install --no-dev --optimize-autoloader
+    - php artisan optimize:clear
+    - php artisan view:cache
+    - php artisan config:cache
+    - php artisan storage:link
+    - php artisan migrate --force
