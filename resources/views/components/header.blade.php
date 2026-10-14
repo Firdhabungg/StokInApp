@@ -10,7 +10,7 @@
     <div class="flex items-center gap-4">
         <div>
             <h1 class="text-xl font-bold text-slate-800">@yield('page-title', 'Dashboard')</h1>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">@yield('page-description')</p>
+            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">@yield('page-description')</p>
         </div>
     </div>
 

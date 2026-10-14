@@ -23,6 +23,7 @@ class BarangForm extends Component
     public $barangId = null;
     public $isEdit = false;
     public $stok = 0;
+    public $stok_minimum = 10;
 
     protected function rules(): array
     {
@@ -34,8 +35,9 @@ class BarangForm extends Component
                 'required',
                 Rule::exists('kategoris', 'kategori_id')->where('toko_id', $tokoId),
             ],
-            'harga'       => 'required|numeric|min:0',
-            'harga_jual'  => 'required|numeric|min:0',
+            'harga'         => 'required|numeric|min:0',
+            'harga_jual'    => 'required|numeric|min:0',
+            'stok_minimum'  => 'required|integer|min:0|max:9999',
         ];
     }
 
@@ -64,6 +66,7 @@ class BarangForm extends Component
             $this->harga       = (int) $barang->harga;
             $this->harga_jual  = (int) $barang->harga_jual;
             $this->stok        = $barang->stok;
+            $this->stok_minimum = $barang->stok_minimum ?? 10;
         } else {
             $this->kode_barang = $this->generateKodeBarang($tokoId);
         }
@@ -88,24 +91,26 @@ class BarangForm extends Component
             if ($this->isEdit) {
                 $barang = Barang::where('toko_id', $tokoId)->findOrFail($this->barangId);
                 $barang->update([
-                    'nama_barang' => $this->nama_barang,
-                    'kategori_id' => $this->kategori_id,
-                    'harga'       => $this->harga,
-                    'harga_jual'  => $this->harga_jual,
+                    'nama_barang'  => $this->nama_barang,
+                    'kategori_id'  => $this->kategori_id,
+                    'harga'        => $this->harga,
+                    'harga_jual'   => $this->harga_jual,
+                    'stok_minimum' => $this->stok_minimum,
                 ]);
                 session()->flash('success', 'Barang berhasil diperbarui');
             } else {
                 $kode = $this->generateKodeBarang($tokoId);
 
                 $newBarang = Barang::create([
-                    'toko_id'     => $tokoId,
-                    'nama_barang' => $this->nama_barang,
-                    'kode_barang' => $kode,
-                    'kategori_id' => $this->kategori_id,
-                    'harga'       => $this->harga,
-                    'harga_jual'  => $this->harga_jual,
-                    'stok'        => 0,
-                    'status'      => 'habis',
+                    'toko_id'      => $tokoId,
+                    'nama_barang'  => $this->nama_barang,
+                    'kode_barang'  => $kode,
+                    'kategori_id'  => $this->kategori_id,
+                    'harga'        => $this->harga,
+                    'harga_jual'   => $this->harga_jual,
+                    'stok_minimum' => $this->stok_minimum,
+                    'stok'         => 0,
+                    'status'       => 'habis',
                 ]);
                 session()->flash('success', 'Barang berhasil ditambahkan');
             }

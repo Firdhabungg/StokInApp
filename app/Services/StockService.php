@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\StockBatch;
 use App\Models\StockIn;
 use App\Models\StockOut;
+use App\Jobs\SendLowStockNotificationJob;
 use Illuminate\Support\Facades\DB;
 
 class StockService
@@ -176,18 +177,30 @@ class StockService
             $totalStock = StockBatch::where('barang_id', $barangId)
                 ->sum('jumlah_sisa');
 
+            $previousStatus = $barang->status;
             $barang->stok = $totalStock;
 
-            // Update status berdasarkan stok
+            // Update status berdasarkan stok vs stok_minimum per barang
             if ($totalStock <= 0) {
                 $barang->status = 'habis';
-            } elseif ($totalStock <= 10) { // Threshold bisa diubah
+            } elseif ($totalStock <= $barang->stok_minimum) {
                 $barang->status = 'menipis';
             } else {
                 $barang->status = 'tersedia';
             }
 
             $barang->save();
+
+            // Reset cooldown jika stok kembali normal setelah restok
+            if ($barang->status === 'tersedia' && $previousStatus !== 'tersedia') {
+                $barang->low_stock_notified_at = null;
+                $barang->saveQuietly();
+            }
+
+            // Dispatch notifikasi secara async jika stok menipis atau habis
+            if ($barang->isLowStock() || $barang->isOutOfStock()) {
+                SendLowStockNotificationJob::dispatch($barang->id);
+            }
         }
     }
 

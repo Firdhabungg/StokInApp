@@ -13,7 +13,23 @@ class Toko extends Model
         'email',
         'address',
         'phone',
+        'notif_email_enabled',
+        'notif_digest_time',
     ];
+
+    protected $casts = [
+        'notif_email_enabled' => 'boolean',
+    ];
+
+    /**
+     * Ambil email owner toko untuk tujuan notifikasi.
+     * Fallback ke email toko jika owner tidak ditemukan.
+     */
+    public function getNotifEmail(): ?string
+    {
+        $owner = $this->owner()->first();
+        return $owner?->email ?? $this->email;
+    }
 
     public function sales(): HasMany
     {

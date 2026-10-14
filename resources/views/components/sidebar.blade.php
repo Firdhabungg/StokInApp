@@ -128,6 +128,10 @@
                         <x-sidebar.links title="Langganan" icon="fas fa-crown" route="subscription.index"
                             class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
                     </li>
+                    <li>
+                        <x-sidebar.links title="Pengaturan Notifikasi" icon="fas fa-bell" route="settings.notifications"
+                            class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" />
+                    </li>
                 @endif
             </ul>
         </nav>

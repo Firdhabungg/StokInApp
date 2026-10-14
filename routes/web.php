@@ -11,6 +11,7 @@ use App\Livewire\Kasir;
 use App\Livewire\KasirForm;
 use App\Livewire\KategoriDetail;
 use App\Livewire\Kategoris;
+use App\Livewire\NotificationSettings;
 use App\Livewire\Laporan\LaporanBarangKeluar;
 use App\Livewire\Laporan\LaporanBarangMasuk;
 use App\Livewire\Laporan\LaporanPenjualan;
@@ -207,6 +208,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Manajemen Kasir - Owner only
         Route::get('/kasir', Kasir::class)->name('kasir.index');
         Route::get('/kasir/create', KasirForm::class)->name('kasir.create');
+
+        // Pengaturan Notifikasi - Owner only
+        Route::get('/pengaturan/notifikasi', NotificationSettings::class)->name('settings.notifications');
     });
 
     // Subscription Management - Owner only (except expired page)

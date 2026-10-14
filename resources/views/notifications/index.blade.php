@@ -9,6 +9,16 @@
         $warningCount = count(array_filter($notifications, fn($n) => $n['priority'] === 2));
     @endphp
 
+    {{-- Top Action Bar --}}
+    @if (auth()->user()->isOwner() || auth()->user()->isSuperAdmin())
+        <div class="flex justify-end mb-4">
+            <a href="{{ route('settings.notifications') }}" wire:navigate
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl transition-all shadow-sm">
+                <i class="fas fa-sliders-h text-amber-500"></i> Pengaturan Notifikasi Email
+            </a>
+        </div>
+    @endif
+
     {{-- Summary --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">

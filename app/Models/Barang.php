@@ -19,6 +19,8 @@ class Barang extends Model
         'nama_barang',
         'kode_barang',
         'stok',
+        'stok_minimum',
+        'low_stock_notified_at',
         'harga',
         'harga_jual',
         'tgl_kadaluwarsa',
@@ -26,9 +28,42 @@ class Barang extends Model
     ];
 
     protected $casts = [
-        'harga' => 'decimal:2',
-        'tgl_kadaluwarsa' => 'date',
+        'harga'                 => 'decimal:2',
+        'tgl_kadaluwarsa'       => 'date',
+        'low_stock_notified_at' => 'datetime',
+        'stok_minimum'          => 'integer',
     ];
+
+    // ─── Helper Methods untuk Notifikasi ─────────────────────────
+
+    /**
+     * Apakah stok saat ini di bawah atau sama dengan ambang batas minimum?
+     */
+    public function isLowStock(): bool
+    {
+        return $this->stok > 0 && $this->stok <= $this->stok_minimum;
+    }
+
+    /**
+     * Apakah stok sudah benar-benar habis?
+     */
+    public function isOutOfStock(): bool
+    {
+        return $this->stok <= 0;
+    }
+
+    /**
+     * Apakah barang ini perlu dikirim notifikasi?
+     * Cooldown 24 jam untuk mencegah spam.
+     */
+    public function needsNotification(): bool
+    {
+        if (is_null($this->low_stock_notified_at)) {
+            return true;
+        }
+
+        return $this->low_stock_notified_at->lt(now()->subHours(24));
+    }
 
     public function toko(): BelongsTo
     {
